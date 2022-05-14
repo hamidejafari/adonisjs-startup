@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+        <link rel="stylesheet" href="">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="row loading">
+                <div class="col-md-6 offset-md-3 text-center">
+                    <div class="load">
+                        @if(success)
+                        <h4><img src="{{assetsUrl('asset/site/images/confirm.png')}}" alt="" width="4%"> پرداخت انجام شد</h4>
+                        <p>شماره پیگیری : <span>{{ finalResult }}</span></p>
+                        <br>
+                        <div class="loader"></div>
+                        <br>
+                        <h3>حساب شما تا لحظاتی دیگر شارژ خواهد شد</h4>
+                            <a href="http://panel.animoshaver.ir/charge">
+                                بازگشت به پنل کاربری
+                            </a>
+                        @else
+                        <h3>خطا در شارژ حساب کاربری</h3>
+                        <p> کد خطا : <span>{{ finalResult }}</span></p>
+                        @endif
+
+                          <a href="animoshaver://open">
+                                بازگشت به اپلیکیشن
+                            </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <style>
+            @font-face {
+                font-family: sans;
+                font-weight: 200;
+                font-style: normal;
+                src: url('../../../asset/site/fonts/IRANSansWeb(FaNum).eot');
+                src: url('../../../asset/site/fonts/IRANSansWeb(FaNum).eot?#iefix') format('embedded-opentype'), url('../../../asset/site/fonts/IRANSansWeb(FaNum).woff') format('woff2'), url('../../../asset/site/fonts/IRANSansWeb(FaNum).woff') format('woff'), url('../../../asset/site/fonts/IRANSansWeb(FaNum).ttf') format('truetype');
+            }
+            body{font-family: sans;direction: rtl;}
+            .loading .loader {
+                border: 2px solid #b38e28;
+                border-radius: 50%;
+                border-top: 2px solid #fff;
+                width: 50px;
+                height: 50px;
+                -webkit-animation: spin 2s linear infinite; /* Safari */
+                animation: spin 2s linear infinite;
+                margin: auto;
+            }
+            .loading .load{
+                background: #020d74;
+                border-radius: 20px;
+                padding: 5% 0%
+            }
+            .loading{padding:3% 0%}
+            .loading h4{background: #b38e28;padding: 3px 0px 5px;}
+            .loading h4,.loading p,.loading h3{color: #fff;direction: rtl}
+                /* Safari */
+            @-webkit-keyframes spin {
+                0% { -webkit-transform: rotate(0deg); }
+                100% { -webkit-transform: rotate(360deg); }
+            }
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        </style>
+    </body>
+</html>

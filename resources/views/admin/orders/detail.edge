@@ -1,0 +1,134 @@
+@layout('layout/admin/main')
+
+@section('content')
+      <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title" style="float: right;">جزییات فاکتور</h4>
+
+                            <div class="tools float-left">
+                                <div class="dropdown">
+                                   
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row" style="margin-top: -50px;">
+                                <div class="col-sm-6">
+                                    <h4 class="mt-5" style="text-align: right;"> <i class="tim-icons icon-bullet-list-67"></i> اطلاعات پرداخت کننده  </h4>
+                                    <table class="table table-hover">
+                                        <tbody>
+                                            <tr>
+                                                <th>نام کاربر</th>
+                                                <th>{{ order.user.name + '  ' + order.user.family + ' - ' + order.user_id }}</th>
+                                            </tr>
+                                            <tr>
+                                                <th>تاریخ فاکتور</th>
+                                                <th>{{ order.created_at }}</th>
+                                            </tr>
+                                            <tr>
+                                                <th>مبلغ پرداختی</th>
+                                                <th>{{ order.total_price }}</th>
+                                            </tr>
+                                                
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-sm-6">
+                                    <h4 class="mt-5" style="text-align: right;">
+                                        <i class="tim-icons icon-wallet-43"></i>
+                                        @if(order.description == null)
+                                            {{ order.plan.title }}
+                                        @else
+                                            {{ order.description }}
+                                            @if(order.plan_id == 3)
+                                                برای 
+                                                {{ order.user.name + '  ' + order.user.family }}
+                                            @endif
+                                        @endif
+                                    </h4>
+                                     <table class="table table-hover">
+                                        <tbody>
+                                            <tr>
+                                                <th>کد پیگیری</th>
+                                                <th>
+                                                    @if(order.tracking_code)
+                                                        {{ order.tracking_code }}
+                                                    @endif
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th>وضعیت پرداخت</th>
+                                                <th>
+                                                    @if(order.status === 0)
+                                                        <p style="float: right;color: white;padding:4px;border-radius: 4px;background: red;">
+                                                           پرداخت نشده
+                                                        </p>
+                                                    @else
+                                                        <p style="float: right;color: white;padding: 4px;border-radius: 4px;background: green;">
+                                                            پرداخت شده
+                                                        </p>
+                                                    @endif
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th>وضعیت فاکتور</th>
+                                                <th>{{ order.plan.title }}</th>
+                                            </tr>
+                                                
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead class="text-primary">
+                                        <tr>
+                                            <th>
+                                            کد طرح
+                                            </th>
+                                             <th>
+                                             طرح خریداری شده
+                                            </th>
+                                             <th>
+                                             مبلغ واحد 
+                                            </th>
+                                             <th>
+                                            تخفیف
+                                            </th>
+                                             <th>
+                                            مبلغ با تخفیف و پرداختی
+                                            </th>
+                                        </tr>
+                                        
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <p style="float: right;color:#62687a">{{ order.plan.id }}</p>
+                                            </td>
+                                            <td>
+                                                <p style="float: right;color:#62687a">{{ order.plan.title }}</p>
+                                            </td>
+                                            <td>
+                                                <p style="float: right;color:#62687a">{{ order.total_price }}</p>
+                                            </td>
+                                            <td>
+                                                <p style="float: right;color:#62687a">{{ order.discount }}</p>
+                                            </td>
+                                            <td>
+                                                <p style="float: right;color:#62687a">{{ order.payments }}</p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+@endsection

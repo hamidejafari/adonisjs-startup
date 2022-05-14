@@ -1,0 +1,152 @@
+@layout('layout/site/main')
+@section('content')
+
+    <div class="header-image none-mobile">
+        <a href="/"><img src="{{assetsUrl('asset/site/images/sample.png')}}" alt=""></a>
+    </div>
+    <div class="header-image mobile-e">
+        <a href="/"><img src="{{assetsUrl('asset/site/images/sample1.png')}}" alt=""></a>
+    </div>
+    <div class="container">
+        <div class="ddd">
+            <hr class="hs-h">
+            <div class="bradkam">
+                <h1><img src="{{assetsUrl('asset/site/images/logo/logo.png')}}" alt="" class="ml-3">پروفایل مشاور</h1>            
+            </div>
+        </div>
+    </div>
+    <div class="persondetailll mb-5" id="accept-el">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 text-center back p-0">
+                    <div class="gradiant">
+                        <img src="{{assetsUrl('/asset/user.png')}}" alt="" class="m-auto w-25">
+                        <div class="row mt-4" style="justify-content: center;">
+                            <span class="fa fa-star {{ item.rate >= 1 ? 'checked' : '' }}"></span>
+                            <span class="fa fa-star {{ item.rate >= 2 ? 'checked' : '' }}"></span>
+                            <span class="fa fa-star {{ item.rate >= 3 ? 'checked' : '' }}"></span>
+                            <span class="fa fa-star {{ item.rate >= 4 ? 'checked' : '' }}"></span>
+                            <span class="fa fa-star {{ item.rate >= 5 ? 'checked' : '' }}"></span>
+                        </div>
+                    </div>
+                    <h4 class="font-weight-bold text-center px-3" style="color: #050b75;">نام و نام خانوادگی مشاور
+                    </h4>
+                    <div class="border mx-3 py-2 my-3" style="border-radius: 15px;">
+                        <p class="text-right px-3 mb-0" style="color:#999">حوضه های فعالیت :</p>
+                        <hr class="mt-2">
+                        <p class="text-right px-3 my-1">مشاور قرارداد ها</p>
+                        <p class="text-right px-3 my-1">مشاور قرارداد ها</p>
+                        <p class="text-right px-3 my-1">مشاور قرارداد ها</p>
+                    </div>
+                </div>
+                <div class="col-md-9 h-100 pl-0">
+                    <div class="back h-100 p-4 text-right">
+                        <section id="tabs" class="project-tab p-0">
+                            <div class="">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <nav>
+                                            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                                                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">ارزیابی من (۰)</a>
+                                                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">درباره من</a>
+                                            </div>
+                                        </nav>
+                                        <div class="tab-content" id="nav-tabContent">
+                                            <div class="tab-pane fade show active d1" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                                <div class="py-3">
+                                                    <div class="border card pt-2 my-2">
+                                                        <div class="row">
+                                                            <div class="col-md-7">
+                                                                <h5 class="m-0">نام کاربر</h5>
+                                                            </div>
+                                                            <div class="col-md-5 text-left">
+                                                                <h5 class="m-0">۱۰/۱۰/۱۳۹۷ - ۱۰:۱۰</h5>
+                                                            </div>
+                                                        </div>
+                                                        <hr>
+                                                        <div class="row px-3">
+                                                            <p>نظر تستی نظر تستی نظر تستی نظر تستی نظر تستی نظر تستی نظر تستی نظر تستی نظر تستی نظر تستی نظر تستی نظر تستی</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="border card pt-2 my2">
+                                                        <div class="row">
+                                                            <div class="col-md-7">
+                                                                <h5 class="m-0">نام کاربر</h5>
+                                                            </div>
+                                                            <div class="col-md-5 text-left">
+                                                                <h5 class="m-0">۱۰/۱۰/۱۳۹۷ - ۱۰:۱۰</h5>
+                                                            </div>
+                                                        </div>
+                                                        <hr>
+                                                        <div class="row px-3">
+                                                            <p>نظر تستی نظر تستی نظر تستی نظر تستی نظر تستی نظر تستی نظر تستی نظر تستی نظر تستی نظر تستی نظر تستی نظر تستی</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane fade d2" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                                <div id="accordion" role="tablist" aria-multiselectable="true" class="py-3">
+                                                    <div class="card">
+                                                        <div class="card-header" role="tab" id="headingOne">
+                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                                <h5 class="mb-0">
+                                                                    رزومه کاری
+                                                                </h5>
+                                                            </a>
+                                                        </div>
+
+                                                        <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+                                                            <div class="card-block">
+                                                                <div class="p-3">
+                                                                    <p>تستی تستی تستی تستی تستی تستی تستی تستی تستی تستی تستی تستی تستی تستی تستی تستی تستی تستی تستی تستی تستی تستی تستی تستی تستی تستی تستی تستی تستی تستی تستی تستی تستی تستی تستی تستی</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card">
+                                                        <div class="card-header" role="tab" id="headingTwo">
+                                                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                                <h5 class="mb-0">
+                                                                    افتخارات
+                                                                </h5>
+                                                            </a>
+                                                        </div>
+                                                        <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                                            <div class="card-block">
+                                                                <div class="p-3">
+                                                                    <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card">
+                                                        <div class="card-header" role="tab" id="headingThree">
+                                                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                                <h5 class="mb-0">
+                                                                    تالیفات
+                                                                </h5>
+                                                            </a>
+                                                        </div>
+                                                        <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
+                                                            <div class="card-block">
+                                                                <div class="p-3">
+                                                                    <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+@endsection

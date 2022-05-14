@@ -1,0 +1,25 @@
+@font-face {
+    font-family: 'iraniansens';
+    font-style: normal;
+    font-weight: 200;
+    src: url("../font/IRANSansWeb(FaNum).eot");
+    src: url("../font/IRANSansWeb(FaNum).eot?#iefix") format("embedded-opentype"),
+    url("../font/IRANSansWeb(FaNum).woff") format("woff"),
+    url("../font/IRANSansWeb(FaNum).ttf") format("truetype")
+}
+body{
+    font-family: iraniansens !important;
+}
+
+.h1,.h2,.h3,.h4,.h5,.h6{
+    font-family: iraniansens !important;
+}
+.ul , .li{
+    font-family: iraniansens !important;
+}
+.dropdown-menu::before{
+    margin-right: 105px;
+}
+input {
+    font-family:iraniansens !important ;
+}

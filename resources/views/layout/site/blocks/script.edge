@@ -1,0 +1,41 @@
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+{{ script('asset/site/js/bootstrap.min.js') }}
+{{ script('asset/site/js/jquery-3.3.1.slim.min.js') }}
+{{ script('asset/site/js/popper.min.js') }}
+{{ script('asset/site/js/style.js') }}
+{{ script('asset/site/js/bootstrap.bundle.min.js') }}
+
+{{ script('asset/site/js/packages/core/main.js') }}
+{{ script('asset/site/js/packages/interaction/main.js') }}
+{{ script('asset/site/js/packages/daygrid/main.js') }}
+{{ script('asset/site/js/packages/timegrid/main.js') }}
+{{ script('asset/site/js/packages/list/main.js') }}
+{{ script('asset/site/js/jquery.nicescroll.min.js') }}
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
+<script>
+$(function() {
+    var hashSite =window.location.hash;
+    if(hashSite == '#site'){
+        Cookies.remove('name', { path: '' ,domain: '.animoshaver.ir' });
+        Cookies.remove('family', { path: '',domain: '.animoshaver.ir' });
+        window.location.href = 'https://animoshaver.ir'
+    } 
+
+    var name = Cookies.get('name',{ domain: '.animoshaver.ir' });
+    var family = Cookies.get('family',{ domain: '.animoshaver.ir' });
+    if(name && family){
+        var fullName = name + ' ' + family;
+        $( ".userName" ).text( fullName );
+        $( ".loginText" ).hide();
+        $( ".logoutText" ).show();
+    } else {
+        $( ".loginText" ).show();
+        $( ".logoutText" ).hide();
+    }
+});
+</script>
+
+@!section('js')

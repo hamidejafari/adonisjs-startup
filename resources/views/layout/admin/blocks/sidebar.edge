@@ -1,0 +1,316 @@
+<div class="sidebar">
+    <!--
+      Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red"
+  -->
+    <div class="sidebar-wrapper" >
+        <div class="logo">
+            <a href="javascript:void(0)" class="simple-text logo-mini">
+                آنی
+            </a>
+            <a href="javascript:void(0)" class="simple-text logo-normal">
+                آنی مشاور
+            </a>
+        </div>
+        <ul class="nav">
+            <li>
+                <a href="{{ route('admin.dashboard') }}">
+                    <i class="tim-icons icon-chart-pie-36"></i>
+                    <p>صفحه نخست پنل</p>
+                </a>
+            </li>
+             <li>
+                <a href="{{ route('redirect.list') }}">
+                    <i class="tim-icons icon-puzzle-10"></i>
+                    <p>ریدایرکت</p>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('admin.analytics') }}">
+                    <i class="tim-icons icon-chart-bar-32"></i>
+                    <p>امار گیری</p>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('checkouts.list') }}">
+                    <i class="tim-icons icon-paper"></i>
+                    <p>درخواست های تسویه</p>
+                </a>
+            </li>
+             <li>
+                <a href="{{ route('changed-users.list') }}">
+                    <i class="tim-icons icon-paper"></i>
+                    <p>پروفایل های کاربری تغییر کرده</p>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('canceled-events.list') }}">
+                    <i class="tim-icons icon-paper"></i>
+                    <p>نوبت های لغو شده</p>
+                </a>
+            </li>
+            
+            <li>
+                <a data-toggle="collapse" href="#mapsExamples" class="collapsed" aria-expanded="false">
+                <i class="tim-icons icon-puzzle-10"></i>
+                <p>
+                    سوال ها
+                    <b class="caret"></b>
+                </p>
+                </a>
+                <div class="collapse" id="mapsExamples" style="">
+                <ul class="nav">
+                    <li>
+                    <a href="{{ route('question-category.list') }}">
+                        <span class="sidebar-mini-icon">دسته</span>
+                        <span class="sidebar-normal"> دسته بندی </span>
+                    </a>
+                    </li>
+                    <li>
+                    <a href="{{ route('question.list') }}">
+                        <span class="sidebar-mini-icon">سوال</span>
+                        <span class="sidebar-normal"> سوال ها </span>
+                    </a>
+                    </li>
+                
+                </ul>
+                </div>
+            </li>
+            <li>
+                <a data-toggle="collapse" href="#mapsExamples2" class="collapsed" aria-expanded="false">
+                <i class="tim-icons icon-paper"></i>
+                <p>
+                    مقالات
+                    <b class="caret"></b>
+                </p>
+                </a>
+                <div class="collapse" id="mapsExamples2" style="">
+                <ul class="nav">
+                    <li>
+                    <a href="{{ route('article-category.list') }}">
+                        <span class="sidebar-mini-icon">دسته</span>
+                        <span class="sidebar-normal"> دسته بندی مقالات </span>
+                    </a>
+                    </li>
+                    <li>
+                    <a href="{{ route('article.list') }}">
+                        <span class="sidebar-mini-icon">مقاله</span>
+                        <span class="sidebar-normal"> مقالات </span>
+                    </a>
+                    </li>
+                
+                </ul>
+                </div>
+            </li>
+            <li>
+                <a data-toggle="collapse" href="#mapsExamples3" class="collapsed" aria-expanded="false">
+                <i class="tim-icons icon-molecule-40"></i>
+                <p>
+                    صفحات ایستا
+                    <b class="caret"></b>
+                </p>
+                </a>
+                <div class="collapse" id="mapsExamples3" style="">
+                <ul class="nav">
+                    <li>
+                    <a href="{{ route('page-category.list') }}">
+                        <span class="sidebar-mini-icon">دسته</span>
+                        <span class="sidebar-normal"> دسته بندی صفحات ایستا </span>
+                    </a>
+                    </li>
+                    <li>
+                    <a href="{{ route('page.list') }}">
+                        <span class="sidebar-mini-icon">ایستا</span>
+                        <span class="sidebar-normal"> صفحات ایستا </span>
+                    </a>
+                    </li>
+                
+                </ul>
+                </div>
+            </li>
+            <li>
+                <a href="{{ route('tags.list') }}">
+                    <i class="tim-icons icon-tag"></i>
+                    <p>تگ ها</p>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('news.list') }}">
+                    <i class="tim-icons icon-paper"></i>
+                    <p>اخبار</p>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('multi-media.list') }}">
+                    <i class="tim-icons icon-world"></i>
+                    <p>چند رسانه ای</p>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('slider.list') }}">
+                    <i class="tim-icons icon-image-02"></i>
+                    <p>اسلایدر ها</p>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('social.list') }}">
+                    <i class="tim-icons icon-world"></i>
+                    <p> جوامع مجازی</p>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('uploader.list') }}">
+                    <i class="tim-icons icon-cloud-upload-94"></i>
+                    <p>اپلودر</p>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ route('users.list') }}">
+                    <i class="tim-icons icon-single-02"></i>
+                    
+                    <p>کاربران سایت</p>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('adviser.list') }}">
+                    <i class="tim-icons icon-single-02"></i>
+                    
+                    <p>مشاوران  ، وکلا و کارشناسان</p>
+                </a>
+            </li>
+             <li>
+                <a href="{{ route('file.list') }}">
+                    <i class="tim-icons icon-cloud-upload-94"></i>
+                    <p>ارسال فایل</p>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('record-type.list') }}">
+                    <i class="tim-icons icon-email-85"></i>
+                    
+                    <p>نوع مدارک</p>
+                </a>
+            </li>
+            
+            <li>
+                <a href="{{ route('record.list') }}">
+                    <i class="tim-icons icon-email-85"></i>
+                    
+                    <p>مدارک ارسالی</p>
+                </a>
+            </li>
+             <li>
+                <a href="{{ route('expertise.list',{ type : 1 }) }}">
+                    <i class="tim-icons icon-shape-star"></i>
+                    
+                    <p>تخصص ها</p>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('expertise.list',{ type : 0 }) }}">
+                    <i class="tim-icons icon-watch-time"></i>
+                    
+                    <p>مشاغل</p>
+                </a>
+            </li>
+             <li>
+                <a href="{{ route('fields.list') }}">
+                    <i class="tim-icons icon-bullet-list-67"></i>
+                    
+                    <p>فیلد ها</p>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('contact-us.list') }}">
+                    <i class="tim-icons icon-email-85"></i>
+                    @if(contactUsCount)
+                        <div class="notification d-none d-lg-block d-xl-block" style="padding: 8px;"><p style="padding: 0px;margin: 0px;bottom: 14px;left: 4px;">{{ contactUsCount }}</p></div>
+                    @endif
+                    <p>پیام های تماس باما</p>
+                </a>
+            </li>
+             <li>
+                <a href="{{ route('department.list') }}">
+                    <i class="tim-icons icon-components"></i>
+                    
+                    <p>دپارتمان ها</p>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('ticket.list') }}">
+                    <i class="tim-icons icon-paper"></i>
+                    @if(ticketCount)
+                        <div class="notification d-none d-lg-block d-xl-block" style="padding: 8px;"><p style="padding: 0px;margin: 0px;bottom: 14px;left: 4px;">{{ ticketCount }}</p></div>
+                    @endif
+                    <p>تیکت ها</p>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('event.list') }}">
+                    <i class="tim-icons icon-tap-02"></i>
+                    
+                    <p>نوبت ها</p>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('accept.list') }}">
+                    <i class="tim-icons icon-volume-98"></i>
+                    @if(acceptCount)
+                        <div class="notification d-none d-lg-block d-xl-block" style="padding: 9px;"><p style="padding: 0px;margin: 0px;bottom: 14px;left: 2px;">{{ acceptCount }}</p></div>
+                    @endif
+                    <p>درخواست های خدمات</p>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('event-request.list') }}">
+                    <i class="tim-icons icon-tap-02"></i>
+                    
+                    <p>درخواست های مشاوره</p>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('order.list') }}">
+                    <i class="tim-icons icon-money-coins"></i>
+                    
+                    <p>فاکتور ها</p>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('transaction.list') }}">
+                    <i class="tim-icons icon-credit-card"></i>
+                    
+                    <p>تراکنش ها</p>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('off-code.list') }}">
+                    <i class="tim-icons icon-volume-98"></i>
+                    
+                    <p>کد تخفیف </p>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('plan.list') }}">
+                    <i class="tim-icons icon-bag-16"></i>
+                    <p>طرح های قابل خرید </p>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('member.list') }}">
+                    <i class="tim-icons icon-single-02"></i>
+                    <p>مدیران</p>
+                </a>
+            </li>
+            
+            <li>
+
+                <a href="{{ route('setting.edit') }}">
+                    <i class="tim-icons icon-settings-gear-63"></i>
+                    <p>مدیریت تنظیمات سیستم</p>
+                </a>
+            </li>
+           
+            
+        </ul>
+    </div>
+</div>

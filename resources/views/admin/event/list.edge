@@ -1,0 +1,366 @@
+@layout('layout/admin/main')
+@section('content')
+    <div class="row" id="my-app">
+        <div class="col-md-12">
+            <div class="card">
+            
+                <div class="card-header">
+                    <h4 class="card-title" style="float: right;"> لیست نوبت ها  |  تعداد نوبت  ها  ( {{countEvents}} )</h4>
+                    
+                    <div class="tools float-left">
+                        <div class="dropdown">
+                                    
+                            <a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-default btn-success" style="font-family: iraniansens;color:white;padding: 12px;font-size: 17px;width: 100%;">امارگیری</a>
+                        </div>
+                       
+                        
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead class="text-primary">
+                            <tr>
+                                
+                                <th>
+                                    شماره
+                                </th>
+                                <th>
+                                    مشاور
+                                </th>
+                                <th>
+                                    رزرو شده توسط
+                                </th>
+                                <th>
+                                    زمان
+                                </th>
+                                <th>
+                                    نوع
+                                </th>
+                                <th>
+                                    وضعیت
+                                </th>
+                            
+                                <th>
+                                    عملیات
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            @each(item in events.data)
+                            
+                                @if(item.event_type_id == 100 || item.event_type_id == 110 || item.event_type_id == 120)
+                                    <tr style="background-color: rgba(77, 227, 0, 0.36);">
+                                @elseif(item.event_type_id == 600)
+                                    <tr style="background-color: rgba(48, 90, 244, 0.23);">
+                                @elseif(item.reserved_id != null)
+                                    <tr style="background-color: rgba(77, 227, 0, 0.36);">
+                                @else
+                                    <tr style="background-color: rgba(48, 208, 244, 0.09);">
+                                @endif
+                                    
+                                    <td>
+                                        <p style="float: right;color:#62687a">{{ item.id }}</p>
+                                    </td>
+                                    <td>
+                                        <p style="float: right;color:#62687a">
+                                        
+                                            {{ item.user ? item.user.name + '  ' + item.user.family  + ' - ' + item.user.id  : ' ' }}
+                                        </p>
+                                    </td>
+                                    <td>
+                                        @if(item.reserved)
+                                            <p style="float: right;color:#62687a">
+                                                {{ item.reserved.name + '  ' + item.reserved.family  + ' - ' + item.reserved.id  }}
+                                            </p>
+                                        @else
+                                            <p style="float: right;color:#62687a">
+                                            رزور نشده
+                                            </p>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <p style="float: right;color:#62687a">
+                                            {{ item.start }}
+                                            تا
+                                            {{ item.end }} 
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p style="float: right;color:#62687a;direction:rtl">
+                                            @if(item.is_chat == 1)
+                                                چت
+                                            @endif
+                                            @if(item.is_phone == 1)
+                                                تلفنی
+                                            @endif
+                                            @if(item.is_face == 1)
+                                                حضوری
+                                            @endif 
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p style="float: right;color:#62687a;direction:rtl">
+                                            @if(item.event_type_id == 100 || item.event_type_id == 110 || item.event_type_id == 120)
+                                                مشاوره تمام شده
+                                            @elseif(item.event_type_id == 0)
+                                                مشاوره رزرو شده
+                                            @else
+                                                رزرو نشده
+                                            @endif
+                                        </p>
+                                    </td>
+                                    <td class="text-right">
+                                      
+                                        
+                                        @if(item.event_type_id == 100 || item.event_type_id == 110 || item.event_type_id == 120)
+                                            <a  
+                                                href="{{ route('message.chat-view', { id : item.id }) }}"
+                                                class="btn btn-default btn-warning" 
+                                                style="font-family: iraniansens;color:white;padding: 12px;font-size: 12px;">جزییات گفتگو
+                                            </a>
+                                        @endif
+
+                                        
+                                    
+                                    
+                                    
+                                    </td>
+                                </tr>
+                            @endeach
+                            
+
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6" style="margin-right:15px">
+                        <form method="GET" action="?page=">
+                            <input type="text" name="page" placeholder="برو به صفحه " />                    
+                            <p style="margin-top:10px"> صفحه <span style="color:green">{{events.page}}</span> از <span style="color:blue">{{events.lastPage}}</span> صفحه</p>
+    
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div   class="modal fade " id="myModal"   role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" >
+                <div class="modal-content">
+                    <div class="modal-header justify-content-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        <i class="tim-icons icon-simple-remove"></i>
+                    </button>
+                    </div>
+
+                     <form method="GET" action="{{route('event.list')}}">
+                        @if(userId != null)
+                            <input name="user_id" value="{{userId}}" type="hidden" />
+                        @endif
+                        <div class="modal-body">
+                            <br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="row"> 
+                                        <div class="col-sm-3 ">
+                                            <label class="col-form-label" style="float: right;">  استان (مشاور)</label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <div>
+                                                <select  v-model="selectedStateAdviser"  @change="clickStateAdviser(selectedStateAdviser)" name="state_id"   data-style="btn btn-info"  style="font-family: iraniansens;width: 100%;" data-size="7" tabindex="-98">
+                                                    <option value="" disabled selected>استان را انتخاب کنید</option>
+                                                    @each(item in states)
+                                                        <option value="{{ item.code }}" >{{ item.pname }}</option>
+                                                    @endeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row"> 
+                                        <div class="col-sm-3 ">
+                                            <label class="col-form-label" style="float: right;">شهر (مشاور)</label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <div>
+                                                <select name="city_adviser"   data-style="btn btn-info"  style="font-family: iraniansens;width: 100%;" data-size="7" tabindex="-98">
+                                                    <option value="" disabled selected>شهر را انتخاب کنید</option>
+                                                    <option v-for="row in cities_adviser" :value="row.code"> @{{ row.pname }} </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="row"> 
+                                        <div class="col-sm-3 ">
+                                            <label class="col-form-label" style="float: right;">استان ( کاربر)</label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <div>
+                                                <select  v-model="selectedStateUser"  @change="clickStateUser(selectedStateUser)" name="state_id"   data-style="btn btn-info"  style="font-family: iraniansens;width: 100%;" data-size="7" tabindex="-98">
+                                                    <option value="" disabled selected>استان را انتخاب کنید</option>
+                                                    @each(item in states)
+                                                        <option value="{{ item.code }}" >{{ item.pname }}</option>
+                                                    @endeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row"> 
+                                        <div class="col-sm-3 ">
+                                            <label class="col-form-label" style="float: right;">شهر ( کاربر)    </label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <div>
+                                                <select name="city_user"   data-style="btn btn-info"  style="font-family: iraniansens;width: 100%;" data-size="7" tabindex="-98">
+                                                    <option value="" disabled selected>شهر را انتخاب کنید</option>
+                                                    <option v-for="row in cities_user" :value="row.code"> @{{ row.pname }} </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <label class="col-md-3 col-form-label" style="text-align: left;">  از تاریخ :</label>
+                                        <div class="col-md-9">
+                                            <input type="text"  name="formDate" class="usage form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <label class="col-md-3 col-form-label" style="text-align: left;">  تا تاریخ :</label>
+                                        <div class="col-md-9">
+                                            <input type="text" name="untilDate" class="usage form-control"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <label class="col-md-3 col-form-label" style="text-align: left;">  نوع نوبت :</label>
+                                        <div class="col-md-9">
+                                            <div>
+                                                <select  name="type"  class="selectpicker" data-style="btn btn-info" style="font-family: iraniansens" data-size="7" tabindex="-98">    
+                                                    <option value=""> نوع را انتخاب کنید </option>
+                                                    <option value="all"> تمامی نوبت ها </option>
+                                                    <option value="done"> نوبت های انجام شده </option>
+                                                    <option value="resrved"> نوبت های رزور شده </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <label class="col-md-3 col-form-label" style="text-align: left;"> دسته مشاوره :</label>
+                                        <div class="col-md-9">
+                                            <div>
+                                                <select  name="expertise_id"  class="selectpicker" data-style="btn btn-info" style="font-family: iraniansens" data-size="7" tabindex="-98">    
+                                                    <option value=""> دسته را انتخاب کنید </option>
+                                                    @each(item in expertises)
+                                                        <option value="{{item.id}}"> {{ item.title }} </option>
+                                                    @endeach
+                                                    
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="modal-footer">
+                        <button type="submit" class="btn btn-default" style="font-family: iraniansens" > جستجو </button>
+                        </div>
+                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+@section('js')
+    {{ script('https://cdn.jsdelivr.net/npm/vue/dist/vue.js') }}
+    {{ script('http://www.alivitrine.ir/asset/site/js/axios.min.js') }}
+    {{ script('https://unpkg.com/sweetalert/dist/sweetalert.min.js') }}
+    {{ script('asset/admin/js/persian-date/dist/persian-date.js') }}
+
+    {{ script('asset/admin/date/js/persianDatepicker.js') }}
+
+    <script type="text/javascript">
+     $(function () {
+                $(".usage").persianDatepicker();
+            });
+    </script>
+    @if(flashMessage('errorEvent'))
+        <script>
+            var app = new Vue({
+                el: '#my-app',
+                mounted: function () {
+                    swal("گفتگویی وجود نداری", "در این نوبت مکالمه ای نشده است!", "error");
+                }
+            })
+        </script>
+    @endif
+
+    <script>
+        var app = new Vue({
+            el: '#my-app',
+            data: {
+                cities_adviser: [],
+                cities_user: [],
+                selectedStateAdviser : '',
+                selectedStateUser : ''
+            },
+            methods: {
+                clickStateAdviser: function(stateCode){
+                    var data={
+                        stateCode : stateCode
+                    };
+                    var vm=this;
+                    axios.post("/admin/adviser/click-state",data).then(function(response){
+                        vm.cities_adviser = [];
+                        vm.cities_adviser = response.data;
+                        console.log(vm.cities_adviser);
+                    }).catch(function(error){
+                        console.log(error);
+                    })
+                },
+                clickStateUser: function(stateCode){
+                    var data={
+                        stateCode : stateCode
+                    };
+                    var vm=this;
+                    axios.post("/admin/adviser/click-state",data).then(function(response){
+                        vm.cities_user = [];
+                        vm.cities_user = response.data;
+                        console.log(vm.cities_user);
+                    }).catch(function(error){
+                        console.log(error);
+                    })
+                },
+            }
+        })
+    </script>
+@endsection

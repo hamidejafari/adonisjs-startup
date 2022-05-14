@@ -1,0 +1,132 @@
+@layout('layout/site/main')
+@section('content')
+
+    <div class="header-image none-mobile">
+        <a href="/"><img src="{{assetsUrl('asset/site/images/sample.png')}}" alt=""></a>
+    </div>
+    <div class="header-image mobile-e">
+        <a href="/"><img src="{{assetsUrl('asset/site/images/sample1.png')}}" alt=""></a>
+    </div>
+    <div class="container">
+        <h1 class="text-center gold-dd mt-4">تماس با آنی مشاور</h1>
+    </div>
+    <div class="contact" id="contact-us">
+        <div class="container">
+            <div class="thm-container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="contact-form-content">
+                            <div class="title">
+                                <span>با ما تماس بگیرید</span>
+                            </div>
+                            <form method="POST" action="/contact-us/save" class="contact-form" novalidate="novalidate">
+                                {{ csrfField() }}
+                                <input type="text" name="name" value="{{ old('name', '') }}" placeholder="نام و نام خانوادگی">
+                                @if(hasErrorFor('name'))
+                                    <p style="margin-top:10px;color:red">{{ getErrorFor('name') }}</p>
+                                @endif
+                                <input type="text" name="email" value="{{ old('email', '') }}"  placeholder="ایمیل">
+                                @if(hasErrorFor('email'))
+                                    <p style="margin-top:10px;color:red">{{ getErrorFor('email') }}</p>
+                                @endif
+                                <input type="text" name="title" value="{{ old('title', '') }}" placeholder="موضوع">
+                                @if(hasErrorFor('title'))
+                                    <p style="margin-top:10px;color:red">{{ getErrorFor('title') }}</p>
+                                @endif
+                                <textarea name="content" placeholder="متن پیام خود را بنویسید">{{ old('content', '') }}</textarea>
+                                @if(hasErrorFor('content'))
+                                    <p style="margin-top:10px;color:red">{{ getErrorFor('content') }}</p>
+                                @endif
+                                <button type="submit" class="btn-aniback">ارسال پیام</button>
+                                <div class="form-result"></div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contact-info">
+                            <div class="title">
+                                <span>اطلاعات تماس</span>
+                            </div>
+                            <div class="single-contact-info">
+                                <h4>آدرس :</h4>
+                                <p>{{ setting.address }}</p>
+                            </div>
+                            <div class="single-contact-info">
+                                <h4>شماره تلفن :</h4>
+                                <p> {{ setting.phone1 }} <br>  {{ setting.phone2 }} <br> {{ setting.phone3 }}</p>
+                            </div>
+                            <div class="single-contact-info">
+                                <h4>آدرس ایمیل :</h4>
+                                <p>info@animoshaver.ir</p>
+                            </div>
+                            <div class="single-contact-info">
+                                <h4>ما را دنبال کنید در :</h4>
+                                <div class="social">
+                                    <a href="#" class="fab fa-twitter hvr-pulse">
+                                        <img src="{{assetsUrl('asset/site/images/icon/twitter-logo-silhouette(1).png')}}" alt="">
+                                    </a>
+                                    <a href="#" class="fab fa-telegram hvr-pulse">
+                                        <img src="{{assetsUrl('asset/site/images/icon/telegram(2).png')}}" alt="">
+                                    </a>
+                                    <a href="#" class="fab fa-facebook-f hvr-pulse">
+                                        <img src="{{assetsUrl('asset/site/images/icon/facebook-logo(1).png')}}" alt="">
+                                    </a>
+                                    <a href="#" class="fab fa-google-plus hvr-pulse">
+                                        <img src="{{assetsUrl('asset/site/images/icon/google-plus(1).png')}}" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="col-md-12">
+                        <br>
+                        <div class="dropdown">
+                            <button class="dropbtn">
+                                <img src="{{assetsUrl('asset/site/images/icon/icons8-share.png')}}" alt="">
+                            </button>
+                            <div class="dropdown-content">
+                                <div class="text-right">
+                                    <ul>
+                                        <li>
+                                            <a href="#">
+                                                <img src="{{assetsUrl('asset/site/images/footer/icons8-telegram-app-100.png')}}" alt="">
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <img src="{{assetsUrl('asset/site/images/footer/icons8-telegram-app-100.png')}}" alt="">
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <img src="{{assetsUrl('asset/site/images/footer/icons8-telegram-app-100.png')}}" alt="">
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3239.3043766880423!2d51.42677661541548!3d35.71873213552149!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f8e016141abe10d%3A0x3832fc0d33134873!2z2q_YsdmI2Ycg2K3ZgtmI2YLbjCDYqNix2YfYp9mG!5e0!3m2!1sen!2s!4v1520763676328" style="border:0" allowfullscreen="" width="100%" height="450" frameborder="0"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@endsection
+@section('js')
+    {{ script('https://unpkg.com/sweetalert/dist/sweetalert.min.js') }}
+    {{ script('https://cdn.jsdelivr.net/npm/vue/dist/vue.js') }}
+    @if(flashMessage('successContact'))
+        <script>
+            var app = new Vue({
+                el: '#contact-us',
+                mounted() {
+                    console.log('ffthgyh')
+                    swal("پیام شما با موفقیت ارسال شد", "", "success");
+                }
+            })
+        </script>
+    @endif
+@endsection

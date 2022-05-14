@@ -1,0 +1,200 @@
+@layout('layout/admin/main')
+
+@section('content')
+    <div class="row">
+      
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-lg-12">
+            <div class="card" style="height: 100%;">
+                <div class="card-header">
+                    <h5 class="card-title float-right">  امار گیری بر اساس زمان ⏰📈 </h5>
+                </div>
+                <div class="card-body">
+                    <form action="{{ route('admin.resualt-analytics') }}" method="GET" class="form-horizontal">
+                        {{ csrfField() }}
+						<h2> از تاریخ : </h2>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <label class="col-md-3 col-form-label" style="text-align: left;">  سال :</label>
+                                    <div class="col-md-9">
+                                        <div>
+                                            <select  name="year"  class="selectpicker" data-style="btn btn-info" style="font-family: iraniansens" data-size="7" tabindex="-98">    
+                                                <option value=""> سال را انتخاب کنید </option>
+                                                <option value="1397"> 1397 </option>
+                                                <option value="1398"> 1398 </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <label class="col-md-3 col-form-label" style="text-align: left;">  ماه :</label>
+                                    <div class="col-md-9">
+                                        <div>
+                                            <select  name="month"  class="selectpicker" data-style="btn btn-info" style="font-family: iraniansens" data-size="7" tabindex="-98">    
+                                                <option value="all"> ماه را انتخاب کنید </option>
+                                                <option value="01"> فروردین </option>
+                                                <option value="02"> اردیبهشت </option>
+                                                <option value="03"> خرداد </option>
+                                                <option value="04"> تیر </option>
+                                                <option value="05"> مرداد </option>
+                                                <option value="06"> شهریور </option>
+                                                <option value="07"> مهر </option>
+                                                <option value="08"> ابان </option>
+                                                <option value="09"> اذر </option>
+                                                <option value="10"> دی </option>
+                                                <option value="11"> بهمن </option>
+                                                <option value="12"> اسفند </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                        <div class="row">
+                                            <label class="col-md-3 col-form-label" style="text-align: left;">  روز :</label>
+                                            <div class="col-md-9">
+                                                <div>
+                                                    <select  name="day"  class="selectpicker" data-style="btn btn-info" style="font-family: iraniansens" data-size="7" tabindex="-98">    
+                                                        <option value="">روز را انتخاب کنید</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6</option>
+                                                        <option value="7">7</option>
+                                                        <option value="8">8</option>
+                                                        <option value="9">9</option>
+                                                        <option value="10">10</option>
+                                                        <option value="11">11</option>
+                                                        <option value="12">12</option>
+                                                        <option value="13">13</option>
+                                                        <option value="14">14</option>
+                                                        <option value="15">15</option>
+                                                        <option value="16">16</option>
+                                                        <option value="17">17</option>
+                                                        <option value="18">18</option>
+                                                        <option value="19">19</option>
+                                                        <option value="20">20</option>
+                                                        <option value="21">21</option>
+                                                        <option value="22">22</option>
+                                                        <option value="23">23</option>
+                                                        <option value="24">24</option>
+                                                        <option value="25">25</option>
+                                                        <option value="26">26</option>
+                                                        <option value="27">27</option>
+                                                        <option value="28">28</option>
+                                                        <option value="29">29</option>
+                                                        <option value="30">30</option>
+                                                        <option value="31">31</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                        </div>
+                        <h2> تا تاریخ : </h2>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <label class="col-md-3 col-form-label" style="text-align: left;">  سال :</label>
+                                    <div class="col-md-9">
+                                        <div>
+                                            <select  name="year2"  class="selectpicker" data-style="btn btn-info" style="font-family: iraniansens" data-size="7" tabindex="-98">    
+                                                <option value=""> سال را انتخاب کنید </option>
+                                                <option value="1397"> 1397 </option>
+                                                <option value="1398"> 1398 </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <label class="col-md-3 col-form-label" style="text-align: left;">  ماه :</label>
+                                    <div class="col-md-9">
+                                        <div>
+                                            <select  name="month2"  class="selectpicker" data-style="btn btn-info" style="font-family: iraniansens" data-size="7" tabindex="-98">    
+                                                <option value="all"> ماه را انتخاب کنید </option>
+                                                <option value="01"> فروردین </option>
+                                                <option value="02"> اردیبهشت </option>
+                                                <option value="03"> خرداد </option>
+                                                <option value="04"> تیر </option>
+                                                <option value="05"> مرداد </option>
+                                                <option value="06"> شهریور </option>
+                                                <option value="07"> مهر </option>
+                                                <option value="08"> ابان </option>
+                                                <option value="09"> اذر </option>
+                                                <option value="10"> دی </option>
+                                                <option value="11"> بهمن </option>
+                                                <option value="12"> اسفند </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                        <div class="row">
+                                            <label class="col-md-3 col-form-label" style="text-align: left;">  روز :</label>
+                                            <div class="col-md-9">
+                                                <div>
+                                                    <select  name="day2"  class="selectpicker" data-style="btn btn-info" style="font-family: iraniansens" data-size="7" tabindex="-98">    
+                                                        <option value="">روز را انتخاب کنید</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6</option>
+                                                        <option value="7">7</option>
+                                                        <option value="8">8</option>
+                                                        <option value="9">9</option>
+                                                        <option value="10">10</option>
+                                                        <option value="11">11</option>
+                                                        <option value="12">12</option>
+                                                        <option value="13">13</option>
+                                                        <option value="14">14</option>
+                                                        <option value="15">15</option>
+                                                        <option value="16">16</option>
+                                                        <option value="17">17</option>
+                                                        <option value="18">18</option>
+                                                        <option value="19">19</option>
+                                                        <option value="20">20</option>
+                                                        <option value="21">21</option>
+                                                        <option value="22">22</option>
+                                                        <option value="23">23</option>
+                                                        <option value="24">24</option>
+                                                        <option value="25">25</option>
+                                                        <option value="26">26</option>
+                                                        <option value="27">27</option>
+                                                        <option value="28">28</option>
+                                                        <option value="29">29</option>
+                                                        <option value="30">30</option>
+                                                        <option value="31">31</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <button style="float: right;margin-top: 32px;font-family: iraniansens" class="btn btn-success animation-on-hover" type="submit" rel="tooltip"  data-placement="bottom" >ذخیره</button>
+                            </div>
+                        
+
+                        </div>
+                        
+                        
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

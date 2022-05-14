@@ -1,0 +1,41 @@
+
+@layout('layout/admin/main')
+
+@section('content')
+     <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title" style="float: right;">اضافه کردن</h4>
+                </div>
+                <div class="card-body">
+                    <form action="{{route('department.store')}}" method="post" class="form-horizontal"  enctype="multipart/form-data">
+                        {{ csrfField() }}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row"> 
+                                    <div class="col-sm-3 ">
+                                        <label class="col-form-label" style="float: right;">عنوان</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="title"    >
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-10">
+                                <button style="float: right;margin-top: 32px;margin-right:50px;font-family: iraniansens" class="btn btn-success animation-on-hover" type="submit" rel="tooltip"  data-placement="bottom" >ذخیره</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

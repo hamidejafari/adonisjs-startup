@@ -1,0 +1,159 @@
+@layout('layout/site/main')
+@section('content')
+
+    <div class="header-image none-mobile">
+        <a href="/"><img src="{{assetsUrl('asset/site/images/sample.png')}}" alt=""></a>
+    </div>
+    <div class="header-image mobile-e">
+        <a href="/"><img src="{{assetsUrl('asset/site/images/sample1.png')}}" alt=""></a>
+    </div>
+    
+    <div class="container">
+        <h1 class="text-center gold-dd mt-4">رزرو مشاوران در آنی مشاور</h1>
+    </div>
+    <div class="reservation">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="side-right text-right">
+                        <label for="city">انتخاب شهر</label>
+                        <select name="city_id" class="minimal">
+                            <option value="">انتخاب کنید . . .</option> 
+                            <option value="1">تهران</option>
+                        </select>
+                        <br>
+                        <br>
+                        <label for="city">انتخاب تخصص</label>
+                        <select name="expertise_id" class="minimal">
+                            <option value="">انتخاب کنید . . .</option> 
+                            <option value="1">مشاور قراردادها</option> 
+                            <option value="2">مشاور چک و اسناد تجاری</option> 
+                            <option value="3">مشاور مالیاتی شرکتها</option> 
+                            <option value="4">مشاور حقوقی شرکت ها</option> 
+                            <option value="6">مشاور  داوری</option> 
+                            <option value="10">مشاور دعاوی</option> 
+                            <option value="23">مشاور حقوق خانواده</option> 
+                            <option value="37">مشاور مالیاتی صنفی</option> 
+                            <option value="40">مشاور طرح توجیهی</option>
+                        </select>
+                        <br>
+                        <br>
+                        <label for="city">نام مشاور</label>
+                        <input type="text" name="name" id="name" placeholder="        نوشتن نام مشاور" class="form-control">
+                        <br>
+                        <br>
+                        <a href="" class="btn btn-aniback" style="width: 100%;">
+							رزرو نوبت مشاوره
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="side-left">
+                        <div class="row">
+                            <a href="calendar" class="col-md-4">
+                                <div class="border">
+                                    <div class="face">
+                                        <img src="{{assetsUrl('asset/site/images/user.png')}}" alt="">
+                                    </div>
+                                    <div class="text-center">
+                                        <h4>سید حسین سعیدی</h4>
+                                        <p>مشاور آنی مشاور</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="calendar" class="col-md-4">
+                                <div class="border">
+                                    <div class="face">
+                                        <img src="{{assetsUrl('asset/site/images/user.png')}}" alt="">
+                                    </div>
+                                    <div class="text-center">
+                                        <h4>سید حسین سعیدی</h4>
+                                        <p>مشاور آنی مشاور</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="calendar" class="col-md-4">
+                                <div class="border">
+                                    <div class="face">
+                                        <img src="{{assetsUrl('asset/site/images/user.png')}}" alt="">
+                                    </div>
+                                    <div class="text-center">
+                                        <h4>سید حسین سعیدی</h4>
+                                        <p>مشاور آنی مشاور</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="calendar" class="col-md-4">
+                                <div class="border">
+                                    <div class="face">
+                                        <img src="{{assetsUrl('asset/site/images/user.png')}}" alt="">
+                                    </div>
+                                    <div class="text-center">
+                                        <h4>سید حسین سعیدی</h4>
+                                        <p>مشاور آنی مشاور</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="calendar" class="col-md-4">
+                                <div class="border">
+                                    <div class="face">
+                                        <img src="{{assetsUrl('asset/site/images/user.png')}}" alt="">
+                                    </div>
+                                    <div class="text-center">
+                                        <h4>سید حسین سعیدی</h4>
+                                        <p>مشاور آنی مشاور</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="calendar" class="col-md-4">
+                                <div class="border">
+                                    <div class="face">
+                                        <img src="{{assetsUrl('asset/site/images/user.png')}}" alt="">
+                                    </div>
+                                    <div class="text-center">
+                                        <h4>سید حسین سعیدی</h4>
+                                        <p>مشاور آنی مشاور</p>
+                                    </div>
+                                </div>
+                            </a>
+                             <a href="calendar" class="col-md-4">
+                                <div class="border">
+                                    <div class="face">
+                                        <img src="{{assetsUrl('asset/site/images/user.png')}}" alt="">
+                                    </div>
+                                    <div class="text-center">
+                                        <h4>سید حسین سعیدی</h4>
+                                        <p>مشاور آنی مشاور</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="calendar" class="col-md-4">
+                                <div class="border">
+                                    <div class="face">
+                                        <img src="{{assetsUrl('asset/site/images/user.png')}}" alt="">
+                                    </div>
+                                    <div class="text-center">
+                                        <h4>سید حسین سعیدی</h4>
+                                        <p>مشاور آنی مشاور</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="calendar" class="col-md-4">
+                                <div class="border">
+                                    <div class="face">
+                                        <img src="{{assetsUrl('asset/site/images/user.png')}}" alt="">
+                                    </div>
+                                    <div class="text-center">
+                                        <h4>سید حسین سعیدی</h4>
+                                        <p>مشاور آنی مشاور</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@endsection

@@ -1,0 +1,282 @@
+@layout('layout/admin/main')
+
+@section('content')
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <form action="{{route('article-category.destroy')}}" method="POST">
+                    {{ csrfField() }}
+                    <div class="card-header">
+                        <h4 class="card-title" style="float: right;">لیست دسته بندی مقالات</h4>
+
+                        <div class="tools float-left">
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-default dropdown-toggle btn-link btn-icon" data-toggle="dropdown" aria-expanded="false">
+                                    <i class="tim-icons icon-settings-gear-63"></i>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-left" x-placement="bottom-end" style="position: absolute; transform: translate3d(-132px, 22px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                    <a class="dropdown-item" style="color:#6ac243" data-toggle="modal" data-target="#CreateModal"> اضافه کردن دسته بندی جدید</a>
+                                    <a class="dropdown-item" style="color:#3cc1c2" data-toggle="modal" data-target="#SearchModal"> جستجو</a>
+                                    <button class="dropdown-item" style="color:#c61e1e;font-family: iraniansens;" type="submit"> حذف انتخاب شده ها</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead class="text-primary">
+                                <tr>
+                                    <th class="text-center">
+                                        #
+                                    </th>
+                                    <th>
+                                        عنوان
+                                    </th>
+                                    <th>
+                                        دسته
+                                    </th>
+                                    <th>
+                                        تصویر
+                                    </th>
+                                    <th>
+                                        تاریخ
+                                    </th>
+                                        <th>
+                                        وضعیت
+                                    </th>
+                                
+                                    <th>
+                                        عملیات
+                                    </th>
+
+
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                @each((item,index) in articleCategory.data)
+                                <tr>
+                                    <td class="text-center">
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" value="{{item.id}}" name="deletedId[]" type="checkbox" >
+                                                <span class="form-check-sign"></span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <p style="float: right;color:#62687a">{{ item.title }}</p>
+                                    </td>
+                                    <td>
+                                        @if(item.parent_id)
+                                            <p style="float: right;color:#62687a">{{ item.parent.title }}</p>
+
+                                        @else
+                                            <p style="float: right;color:#62687a">بدون والد</p>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <img style="width:100px;float: right;border:2px solid #1dc7f6" 
+                                        
+                                        src="{{ assetsUrl('asset/admin/uploads/article-category/medium/'+item.image) }}"
+                                        >
+                                    </td>
+                                    <td>
+                                        
+                                        <p style="float: right;direction: ltr;color:#62687a"> {{ item.created_at }}</p>
+                                    </td>
+                                    <td>
+                                        @if(item.status === 0)
+                                            <p  style="float: right;color: white;background: red;padding: 7px;border-radius: 12px;">
+                                            غیر فعال
+                                                
+                                            </p>
+                                        @else
+                                            <p style="float: right;color: white;background: green;padding: 7px;border-radius: 12px;">
+                                                فعال
+                                            </p>
+                                        @endif
+                                    </td>
+                                    <td class="text-right">
+                                        <a 
+                                            data-toggle="modal" data-target="#EditModal{{item.id}}"
+                                            class="btn btn-default btn-warning" 
+                                            style="font-family: iraniansens;color:white;padding: 12px;font-size: 12px;">
+                                            <i class="tim-icons icon-pencil"></i>
+                                            ویرایش
+                                        </a>
+                                        
+                                    </td>
+
+                                </tr>
+                                @endeach
+                                </tbody>
+                            </table>
+                            @!component('pagination', pagination = articleCategory, request = request, presenter = 'PaginationPresenter')
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div  class="modal fade " id="CreateModal"   role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" style="margin-top:-100px">
+                <div class="modal-content">
+                    <div class="modal-header justify-content-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        <i class="tim-icons icon-simple-remove"></i>
+                    </button>
+                    <h6 class="title title-up">اضافه کردن دسته بندی</h6>
+                    </div>
+                        <form method="POST" action="{{route('article-category.store')}}"  enctype="multipart/form-data">
+                        {{ csrfField() }}
+
+                        <div class="modal-body">
+                            <div class="row">
+                                <label class="col-md-3 col-form-label">عنوان</label>
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <input type="text" name="title" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-md-3 col-form-label">دسته</label>
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <div>
+                                            <select  name="parent_id"  class="selectpicker" data-style="btn btn-info" style="font-family: iraniansens" data-size="7" tabindex="-98">    
+                                                <option value=""  selected="">بدون والد</option>
+                                                @each(item in categories)
+                                                    <option value="{{item.id}}" >{{ item.title }}</option>
+                                                @endeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-md-3 col-form-label">وضعیت</label>
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <div>
+                                            <select  name="status"  class="selectpicker" data-style="btn btn-info" style="font-family: iraniansens" data-size="7" tabindex="-98">    
+                                                <option value="1" >فعال</option>
+
+                                                <option value="0" >غیرفعال</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="col-md-3 col-form-label">تصویر</label>
+
+                                <div class="col-md-9">
+                                    <div class="fileinput fileinput-new text-center" data-provides="fileinput" style="margin-left: 12%;">
+                                        <div class="fileinput-new thumbnail">
+                                            <img style="border:2px solid #1dc7f6;width: 210px;" src="http://frankfordcdc.org/wp-content/themes/hoxa/images/default.png" alt="...">
+                                        </div>
+                                        <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                                        <div>
+                                            <span class="btn btn-rose btn-round btn-file">
+                                                <span class="fileinput-new">انتخاب تصویر</span>
+                                                <span class="fileinput-exists">عوض کردن</span>
+                                                <input type="file" name="image">
+                                            </span>
+                                            <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> حذف</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-default" style="font-family: iraniansens" > اضافه کردن </button>
+                            <button type="button" class="btn btn-danger"  style="font-family: iraniansens" data-dismiss="modal" >بستن</button>
+                        </div>
+                        </form>
+                </div>
+            </div>
+        </div>
+        @each(item in articleCategory.data)
+            <div  class="modal fade " id="EditModal{{item.id}}"   role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" style="margin-top: -82px;">
+                    <div class="modal-content">
+                        <div class="modal-header justify-content-center">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            <i class="tim-icons icon-simple-remove"></i>
+                        </button>
+                        <h6 class="title title-up">ویرایش {{ item.title }}</h6>
+                        </div>
+                        <form method="POST" action="{{route('article-category.edit')}}" enctype="multipart/form-data">
+                            {{ csrfField() }}
+                            <input name="category_id" value="{{item.id}}" type="hidden" />
+
+                            <div class="modal-body">
+                                <div class="row">
+                                    <label class="col-md-3 col-form-label">عنوان</label>
+                                    <div class="col-md-9">
+                                        <div class="form-group">
+                                            <input type="text" name="title" value="{{item.title}}" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-3 col-form-label">دسته</label>
+                                    <div class="col-md-9">
+                                        <div class="form-group">
+                                            <div>
+                                                <select  name="parent_id"  class="selectpicker" data-style="btn btn-info" style="font-family: iraniansens" data-size="7" tabindex="-98">    
+                                                    @if(item.parent_id == null)
+                                                        
+                                                        <option value=""  selected="">بدون والد</option>
+                                                    @else
+                                                        <option value="" >بدون والد</option>
+                                                    @endif
+                                                    @each(category in categories)
+                                                        @if(item.parent_id == category.id)
+                                                            <option value="{{category.id}}" selected="">{{ category.title }}</option>
+                                                        @else
+                                                            <option value="{{category.id   }}">{{ category.title }} </option>
+                                                        @endif
+                                                    @endeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="col-md-3 col-form-label">تصویر</label>
+
+                                    <div class="col-md-9">
+                                        <div class="fileinput fileinput-new text-center" data-provides="fileinput" style="margin-left: 12%;">
+                                            <div class="fileinput-new thumbnail">
+                                                <img style="border:2px solid #1dc7f6;width: 210px;" src="{{ assetsUrl('asset/admin/uploads/article-category/medium/'+item.image) }}" alt="...">
+                                            </div>
+                                            <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                                            <div>
+                                                <span class="btn btn-rose btn-round btn-file">
+                                                    <span class="fileinput-new">انتخاب تصویر</span>
+                                                    <span class="fileinput-exists">عوض کردن</span>
+                                                    <input type="file" name="image">
+                                                </span>
+                                                <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> حذف</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-default" style="font-family: iraniansens" > ویرایش </button>
+                                <button type="button" class="btn btn-danger"  style="font-family: iraniansens" data-dismiss="modal" >بستن</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        @endeach
+        
+    </div>
+@endsection

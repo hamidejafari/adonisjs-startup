@@ -1,0 +1,167 @@
+@layout('layout/site/main')
+@section('content')
+
+    <div class="header-image">
+        <img src="{{assetsUrl('asset/site/images/sample.png')}}" alt="">
+    </div>
+    <div class="overflow none-mobile">
+        <a href="/">
+            <img src="{{assetsUrl('asset/site/images/logo/ani-moshaver-logo.png')}}" alt="">
+        </a>
+    </div>
+    <div class="overflow-w responsive">
+        <a href="/">
+            <img src="{{assetsUrl('asset/site/images/logo/logo-1.png')}}" alt="">
+        </a>
+    </div>
+    <div class="dashboard pt-4 pb-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    @include('layout/site/blocks/side-panel')
+                </div>
+                <div class="col-md-9">
+                    <div class="backpanel pb-4">
+                        <br>
+                        <div class="container">
+                            <div class="ddd">
+                                <hr class="hs-h">
+                                <div class="bradkam">
+                                    <h1 class="backpanel"><img src="{{assetsUrl('asset/site/images/logo/logo.png')}}" alt=""> ویرایش اطلاعات</h1>            
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <div class="edit">
+                                <h5>اطلاعات پایه :</h5>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-2 pt-2">
+                                        <div class="text">
+                                            <h5>نام</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input class="form-control channels" id="price" name="price" placeholder="سید حسین" type="tel">
+                                    </div>
+                                    <div class="col-md-2 pt-2">
+                                        <div class="text">
+                                            <h5>نام خانوادگی</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input class="form-control channels" id="price" name="price" placeholder="سعیدی" type="tel">
+                                    </div>
+                                    <div class="col-md-2 pt-2">
+                                        <div class="text">
+                                            <h5>شماره همراه</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input class="form-control channels" id="price" name="price" placeholder="09123456789" type="tel">
+                                    </div>
+                                    <div class="col-md-2 pt-2">
+                                        <div class="text">
+                                            <h5>ایمیل</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input class="form-control channels" id="price" name="price" placeholder="www.gmail@gmail.com" type="tel">
+                                    </div>
+                                    <div class="grid">
+                                        <a href="#" class="btn btn-success">ذخیره اطلاعات</a>
+                                    </div>
+                                </div>
+                                <hr>
+                                <br>
+                                <h5>اطلاعات تکمیلی :</h5>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-2 pt-2">
+                                        <div class="text">
+                                            <h5>آی دی تلگرام</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input class="form-control channels" id="price" name="price" placeholder="نوشتن آی دی . . ." type="tel">
+                                    </div>
+                                    <div class="col-md-2 pt-2">
+                                        <div class="text">
+                                            <h5>جنسیت</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select name="gender" id="gender" class="form-control channels">
+                                            <option value="">انتخاب کنید . . .</option> 
+                                            <option value="1">مرد</option> 
+                                            <option value="0">زن</option>
+                                        </select>                                    
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div>
+                                                <label class=newbtn>
+                                                    <img id="blah" src="{{assetsUrl('asset/site/images/icon/add-image.png')}}">
+                                                    <input id="pic" class='pis' onchange="readURL(this);" type="file" >
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 pt-4" style="padding-top:16% !important">
+                                            <a href="#" class="btn btn-success" style="padding: 3%">تایید عکس</a>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="form-group" style="width: 100%;margin-top:2%">
+                                        <div class="row">
+                                            <label for="new_name" class="col-md-2 pt-4 control-label">توضیحات</label> 
+                                            <div class="col-md-10" style="direction: rtl;">
+                                                <textarea id="content" name="content" rows="5" class="form-control" style="border-radius:15px;"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="grid">
+                                        <a href="#" class="btn btn-success">ذخیره اطلاعات</a>
+                                    </div>
+                                </div>
+                                <hr>
+                                <br>
+                                <h5>تغییر رمز :</h5>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-3 mt-3 pt-2">
+                                        <div class="text">
+                                            <h5>رمز عبور فعلی</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9 mt-3">
+                                        <input id="password_old" name="password_old" type="" class="form-control channels">
+                                    </div>
+                                    <div class="col-md-3 mt-3 pt-2">
+                                        <div class="text">
+                                            <h5>رمز عبور جدید</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9 mt-3">
+                                        <input id="password_old" name="password_old" type="" class="form-control channels">
+                                    </div>
+                                    <div class="col-md-3 mt-3 pt-2">
+                                        <div class="text">
+                                            <h5>تکرار رمز عبور جدید</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9 mt-3">
+                                        <input id="password_old" name="password_old" type="" class="form-control channels">
+                                    </div>
+                                    <div class="grid">
+                                        <a href="#" class="btn btn-success">ذخیره اطلاعات</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@endsection

@@ -1,0 +1,344 @@
+@layout('layout/admin/main')
+
+@section('content')
+      <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title" style="float: right;">لیست فاکتور ها</h4>
+
+
+                            <div class="tools float-left">
+                                
+                                <div class="dropdown">
+                                    
+                                    <button type="button" class="btn btn-default dropdown-toggle btn-link btn-icon" data-toggle="dropdown" aria-expanded="false">
+                                        <i class="tim-icons icon-settings-gear-63"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-left" x-placement="bottom-end" style="position: absolute; transform: translate3d(-132px, 22px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                        <a class="dropdown-item" href="#" style="color:#3cc1c2" data-toggle="modal" data-target="#myModal"> جستجو</a>
+                                        
+                                    </div>
+                                </div>
+                                <form method="GET" action="{{route('order.list')}}">
+                                    <input type="text" name="page" placeholder="برو به صفحه " />
+                                    
+                                    <p style="margin-top:10px"> صفحه <span style="color:green">{{orders.page}}</span> از <span style="color:blue">{{orders.lastPage}}</span> صفحه</p>
+
+                                </form>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead class="text-primary">
+                                    <tr>
+                                        
+                                        <th>
+                                           شماره فاکتور
+                                        </th>
+                                        <th>
+                                            کاربر
+                                        </th>
+                                        <th>
+                                            مبلغ
+                                        </th>
+                                         <th>
+                                            تخفیف
+                                        </th>
+                                        <th>
+                                           مبلغ پرداختی
+                                        </th>
+                                        <th style="width: 167px;">
+                                            موضوع فاکتور
+                                        </th>
+                                        <th>
+                                            وضعیت پرداخت
+                                        </th>
+                                        <th>
+                                           تاریخ
+                                        </th>
+                                        <th>       
+                                           عملیات
+                                        </th>
+                                        
+                                       
+
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <script src="https://unpkg.com/jalali-moment/dist/jalali-moment.browser.js"></script>
+                                    
+                                    @each(order in orders.data)
+                                       @if(order.user)
+                                        @if(order.status == 1)
+                                            <tr style="background-color: rgba(50, 245, 44, 0.4);">
+                                        @else
+                                            <tr style="background-color: rgba(254, 0, 55, 0.2);">
+                                        @endif
+                                            <td>
+                                                <p style="float: right;color:#62687a">{{ order.id }}</p>
+                                            </td>
+                                            <td>
+                                                <p style="float: right;color:#62687a">{{ order.user.name + ' ' +  order.user.family + ' - ' + order.user_id }}</p>
+                                            </td>
+                                            <td>
+                                                <p style="float: right;color:#62687a">{{ order.payments }}</p>
+                                            </td>
+                                            <td>
+                                                
+                                                <p style="float: right;color:#62687a"> {{ order.discount }}</p>
+                                            </td>
+                                            <td>
+                                                
+                                                <p style="float: right;color:#62687a"> {{ order.total_price }}</p>
+                                            </td>
+                                            <td> 
+                                                
+                                                <p style="float: right;color: white;padding: 4px;border-radius: 4px;background: #2cc2f5;"> {{ order.plan.title }}</p>
+                                            </td>
+                                            
+                                            <td>
+                                                <p style="float: right;color:#62687a">
+                                                    @if(order.status === 0)
+                                                        <p style="float: right;color: white;padding:4px;border-radius: 4px;background: red;">
+                                                           پرداخت نشده
+                                                        </p>
+                                                    @else
+                                                        <p style="float: right;color: white;padding: 4px;border-radius: 4px;background: green;">
+                                                            پرداخت شده
+                                                        </p>
+                                                    @endif
+                                                </p>
+                                            </td>
+                                            <td>
+                                                
+                                                <p style="float: right;color:#62687a"> {{ order.created_at }}</p>
+                                            </td>
+                                           
+                                            <td>
+                                                
+                                                <a  
+                                                    href="{{ route('order.detail', { id : order.id }) }}"
+                                                    class="btn btn-default btn-warning" 
+                                                    style="font-family: iraniansens;color:white;padding: 12px;font-size: 12px;">جزییات فاکتور
+                                                    </a>
+                                            </td>
+                                           
+                                        </tr>
+                                       @endif
+                                    @endeach
+                                    
+
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div   class="modal fade " id="myModal"   role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header justify-content-center">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                <i class="tim-icons icon-simple-remove"></i>
+                            </button>
+                            <h6 class="title title-up">جستجو در فاکتور ها</h6>
+                            </div>
+                             <form method="GET" action="{{route('order.list')}}">
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <label class="col-md-3 col-form-label">نام</label>
+                                                <div class="col-md-9">
+                                                    <div class="form-group">
+                                                        <input type="text" name="name" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <label class="col-md-3 col-form-label">نام خانوداگی</label>
+                                                <div class="col-md-9">
+                                                    <div class="form-group">
+                                                        <input type="text" name="family" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <label class="col-md-3 col-form-label">کد یکتا کاربر</label>
+                                                <div class="col-md-9">
+                                                    <div class="form-group">
+                                                        <input type="text" name="user_id" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <label class="col-md-3 col-form-label">شماره فاکتور</label>
+                                                <div class="col-md-9">
+                                                    <div class="form-group">
+                                                        <input type="text" name="order_id" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <label class="col-md-3 col-form-label">مبلغ پرداختی</label>
+                                                <div class="col-md-9">
+                                                    <div class="form-group">
+                                                        <input type="text" name="payments" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <label class="col-md-3 col-form-label">کد رهگیری</label>
+                                                <div class="col-md-9">
+                                                    <div class="form-group">
+                                                        <input type="text" name="tracking_code" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <label class="col-md-3 col-form-label">نوع فاکتور</label>
+                                                <div class="col-md-9">
+                                                     <div>
+                                                <select  name="plan_id"  class="selectpicker" data-style="btn btn-info" style="font-family: iraniansens" data-size="7" tabindex="-98">    
+                                                    <option value="all"> همه </option>
+                                                    @each(plan in plans)
+                                                        <option value="1">{{ plan.title }}</option>
+                                                    @endeach
+                                                </select>
+                                            </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <label class="col-md-3 col-form-label">وضعیت فاکتور</label>
+                                                <div class="col-md-9">
+                                                    <div>
+                                                        <select  name="status"  class="selectpicker" data-style="btn btn-info" style="font-family: iraniansens" data-size="7" tabindex="-98">    
+                                                            <option value="all"> همه </option>
+                                                            <option value="1"> پرداخت شده </option>
+                                                            <option value="0"> پرداخت نشده </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="row">
+                                                <label class="col-md-3 col-form-label">سال</label>
+                                                <div class="col-md-9">
+                                                    <div>
+                                                        <select  name="year"  class="selectpicker" data-style="btn btn-info" style="font-family: iraniansens" data-size="7" tabindex="-98">    
+                                                            <option value=""> سال را انتخاب کنید </option>
+                                                            <option value="1397"> 97 </option>
+                                                            <option value="1398"> 98 </option>
+                                                            <option value="1399"> 99 </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="row">
+                                                <label class="col-md-3 col-form-label">ماه</label>
+                                                <div class="col-md-9">
+                                                    <div>
+                                                        <select  name="month"  class="selectpicker" data-style="btn btn-info" style="font-family: iraniansens" data-size="7" tabindex="-98">    
+                                                            <option value="all"> ماه را انتخاب کنید </option>
+                                                            <option value="01"> فروردین </option>
+                                                            <option value="02"> اردیبهشت </option>
+                                                            <option value="03"> خرداد </option>
+                                                            <option value="04"> تیر </option>
+                                                            <option value="05"> مرداد </option>
+                                                            <option value="06"> شهریور </option>
+                                                            <option value="07"> مهر </option>
+                                                            <option value="08"> ابان </option>
+                                                            <option value="09"> اذر </option>
+                                                            <option value="10"> دی </option>
+                                                            <option value="11"> بهمن </option>
+                                                            <option value="12"> اسفند </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                                <div class="row">
+                                                    <label class="col-md-3 col-form-label">روز</label>
+                                                    <div class="col-md-9">
+                                                        <div>
+                                                            <select  name="day"  class="selectpicker" data-style="btn btn-info" style="font-family: iraniansens" data-size="7" tabindex="-98">    
+                                                                <option value="">روز را انتخاب کنید</option>
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="3">3</option>
+                                                                <option value="4">4</option>
+                                                                <option value="5">5</option>
+                                                                <option value="6">6</option>
+                                                                <option value="7">7</option>
+                                                                <option value="8">8</option>
+                                                                <option value="9">9</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                                <option value="12">12</option>
+                                                                <option value="13">13</option>
+                                                                <option value="14">14</option>
+                                                                <option value="15">15</option>
+                                                                <option value="16">16</option>
+                                                                <option value="17">17</option>
+                                                                <option value="18">18</option>
+                                                                <option value="19">19</option>
+                                                                <option value="20">20</option>
+                                                                <option value="21">21</option>
+                                                                <option value="22">22</option>
+                                                                <option value="23">23</option>
+                                                                <option value="24">24</option>
+                                                                <option value="25">25</option>
+                                                                <option value="26">26</option>
+                                                                <option value="27">27</option>
+                                                                <option value="28">28</option>
+                                                                <option value="29">29</option>
+                                                                <option value="30">30</option>
+                                                                <option value="31">31</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                <button type="submit" class="btn btn-default" style="font-family: iraniansens" > جستجو </button>
+                                </div>
+                             </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+@endsection

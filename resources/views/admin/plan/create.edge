@@ -1,0 +1,136 @@
+@layout('layout/admin/main')
+
+@section('content')
+     <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title" style="float: right;">اضافه کردن</h4>
+                </div>
+                <div class="card-body">
+                    <form action="{{route('plan.store')}}" method="post" class="form-horizontal"  enctype="multipart/form-data">
+                        {{ csrfField() }}                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row"> 
+                                    <div class="col-sm-3 ">
+                                        <label class="col-form-label" style="float: right;">عنوان</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="title"    >
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row"> 
+                                        
+                                    <div class="col-sm-3 ">
+                                        <label class="col-form-label" style="float: right;"> وضعیت</label>
+
+                                    </div>
+                                    <div class="col-sm-9">
+                                    
+                                        <div>
+                                            <select  name="status"  class="selectpicker" data-style="btn btn-info" style="font-family: iraniansens" data-size="7" tabindex="-98">    
+
+                                                <option value="1"  selected="">فعال</option>
+                                                <option value="0" >غیر فعال</option>
+                                            </select>
+                                        </div>
+                                        
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row"> 
+                                    <div class="col-sm-3 ">
+                                        <label class="col-form-label" style="float: right;">تعداد روز</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <div class="form-group">
+                                            <input type="number" class="form-control" name="day"    >
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row"> 
+                                    <div class="col-sm-3 ">
+                                        <label class="col-form-label" style="float: right;">مبلغ</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="price"    >
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row"> 
+                                    <div class="col-sm-3 ">
+                                        <label class="col-form-label" style="float: right;">تاریخ شروع </label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control datetimepicker"  name="start_date">
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row"> 
+                                    <div class="col-sm-3 ">
+                                        <label class="col-form-label" style="float: right;">تاریخ پایان : </label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="end_date">
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                        </div>
+                        <br>
+                            <div class="row" >
+                                <div class="col-sm-2 ">
+                                    <label class="col-form-label" style="float: right;">توضیحات</label>
+                                </div>
+                                <div class="col-sm-10">
+                                    <div class="form-group">
+                                        <textarea class="form-control ckeditor" style="font-family:iraniansens" id="content" name="content" 
+                                        placeholder="توضیحات را وارد کنید . . .">  </textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-10">
+                                <button style="float: right;margin-top: 32px;margin-right:50px;font-family: iraniansens" class="btn btn-success animation-on-hover" type="submit" rel="tooltip"  data-placement="bottom" >ذخیره</button>
+
+                            </div>
+                            
+
+                        </div>
+                    </form>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+@endsection

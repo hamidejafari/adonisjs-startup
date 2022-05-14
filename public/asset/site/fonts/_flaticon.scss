@@ -1,0 +1,54 @@
+    /*
+    Flaticon icon font: Flaticon
+    Creation date: 08/04/2019 08:27
+    */
+
+    @font-face {
+  font-family: "Flaticon";
+  src: url("./Flaticon.eot");
+  src: url("./Flaticon.eot?#iefix") format("embedded-opentype"),
+       url("./Flaticon.woff2") format("woff2"),
+       url("./Flaticon.woff") format("woff"),
+       url("./Flaticon.ttf") format("truetype"),
+       url("./Flaticon.svg#Flaticon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "Flaticon";
+    src: url("./Flaticon.svg#Flaticon") format("svg");
+  }
+}
+
+    .fi:before{
+        display: inline-block;
+  font-family: "Flaticon";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-decoration: inherit;
+  text-rendering: optimizeLegibility;
+  text-transform: none;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+    }
+
+    .flaticon-login-square-arrow-button-outline:before { content: "\f100"; }
+.flaticon-avatar:before { content: "\f101"; }
+.flaticon-back:before { content: "\f102"; }
+.flaticon-next:before { content: "\f103"; }
+.flaticon-down-arrow:before { content: "\f104"; }
+.flaticon-group:before { content: "\f105"; }
+.flaticon-support:before { content: "\f106"; }
+    
+    $font-Flaticon-login-square-arrow-button-outline: "\f100";
+    $font-Flaticon-avatar: "\f101";
+    $font-Flaticon-back: "\f102";
+    $font-Flaticon-next: "\f103";
+    $font-Flaticon-down-arrow: "\f104";
+    $font-Flaticon-group: "\f105";
+    $font-Flaticon-support: "\f106";

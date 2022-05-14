@@ -1,0 +1,50 @@
+@layout('layout/site/main')
+@section('content')
+
+    <div class="header-image none-mobile">
+        <a href="/"><img src="{{assetsUrl('asset/site/images/sample.png')}}" alt=""></a>
+    </div>
+    <div class="header-image mobile-e">
+        <a href="/"><img src="{{assetsUrl('asset/site/images/sample1.png')}}" alt=""></a>
+    </div>
+    <div class="container">
+        <h1 class="text-center gold-dd mt-4">{{ expertises[0].title }}</h1>
+    </div>
+    <div class="reservation">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="side-left">
+                        <div class="row">
+                            @each(item in expertises[0].users)
+                                <a href="http://panel.animoshaver.ir/PersonDetails/{{item.id}}" class="col-md-3">
+                                    <div class="border">
+                                        <div class="face">
+                                            <img src="{{assetsUrl('asset/user.png')}}" alt="">
+                                        </div>
+                                        <div class="text-center ma-0">
+                                                
+                                            <span class="fa fa-star {{ item.rate >= 1 ? 'checked' : '' }}"></span>
+                                            <span class="fa fa-star {{ item.rate >= 2 ? 'checked' : '' }}"></span>
+                                            <span class="fa fa-star {{ item.rate >= 3 ? 'checked' : '' }}"></span>
+                                            <span class="fa fa-star {{ item.rate >= 4 ? 'checked' : '' }}"></span>
+                                            <span class="fa fa-star {{ item.rate >= 5 ? 'checked' : '' }}"></span>
+                                            <h4>
+                                                @if(item.online === 1 || item.online === true)
+                                                    <img src="{{assetsUrl('asset/site/images/circle.png')}}" alt="" style="width:5%">
+                                                @endif
+                                                {{ item.name + ' ' + item.family}}
+                                            </h4>
+                                            <p class="ma-0">مشاور</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            @endeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@endsection

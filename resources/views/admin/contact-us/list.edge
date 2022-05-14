@@ -1,0 +1,213 @@
+@layout('layout/admin/main')
+
+@section('content')
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title" style="float: right;">پیام ها</h4>
+
+                    <div class="tools float-left">
+                        <div class="dropdown">
+                            <button type="button" class="btn btn-default dropdown-toggle btn-link btn-icon" data-toggle="dropdown" aria-expanded="false">
+                                <i class="tim-icons icon-settings-gear-63"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-left" x-placement="bottom-end" style="position: absolute; transform: translate3d(-132px, 22px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                <a class="dropdown-item" style="color:#3cc1c2" data-toggle="modal" data-target="#SearchModal"> جستجو</a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead class="text-primary">
+                            <tr>
+                                
+                                <th>
+                                    نام
+                                </th>
+                                <th>
+                                    موضوع
+                                </th>
+                                    <th>
+                                    ایمیل
+                                </th>
+                                <th>
+                                    تاریخ
+                                </th>
+                               
+                            
+                                <th style="width: 250px;">
+                                    عملیات
+                                </th>
+
+
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            @each(item in contact)
+                                @if(item.status ==  0)
+                                    <tr style="background : rgba(248, 231, 226, 0.4)">
+                                @else
+                                    <tr style="background : rgba(65, 253, 255, 0.4)">
+                                @endif
+                                <td>
+                                    <p style="float: right;color:#62687a">{{ item.name ? item.name : '' }}</p>
+                                </td>
+                                <td>
+                                    <p style="float: right;color:#62687a">{{ item.title ? item.title : '' }}</p>
+                                </td>
+                                <td>
+                                    <a style="float: right;color:#62687a" href="mailto: {{item.email}}">{{ item.email ? item.email : '' }}</a>
+                                </td>
+                                <td>
+                                    <p style="float: right;color:#62687a"> {{ item.created_at }}</p>
+                                </td>
+                                <td class="text-right">
+                                    @if(item.status == 0)
+                                        <a 
+                                            href="{{route('contact-us.read' , { id : item.id })}}" 
+                                            rel="tooltip"
+                                            class="btn btn-default btn-danger" 
+                                            style="font-family: iraniansens;color:white;padding: 12px;font-size: 12px;">
+                                            <i class="tim-icons icon-tap-02"></i>
+                                            خوانده نشده
+                                        </a> 
+                                    @else
+                                        <a 
+                                            href="{{route('contact-us.read' , { id : item.id })}}"
+                                            rel="tooltip"
+                                            class="btn btn-default btn-success" 
+                                            
+                                            style="font-family: iraniansens;color:white;padding: 12px;font-size: 12px;background-image: linear-gradient(to bottom left, #00f2c3, #64e053, #228416);">
+                                            <i class="tim-icons icon-tap-02"></i>
+                                            خوانده شده
+                                        </a> 
+                                    @endif
+
+                                    <a 
+                                        data-toggle="modal" 
+                                        data-target="#noticeModal{{item.id}}"
+                                        rel="tooltip"
+                                        class="btn btn-default btn-success" 
+                                        style="font-family: iraniansens;color:white;padding: 12px;font-size: 12px;">
+                                        <i class="tim-icons icon-tap-02"></i>
+                                        مشاهده
+                                    </a>  
+                                </td>
+
+                            </tr>
+                            @endeach
+                            
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @each(item in contact)
+            <div  class="modal fade " id="noticeModal{{item.id}}"   role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header justify-content-center">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            <i class="tim-icons icon-simple-remove"></i>
+                        </button>
+                        <h6 class="title title-up">{{ item.name ? item.name : 'بدون نام'  }}</h6>
+                        </div>
+                        <div class="modal-body">
+                            <p style="direction: rtl;text-align: right;">{{ item.content }}</p>
+                        </div>
+
+                        <div class="modal-footer justify-content-center">
+                            <span>{{ item.created_at }}</span>
+                            </div>
+                        @if(item.status == 0)
+                            <div class="modal-footer justify-content-center">
+                            
+                                <a href="{{route('contact-us.read' , { id : item.id })}}" class="btn btn-success btn-round" style="font-family: iraniansens" > خوانده شد </a>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        @endeach
+        <div  class="modal fade " id="SearchModal"   role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header justify-content-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        <i class="tim-icons icon-simple-remove"></i>
+                    </button>
+                    <h6 class="title title-up">جستجو در پیام ها</h6>
+                    </div>
+                    <form method="GET" action="{{route('contact-us.list')}}">
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-sm-2 ">
+                                    <label class="col-form-label" style="float: right;"> نام </label>
+
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        <input type="text" name="name" placeholder="نام" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2 ">
+                                    <label class="col-form-label" style="float: right;"> ایمیل</label>
+
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        <input type="text" name="email" placeholder="ایمیل" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2 ">
+                                    <label class="col-form-label" style="float: right;"> موضوع</label>
+
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        <input type="text" name="title" placeholder="موضوع" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row"> 
+                                <div class="col-sm-2 ">
+                                    <label class="col-form-label" style="float: right;"> وضعیت</label>
+
+                                </div>
+                                <div class="col-sm-10">
+                                    <div>
+                                        <select  name="status"  class="selectpicker" data-style="btn btn-info" style="font-family: iraniansens" data-size="7" tabindex="-98">    
+                                            <option value="all"> همه </option>
+                                            <option value="1"> خوانده شده </option>
+                                            <option value="0"> خوانده نشده </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-default" style="font-family: iraniansens" > جستجو </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+@endsection

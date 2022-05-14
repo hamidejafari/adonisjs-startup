@@ -1,0 +1,129 @@
+@layout('layout/admin/main')
+
+@section('content')
+     <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title" style="float: right;">اضافه کردن</h4>
+                        </div>
+                        <div class="card-body">
+                            <form action="{{route('expertise.save-create')}}" method="post" class="form-horizontal"  enctype="multipart/form-data">
+                               {{ csrfField() }}
+                               <input name="type" value="{{type}}" type="hidden"/>
+                              
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row"> 
+                                            <div class="col-sm-3 ">
+                                                <label class="col-form-label" style="float: right;">عنوان</label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" name="title"    >
+                                                </div>
+                                            </div>
+                                        </div>
+                                    
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row"> 
+                                                
+                                            <div class="col-sm-2 ">
+                                                <label class="col-form-label" style="float: right;"> وضعیت</label>
+
+                                            </div>
+                                            <div class="col-sm-10">
+                                            
+                                                <div>
+                                                    <select  name="status"  class="selectpicker" data-style="btn btn-info" style="font-family: iraniansens" data-size="7" tabindex="-98">    
+    
+                                                        <option value="1"  selected="">فعال</option>
+                                                        <option value="0" >غیر فعال</option>
+                                                    </select>
+                                                </div>
+                                                
+                                            
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    
+                                    <div class="col-md-6 col-sm-4" style=";">
+                                        
+                                        <div class="fileinput fileinput-new text-center" data-provides="fileinput" style="margin-left: 12%;">
+                                            <div class="fileinput-new thumbnail">
+                                                <img style="border:2px solid #1dc7f6;width: 210px;" src="http://frankfordcdc.org/wp-content/themes/hoxa/images/default.png" alt="...">
+                                            </div>
+                                            <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                                            <div>
+                                                <span class="btn btn-rose btn-round btn-file">
+                                                    <span class="fileinput-new">انتخاب تصویر</span>
+                                                    <span class="fileinput-exists">عوض کردن</span>
+                                                    <input type="file" name="image">
+                                                </span>
+                                                <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> حذف</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                        <div class="col-md-6">
+                                        <div class="form-check mt-3" style="float: right;    margin-right: 17px;">
+                                        
+                                            <label class="form-check-label">
+                                            
+                                        
+                                                <input class="form-check-input" type="checkbox" name="show_first"   >
+                                            <span class="form-check-sign"></span>
+                                            صفحه اول
+                                            </label>
+                                        </div>
+                                        
+                                        <div class="form-check mt-3" style="float: right;    margin-right: 17px;">
+                                            <label class="form-check-label">
+                                           
+                                                <input class="form-check-input" type="checkbox" name="show_menu"   >
+                                            <span class="form-check-sign"></span>
+                                            منو
+                                            </label>
+                                        </div>
+                                       
+                                       
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+
+                                    <div class="col-sm-2 ">
+                                        <label class="col-form-label" style="float: right;">دسته</label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <div>
+                                            <select  name="parent_id"  class="selectpicker" data-style="btn btn-info" style="font-family: iraniansens" data-size="7" tabindex="-98">    
+                                                <option value=""  selected="">بدون والد</option>
+                                                @each(item in categories)
+                                                    <option value="{{ item.id }}">{{ item.title }}</option>
+                                                @endeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                                <br>
+                                <div class="row">
+                                    <div class="col-sm-10">
+                                        <button style="float: right;margin-top: 32px;margin-right:50px;font-family: iraniansens" class="btn btn-success animation-on-hover" type="submit" rel="tooltip"  data-placement="bottom" >ذخیره</button>
+
+                                    </div>
+                                    
+
+                                </div>
+                            </form>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+@endsection

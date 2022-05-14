@@ -1,0 +1,94 @@
+@layout('layout/admin/main')
+
+@section('content')
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <form action="{{route('record-type.destroy')}}" method="POST">
+                    {{ csrfField() }}
+                    <div class="card-header">
+                        <h4 class="card-title" style="float: right;">لیست  نوع مدارک</h4>
+
+                        <div class="tools float-left">
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-default dropdown-toggle btn-link btn-icon" data-toggle="dropdown" aria-expanded="false">
+                                    <i class="tim-icons icon-settings-gear-63"></i>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-left" x-placement="bottom-end" style="position: absolute; transform: translate3d(-132px, 22px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                    <a href="{{route('record-type.create')}}" class="dropdown-item" style="color:#6ac243" > اضافه کردن صفحه جدید</a>
+                                    <button class="dropdown-item" style="color:#c61e1e;font-family: iraniansens;" type="submit"> حذف انتخاب شده ها</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead class="text-primary">
+                                <tr>
+                                    <th class="text-center">
+                                        #
+                                    </th>
+                                    <th>
+                                        عنوان
+                                    </th>
+                                    <th>
+                                        الزامی
+                                    </th>                                
+                                    <th>
+                                        عملیات
+                                    </th>
+
+
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                @each(item in recordTypes)
+                                <tr>
+                                    <td class="text-center">
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" value="{{item.id}}" name="deletedId[]" type="checkbox" >
+                                                <span class="form-check-sign"></span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <p style="float: right;color:#62687a">{{ item.title }}</p>
+                                    </td>
+                                    <td>
+                                        @if(item.force === 0)
+                                            <p  style="float: right;color: white;background: red;padding: 7px;border-radius: 12px;">
+                                            نیست
+                                                
+                                            </p>
+                                        @else
+                                            <p style="float: right;color: white;background: green;padding: 7px;border-radius: 12px;">
+                                                هست
+                                            </p>
+                                        @endif
+                                    </td>
+                                    <td class="text-right">
+                                        <a 
+                                            href="{{route('record-type.update',{ id:item.id })}}"
+                                            class="btn btn-default btn-warning" 
+                                            style="font-family: iraniansens;color:white;padding: 12px;font-size: 12px;">
+                                            <i class="tim-icons icon-pencil"></i>
+                                            ویرایش
+                                        </a>                                       
+                                    </td>
+
+                                </tr>
+                                @endeach
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+    </div>
+@endsection

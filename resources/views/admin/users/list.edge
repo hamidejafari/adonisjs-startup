@@ -1,0 +1,365 @@
+@layout('layout/admin/main')
+
+@section('content')
+      <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        
+                        <div class="card-header">
+                            <h4 class="card-title" style="float: right;">لیست کاربران </h4>
+
+                            <div class="tools float-left">
+                                <div class="dropdown">
+                                    <button type="button" class="btn btn-default dropdown-toggle btn-link btn-icon" data-toggle="dropdown" aria-expanded="false">
+                                        <i class="tim-icons icon-settings-gear-63"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-left" x-placement="bottom-end" style="position: absolute; transform: translate3d(-132px, 22px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                       
+                                        <a class="dropdown-item" href="{{ route('/users/create') }}" style="color:#00c200">اضافه کردن ایتم جدید</a>
+                                        <a class="dropdown-item" style="color:#3cc1c2" data-toggle="modal" data-target="#SearchModal"> جستجو</a>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead class="text-primary">
+                                    <tr>
+                                        <th class="text-center">
+                                            #
+                                        </th>
+                                        <th>
+                                            کد
+                                        </th>
+                                        <th>
+                                            نام و نام خانوداگی
+                                        </th>
+                                        <th>
+                                            ایمیل
+                                        </th>
+                                        <th>
+                                            موبایل
+                                        </th>
+                                         <th>
+                                            تاریخ
+                                        </th>
+                                        <th>
+                                            کیف پول
+                                        </th>
+                                        
+                                        <th>
+                                            وضعیت
+                                        </th>
+                                        <th>
+                                            ویژه
+                                        </th>
+                                        <th>
+                                            عملیات
+                                        </th>
+
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    @each(user in users.data)
+                                    <tr>
+                                        <td class="text-center">
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" value="" name="deletedId[]" type="checkbox" >
+                                                    <span class="form-check-sign"></span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p style="float: right;color:#62687a">{{ user.id }}</p>
+                                        </td>
+                                        <td>
+                                            <p style="float: right;color:#62687a">{{ user.name  }} {{ user.family }}</p>
+                                        </td>
+                                        <td>
+                                            <a style="float: right;color:#62687a" href="mailto: {{user.email}}">{{ user.email ? user.email : '' }}</a>
+                                        </td>
+                                        <td>
+                                            <p style="float: right;color:#62687a">{{ user.mobile }}</p>
+                                        </td>
+                                        <td>
+                                            <p style="float: right;color:#62687a"> {{ user.created_at }}</p>
+                                        </td>
+                                        <td>
+                                            <p style="float: right;color:#62687a">{{ user.wallet }} ریال </p>
+                                        </td>
+                                        <td style="width: 95px;">
+                                            @if(user.status === 0)
+                                                <p  style="float: right;color: white;background: red;padding: 7px;border-radius: 12px;">
+                                                غیر فعال    
+                                                </p>
+                                            @else
+                                                <p style="float: right;color: white;background: green;padding: 7px;border-radius: 12px;">
+                                                 فعال
+                                                </p>
+                                            @endif
+                                        </td>
+                                        <td style="width: 95px;">
+                                             @if(user.vip === 0)
+                                                <p  style="float: right;color: white;background: red;padding: 7px;border-radius: 12px;">
+                                                غیر فعال
+                                                    
+                                                </p>
+                                            @else
+                                                <p style="float: right;color: white;background: green;padding: 7px;border-radius: 12px;">
+                                                 فعال
+                                                </p>
+                                            @endif
+                                        </td>
+                                        
+                                        <td class="text-right" style="width: 164px;">
+                                            <div class="dropdown dropdownn{">
+                                                <button type="button" class="dropdown-toggle dropdown-toggle2 btn btn-warning btn-block" data-toggle="dropdown" aria-expanded="false"  style="font-family:iraniansens !important;width: 125px;">
+                                                    
+                                                    سایر عملیات
+
+                                                </button>
+                                                <div class="dropdown-menu dropdown-menu-left" x-placement="bottom-end" style="position: absolute; transform: translate3d(-132px, 22px, 0px); top: 0px; left: 0px; will-change: transform;margin-left: 26px;">
+                                                
+                                                    <a class="dropdown-item" href="{{ route('users.update', { id : user.id }) }}" style="color:#f97c7a;font-size: 13px;"><i class="tim-icons icon-pencil" style="margin-left: 10px;"></i>ویرایش</a>
+                                                    <hr>
+                                                    <a class="dropdown-item" data-toggle="modal" data-target="#UserTextModal{{ user.id }}"  style="color:#00bfd4;font-size: 13px;"><i class="tim-icons icon-email-85" style="margin-left: 10px;"></i>ارسال پیام</a>
+                                                    <form method="GET" action="{{route('ticket.list')}}"> 
+                                                        <input type="hidden" value="{{user.id}}" name="user_id" />
+                                                        <button type="submit" class="dropdown-item" href="" style="color:#00bfd4;font-size: 13px;font-family:iraniansens !important"><i class="tim-icons icon-paper" style="margin-left: 10px;"></i>تیکت و پیام</button>
+
+                                                    </form>
+                                                    <form method="GET" action="{{route('event.list')}}"> 
+                                                        <input type="hidden" value="{{user.id}}" name="user_id" />
+                                                        <button class="dropdown-item" href="" style="color:#00bfd4;font-size: 13px;font-family:iraniansens !important"><i class="tim-icons icon-tablet-2" style="margin-left: 10px;"></i>نوبت ها</button>
+
+                                                    </form>
+                                                    <form method="GET" action="{{route('order.list')}}"> 
+                                                        <input type="hidden" value="{{user.id}}" name="user_id" />
+                                                        <button class="dropdown-item" href="" style="color:#00bfd4;font-size: 13px;font-family:iraniansens !important"><i class="tim-icons icon-money-coins" style="margin-left: 10px;"></i>فاکتور ها</button>
+
+                                                    </form>
+
+                                                </div>
+                                            </div>
+                                            @if(user.vip == 1)
+                                                <a 
+                                                    href="{{route('users.vip',{id : user.id})}}"
+                                                    class="btn btn-default btn-success" 
+                                                    style="font-family: iraniansens;color:white;padding: 12px;font-size: 12px;">
+                                                    <i class="tim-icons icon-simple-remove"></i>
+                                                    ویژه
+                                                </a>
+                                            @else
+                                                <a 
+                                                    href="{{route('users.vip',{id : user.id})}}"
+                                                    class="btn btn-default btn-danger" 
+                                                    style="font-family: iraniansens;color:white;padding: 12px;font-size: 12px;">
+                                                    <i class="tim-icons icon-check-2"></i>
+                                                    ویژه
+                                                </a>
+                                            @endif
+                                            @if(user.status == 1)
+                                                <a 
+                                                    href="{{route('users.status',{id : user.id})}}"
+                                                    class="btn btn-default btn-success" 
+                                                    style="font-family: iraniansens;color:white;padding: 12px;font-size: 12px;">
+                                                    <i class="tim-icons icon-simple-remove"></i>
+                                                     تایید
+                                                </a>
+                                            @else
+                                                <a 
+                                                    href="{{route('users.status',{id : user.id})}}"
+                                                    class="btn btn-default btn-danger" 
+                                                    style="font-family: iraniansens;color:white;padding: 12px;font-size: 12px;">
+                                                    <i class="tim-icons icon-check-2"></i>
+                                                     تایید
+                                                </a>
+                                            @endif
+
+                                            
+                                        </td>
+
+                                    </tr>
+                                    @endeach
+                                    
+
+
+                                    </tbody>
+                                </table>
+                                @!component('pagination', pagination = users, request = request, presenter = 'PaginationPresenter')
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                @each(user in users.data)
+                    <div   class="modal fade " id="UserTextModal{{user.id}}"   role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header justify-content-center">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    <i class="tim-icons icon-simple-remove"></i>
+                                </button>
+                                <h6 class="title title-up">ارسال پیام به {{ user.name + ' ' + user.family }}</h6>
+                                </div>
+                                <form action="{{route('ticket.save-new-ticket-adviser')}}" method="POST">
+                                    {{ csrfField() }}
+                                    <input name="user_id" value="{{user.id}}" type="hidden" />
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <label class="col-md-3 col-form-label">موضوع پیام</label>
+                                            <div class="col-md-9">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" name="title" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <label class="col-md-3 col-form-label">پیام</label>
+                                            <div class="col-md-9">
+                                                <div class="form-group">
+                                                <textarea class="form-control " style="font-family:iraniansens" id="content" name="content" 
+                                                            placeholder="پیام را وارد کنید . . ."></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="submit" class="btn btn-default" style="font-family: iraniansens" > ارسال </button>
+                                    <button type="button" class="btn btn-danger"  style="font-family: iraniansens" data-dismiss="modal" >بستن</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                @endeach
+
+                <div   class="modal fade " id="SearchModal"   role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header justify-content-center">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                <i class="tim-icons icon-simple-remove"></i>
+                            </button>
+                            <h6 class="title title-up">جستجو در لیست کاربران </h6>
+                            </div>
+                                <form method="GET" action="{{route('users.list')}}">
+                                <div class="modal-body">
+                                    <div class="row">
+
+                                        <div class="col-sm-2 ">
+                                            <label class="col-form-label" style="float: right;">کد کاربری</label>
+                                        </div>
+                                        <div class="col-sm-10">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" name="user_id"     >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="row"> 
+                                                <div class="col-sm-3 ">
+                                                    <label class="col-form-label" style="float: right;">نام</label>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" name="name"    >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row"> 
+                                                <div class="col-sm-3 ">
+                                                    <label class="col-form-label" style="float: right;">نام خانوادگی</label>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" name="family"    >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="row"> 
+                                                <div class="col-sm-3 ">
+                                                    <label class="col-form-label" style="float: right;">موبایل</label>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" name="mobile"    >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row"> 
+                                                <div class="col-sm-3 ">
+                                                    <label class="col-form-label" style="float: right;">ایمیل</label>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" name="email"    >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                        <div class="row">
+                                
+                                            <div class="col-sm-2 ">
+                                                <label class="col-form-label" style="float: right;"> جنسیت</label>
+        
+                                            </div>
+                                            <div class="col-sm-10">
+                                                
+                                                <div>
+                                                    <select  name="gender"  class="selectpicker" data-style="btn btn-info"  style="font-family: iraniansens" data-size="7" tabindex="-98">
+                                                        <option value="" >همه</option>
+
+                                                        <option value="0" >زن</option>
+                                                        <option value="1"  selected="" >مرد</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                    
+                                        </div>
+                                        <br>
+                                        
+                                  
+                            
+                                    
+                                </div>
+                                <div class="modal-footer">
+                                <button type="submit" class="btn btn-default" style="font-family: iraniansens" > جستجو </button>
+                                <button type="button" class="btn btn-danger"  style="font-family: iraniansens" data-dismiss="modal" >بستن</button>
+                                </div>
+                                </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+@endsection
+
+@section('css')
+    <style>
+        .btn.dropdown-toggle2:after, .navbar .navbar-nav > a.btn.dropdown-toggle2:after {
+            margin-left: 5px !important
+        }
+
+    </style>
+@endsection

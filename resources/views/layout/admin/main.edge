@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    @include('layout/admin/blocks/head')
+    <body class="sidebar-mini rtl menu-on-right white-content">
+        <div class="wrapper">
+            <div class="navbar-minimize-fixed">
+                <button class="minimize-sidebar btn btn-link btn-just-icon">
+                    <i class="tim-icons icon-align-center visible-on-sidebar-regular text-muted"></i>
+                    <i class="tim-icons icon-bullet-list-67 visible-on-sidebar-mini text-muted"></i>
+                </button>
+            </div>
+            @include('layout/admin/blocks/sidebar')
+            <div class="main-panel" >
+                <!-- Navbar -->
+                @include('layout/admin/blocks/navbar')
+                <!-- End Navbar -->
+                <div class="content">
+                    @!section('content')
+                </div>
+                @include('layout/admin/blocks/footer')
+            </div>
+        </div>
+        @include('layout/admin/blocks/script')
+    </body>
+</html>
+

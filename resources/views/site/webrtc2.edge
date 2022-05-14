@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Webrtc2 client sample</title>
+	<link rel="stylesheet" href="css/style.css">
+	<!--[if IE]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+    <audio id="rk-wp-remoteAudio"></audio>
+    <audio id="rk-wp-localAudio" muted="muted"></audio>
+    <label id="rk-wp-msg"></label>
+	<label>Status:</label>
+    <label id="rk-wp-regstat"></label><br/>
+    <label id="rk-wp-callstat"></label>
+    <button id="rk-wp-answer">Answer</button>
+    <button id="rk-wp-reject">Reject</button>
+    <button id="rk-wp-xfer">Transfer</button>
+    <button id="rk-wp-call">Call</button>
+    <button id="rk-wp-hold">Hold</button>
+    <button id="rk-wp-unhold">Unhold</button>
+    <button id="rk-wp-hangup">End Call</button>
+    <input id="rk-wp-toNumber" type="text" placeholder="number to call..." />
+    {{ script('asset/site/js/sip-0.11.2.js') }}
+    <script>
+        var hangupBtn = document.getElementById('rk-wp-hangup');
+        var rejectBtn = document.getElementById('rk-wp-reject');
+        var xferBtn = document.getElementById('rk-wp-xfer');
+        var answerBtn = document.getElementById('rk-wp-answer');
+        var callBtn = document.getElementById('rk-wp-call');
+        var holdBtn = document.getElementById('rk-wp-hold');
+        var unHoldBtn = document.getElementById('rk-wp-unhold');
+        var toNumber = document.getElementById('rk-wp-toNumber');
+        var regstat = document.getElementById('rk-wp-regstat');
+        var callstat = document.getElementById('rk-wp-callstat');
+        var remoteAudio = document.getElementById('rk-wp-remoteAudio');
+        var msgLbl = document.getElementById('rk-wp-msg');
+
+        var configuration = {
+            media: {
+                remote: {
+                    audio: remoteAudio
+                }
+            },
+            ua: {
+                traceSip: true,
+                uri: 'sip:09121111111@91.92.205.47',
+                displayName: '09121111111',
+                userAgentString: SIP.C.USER_AGENT + " rksdk",
+                password: '09121111111',
+                wsServers: ['ws://91.92.205.47:7443'],
+                contactName: '09121111111',
+            }
+        };
+
+        SIP.Web.Simple.prototype.refer = function (destination) {
+            if (this.state !== SIP.Web.Simple.C.STATUS_CONNECTED &&
+                this.state !== SIP.Web.Simple.C.STATUS_CONNECTING &&
+                this.state !== SIP.Web.Simple.C.STATUS_NEW) {
+                this.logger.warn('No active call to xfer');
+                return;
+            }
+            this.session.refer(destination);
+        }
+        var simple = new SIP.Web.Simple(configuration);
+
+        callBtn.onclick = function (e) {
+            simple.call(toNumber.value);
+        }
+        answerBtn.onclick = function (e) {
+            simple.answer();
+        }
+        rejectBtn.onclick = function (e) {
+            simple.reject();
+        }
+        hangupBtn.onclick = function (e) {
+            simple.hangup();
+        }
+        holdBtn.onclick = function (e) {
+            simple.hold();
+        }
+        unHoldBtn.onclick = function (e) {
+            simple.unhold();
+        }
+        xferBtn.onclick = function (e) {
+            simple.refer(toNumber.value);
+        }
+		regstat.textContent = 'registering';
+        simple.on('registered', function (e) { regstat.textContent = 'registered' })
+        simple.on('unregistered', function (e) { regstat.textContent = 'unregistered' })
+        simple.on('ringing', function (e) { callstat.textContent = 'ringing' })
+        simple.on('connected', function (e) { callstat.textContent = 'connected' })
+        simple.on('connecting', function (e) { callstat.textContent = 'connecting' })
+        simple.on('ended', function (e) { callstat.textContent = 'ready' })
+        simple.on('mute', function (e) { callstat.textContent = 'mute' })
+        simple.on('unmute', function (e) { callstat.textContent = 'unmute' })
+        simple.on('hold', function (e) { callstat.textContent = 'hold' })
+        simple.on('unhold', function (e) { callstat.textContent = 'unhold' })
+
+    </script>
+
+</body>
+
+</html>

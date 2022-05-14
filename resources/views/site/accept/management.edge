@@ -1,0 +1,208 @@
+@layout('layout/site/main')
+@section('content')
+
+    <div class="header-image none-mobile">
+        <a href="/"><img src="{{assetsUrl('asset/site/images/sample.png')}}" alt=""></a>
+    </div>
+    <div class="header-image mobile-e">
+        <a href="/"><img src="{{assetsUrl('asset/site/images/sample1.png')}}" alt=""></a>
+    </div>
+    
+    <div class="container">
+        <h1 class="text-center gold-dd mt-4">تقاضای مدیریت حقوقی شرکت ها از آنی مشاور</h1>
+    </div>
+    <div class="details-blog" id="accept">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6" style="direction: rtl;text-align: justify;">
+                    <form
+                        action="{{route('site.post-accept')}}"
+                        method="post"
+                        role="form"
+                        dir="rtl"
+                        class="form"
+                    >
+                        {{ csrfField() }}
+                        <input name="accept_type_id" value="1" type="hidden" />
+                        <input name="redirect_url" value="accept-judgment" type="hidden" />
+                        <div dir="rtl">
+                            <div id="errorSignUp"></div>
+                            <div class="form-group">
+                                <label for="email" class="control-label">نام و نام خانوادگی<span>*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span> 
+                                    <input style="background: none;border: 1px solid #ced4da;" name="name" id="name" type="text" class="form-control just-farsi" value="{{ old('name', '') }}" >
+                                </div>
+                                @if(hasErrorFor('name'))
+                                    <p style="margin-top:10px;color:red">{{ getErrorFor('name') }}</p>
+                                @endif
+                            </div> 
+                            <div class="form-group">
+                                <label for="password" class="control-label">شماره همراه<span>*</span></label> 
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-phone"></span></span> 
+                                    <input style="background: none;border: 1px solid #ced4da;" name="mobile" id="mobile" type="text" class="form-control just_number" value="{{ old('mobile', '') }}">
+                                </div>
+                                @if(hasErrorFor('mobile'))
+                                    <p style="margin-top:10px;color:red">{{ getErrorFor('mobile') }}</p>
+                                @endif
+                            </div> 
+                            <div class="form-group">
+                                <label for="email" class="control-label">ایمیل<span>*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span> 
+                                    <input style="background: none;border: 1px solid #ced4da;" name="email" id="email" type="email" class="form-control" value="{{ old('email', '') }}">
+                                </div>
+                                @if(hasErrorFor('email'))
+                                    <p style="margin-top:10px;color:red">{{ getErrorFor('email') }}</p>
+                                @endif
+                            </div> 
+                            <div class="form-group">
+                                <label for="password" class="control-label">شماره ثابت<span>*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-phone"></span></span> 
+                                    <input style="background: none;border: 1px solid #ced4da;" name="phone" id="phone" type="text" class="form-control just_number" value="{{ old('phone', '') }}">
+                                </div>
+                                @if(hasErrorFor('phone'))
+                                    <p style="margin-top:10px;color:red">{{ getErrorFor('phone') }}</p>
+                                @endif
+                            </div> 
+                            <div class="form-group">
+                                <label for="password" class="control-label">موضوع فعالیت شرکت<span>*</span></label> 
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-list"></span></span> 
+                                    <input style="background: none;border: 1px solid #ced4da;" name="title" id="title" type="text" class="form-control"  value="{{ old('title', '') }}">
+                                </div>
+                                @if(hasErrorFor('title'))
+                                    <p style="margin-top:10px;color:red">{{ getErrorFor('title') }}</p>
+                                @endif
+                            </div> 
+                            <div class="form-group">
+                                <label for="password" class="control-label">میزان گردش مالی<span>*</span></label> 
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-list"></span></span>
+                                    <input style="background: none;border: 1px solid #ced4da;" name="value" id="value" type="text" class="form-control just_number" value="{{ old('value', '') }}">
+                                </div>
+                                @if(hasErrorFor('value'))
+                                    <p style="margin-top:10px;color:red">{{ getErrorFor('value') }}</p>
+                                @endif
+                            </div> 
+                            <div class="form-group">
+                                <label for="password" class="control-label">استان<span>*</span></label> 
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-list"></span></span> 
+                                    <select  v-model="selectedStateId" @change="citiesList" name="state_id" class="form-control" >
+                                        <option value="">انتخاب کنید . . .</option>
+                                        @each(item in states)
+                                            <option value="{{item.id}}">{{ item.pname }}</option>
+                                        @endeach
+                                    </select>
+                                </div>
+                                @if(hasErrorFor('state_id'))
+                                    <p style="margin-top:10px;color:red">{{ getErrorFor('state_id') }}</p>
+                                @endif
+                            </div> 
+                            <div class="form-group">
+                                <label for="password" class="control-label">شهر<span>*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-list"></span></span>
+                                    <select name="city_id" class="form-control">
+                                        <option value=""> انتخاب کنید . . .</option>
+                                        <option v-for="row in cities" :value="row.id">@{{ row.pname }}</option>
+                                    </select>
+                                </div>
+                                @if(hasErrorFor('pname'))
+                                    <p style="margin-top:10px;color:red">{{ getErrorFor('pname') }}</p>
+                                @endif
+                            </div> 
+                            <div class="form-group">
+                                <label for="email" class="control-label">  توضیح کوتاه</label> 
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-file"></span></span> 
+                                    <textarea id="description" name="description" rows="3" class="form-control">{{ old('description', '') }}</textarea>
+                                </div>
+                                @if(hasErrorFor('description'))
+                                    <p style="margin-top:10px;color:red">{{ getErrorFor('description') }}</p>
+                                @endif
+                            </div> 
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">ارسال</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-6" style="text-align: justify;direction: rtl;">
+                    {{{ setting.management }}}
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+@endsection
+@section('js')
+    {{ script('https://cdn.jsdelivr.net/npm/vue/dist/vue.js') }}
+    {{ script('http://www.alivitrine.ir/asset/site/js/axios.min.js') }}
+    {{ script('https://unpkg.com/sweetalert/dist/sweetalert.min.js') }}
+
+    @if(flashMessage('successAccept'))
+        <script>
+            var app = new Vue({
+                el: '#accept',
+                data: {
+                    cities: [],
+                    selectedStateId : '',
+                    msg: 'jii'
+                },
+                mounted() {
+                    swal("تقاضای شما با موفقیت ارسال گردید", "", "success");
+                },
+                methods: {
+                    //get list of tags
+                    citiesList: function(){
+                        var params={
+                            state_id : this.selectedStateId
+                        };
+                        //i use "vm" because "axios" cant understand "this"- 
+                        var vm=this;
+                        axios.post("/city-accept/",params).then(function(response){
+                            vm.cities = [];
+                            vm.cities = response.data;
+                        }).catch(function(error){
+                            console.log(error);
+                        })
+                    }
+                }
+            })
+        </script>
+    @else
+        <script>
+            var app = new Vue({
+                el: '#accept',
+                data: {
+                    cities: [],
+                    selectedStateId : '',
+                    msg: 'jii'
+                },
+                methods: {
+                    //get list of tags
+                    citiesList: function(){
+                        var params={
+                            state_id : this.selectedStateId
+                        };
+                        //i use "vm" because "axios" cant understand "this"- 
+                        var vm=this;
+                        axios.post("/city-accept/",params).then(function(response){
+                            vm.cities = [];
+                            vm.cities = response.data;
+                        }).catch(function(error){
+                            console.log(error);
+                        })
+                    }
+                }
+            })
+        </script>
+    @endif
+   
+@endsection

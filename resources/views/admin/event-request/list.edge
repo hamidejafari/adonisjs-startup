@@ -1,0 +1,236 @@
+@layout('layout/admin/main')
+
+@section('content')
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <form method="GET" action="{{route('event-request.list')}}" style="float:right;padding: 15px;">
+                    <input style="border-radius:10px" type="text" name="page" placeholder="برو به صفحه " />
+                    <p style="margin-top:10px"> صفحه <span style="color:green">{{eventRequests.page}}</span> از <span style="color:blue">{{eventRequests.lastPage}}</span> صفحه</p>
+                </form>
+                <form action="{{route('event-request.list')}}" method="POST">
+                    {{ csrfField() }}
+                    <div class="card-header">
+                        <h4 class="card-title" style="float: right;">لیست درخواست های مشاوره</h4>
+                            
+                        <div class="tools float-left">
+                            <div class="dropdown" style="float:left">
+                                
+                                <button type="button" class="btn btn-default dropdown-toggle btn-link btn-icon" data-toggle="dropdown" aria-expanded="false">
+                                    <i class="tim-icons icon-settings-gear-63"></i>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-left" x-placement="bottom-end" style="position: absolute; transform: translate3d(-132px, 22px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                    
+                                    <a class="dropdown-item" style="color:#3cc1c2" data-toggle="modal" data-target="#SearchModal"> جستجو</a>
+                                    <button class="dropdown-item" style="color:#c61e1e;font-family: iraniansens;" type="submit"> حذف انتخاب شده ها</button>
+
+                                </div>
+                               
+                                
+                            </div>
+                            <br>
+                            
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead class="text-primary">
+                                <tr>
+                                    <th class="text-center">
+                                        #
+                                    </th>
+                                    <th>
+                                        شماره
+                                    </th>
+                                    <th>
+                                        شماره اونت
+                                    </th>
+                                    
+                                    <th>
+                                        کاربر
+                                    </th>
+                                    <th>
+                                        تایید شده توسط
+                                    </th>
+                                    <th>
+                                        تخصص
+                                    </th>
+                                    
+
+
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                @each(item in eventRequests.data)
+                                   
+                                        <td class="text-center">
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" value="{{item.id}}" name="deletedId[]" type="checkbox" >
+                                                    <span class="form-check-sign"></span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p style="float: right;color:#62687a">{{ item.id }}</p>
+                                        </td>
+                                        <td>
+                                            <p style="float: right;color:#62687a">
+                                            
+                                            @if(item.event_id != null)
+                                                <p style="float: right;color:#62687a">
+                                                
+                                                {{ item.event_id  }}
+                                                </p>
+                                            @else
+                                                <p style="float: right;color:#62687a">
+                                                بدون اونت
+                                                </p>
+                                            @endif
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p style="float: right;color:#62687a">
+                                            
+                                                {{ item.user.name + '  ' + item.user.family  + ' - ' + item.user.id  }}
+                                            </p>
+                                        
+                                        </td>
+                                        <td>
+                                            @if(item.approved_user_id)
+                                                <p style="float: right;color:#62687a">
+                                                
+                                                    {{ item.approved.name + '  ' + item.approved.family  + ' - ' + item.approved_user_id    + ' - ' + item.approve_date}}
+                                                </p>
+                                            @else
+                                                <p style="float: right;color:#62687a">
+                                                تایید نشده
+                                                </p>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <p style="float: right;color:#62687a">
+                                            
+                                                {{  item.expertise.title  }}
+                                            </p>
+                                        
+                                        </td>
+                                        
+                                    
+                                    </tr>
+                                @endeach
+                                
+
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div   class="modal fade " id="SearchModal"   role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header justify-content-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        <i class="tim-icons icon-simple-remove"></i>
+                    </button>
+                    <h6 class="title title-up">جستجو در ریکوعست ها</h6>
+                    </div>
+                        <form method="GET" action="{{route('event-request.list')}}">
+                        <div class="modal-body">
+                        
+                                <div class="row">
+                                    <div class="col-md-6">
+                                    
+                                        <div class="form-group">
+                                        
+                                        <input type="text" name="user_id" placeholder="ایدی کاربر" class="form-control">
+                                        </div>
+                                    </div>
+                                        <div class="col-md-6">
+                                        <div class="form-group">
+                                        
+                                        <input type="text"  name="approved_user_id"  placeholder="ایدی تایید کننده"  class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                    
+                                        <div class="form-group">
+                                        
+                                        <input type="text"   name="event_id"  placeholder=" ایدی اونت" class="form-control">
+                                        </div>
+                                    </div>
+                                        
+                                </div>
+                                    <div class="row"> 
+                                        
+                                    <div class="col-sm-2 ">
+                                        <label class="col-form-label" style="float: right;"> تخصص</label>
+
+                                    </div>
+                                    <div class="col-sm-10">
+                                    
+                                        <div>
+                                            <select  name="expertise_id"  class="selectpicker" data-style="btn btn-info" style="font-family: iraniansens" data-size="7" tabindex="-98">    
+                                                <option value="0" >بدون تخصص</option>
+
+                                                @each(row in expertise)
+                                                    <option value="{{row.id}}" >{{ row.title }}</option>
+                                                @endeach
+                                            </select>
+                                        </div>
+                                        
+                                    
+                                    </div>
+                                </div>
+                                
+                                <div class="row"> 
+                                        
+                                    <div class="col-md-12">
+                                        
+                                        <div class="form-check form-check-radio" style="float: right;">
+                                            <label class="form-check-label">
+                                            <input class="form-check-input" type="radio" name="status" id="exampleRadios1" value="notReserved" checked="">
+                                            <span class="form-check-sign"></span>
+                                            تایید نشده 
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-radio" style="float: right;margin-right: 24px;">
+                                            <label class="form-check-label">
+                                            <input class="form-check-input" type="radio" name="status" id="exampleRadios1" value="reserved" checked="">
+                                            <span class="form-check-sign"></span>
+                                            تایید شده 
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-radio" style="float: right;margin-right: 24px;">
+                                            <label class="form-check-label">
+                                            <input class="form-check-input" type="radio" name="status" id="exampleRadios1" value="both" checked="">
+                                            <span class="form-check-sign"></span>
+                                            هر دو
+                                            </label>
+                                        </div>
+                                        
+                                
+                                
+                                    </div>
+                                </div>
+                                
+                        
+                            
+                        </div>
+                        <div class="modal-footer">
+                        <button type="submit" class="btn btn-default" style="font-family: iraniansens" > جستجو </button>
+                        </div>
+                        </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

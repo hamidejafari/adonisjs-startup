@@ -1,0 +1,169 @@
+@layout('layout/admin/main')
+
+@section('content')
+     <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title" style="float: right;">اضافه کردن ادمین</h4>
+                        </div>
+                        <div class="card-body">
+                            <form action="{{ route('member.post-create') }}" method="post" class="form-horizontal">
+                                {{ csrfField() }}
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row"> 
+                                        <div class="col-sm-3 ">
+                                                <label class="col-form-label" style="float: right;">نام  </label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" name="name" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row"> 
+                                        <div class="col-sm-3 ">
+                                                <label class="col-form-label" style="float: right;">   نام خانوادگی </label>
+
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control"  name="family"  >
+                                                </div>
+                                            </div>
+                                        </div>
+                                    
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row"> 
+                                        <div class="col-sm-3 ">
+                                                <label class="col-form-label" style="float: right;">ایمیل</label>
+
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control"  name="email"  >
+                                                    @if(hasErrorFor('email'))
+
+                                                         <span class="form-text" style="text-align:right;direction:rtl;color:red">{{ getErrorFor('email') }}</span>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row"> 
+                                        <div class="col-sm-3 ">
+                                                <label class="col-form-label" style="float: right;">شماره موبایل</label>
+
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control"  name="mobile">
+                                                    @if(hasErrorFor('mobile'))
+
+                                                         <span class="form-text" style="text-align:right;direction:rtl;color:red">{{ getErrorFor('mobile') }}</span>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    
+                                    </div>
+                                </div>
+                                
+
+                      
+                                <div class="row">
+                                    <div class="col-md-6">
+                                       <div class="row">
+                                            <div class="col-sm-3 ">
+                                                <label class="col-form-label" style="float: right;"> وضعیت</label>
+
+                                            </div>
+                                            <div class="col-sm-9">
+                                            
+                                                <div>
+                                                    <select  name="status"  class="selectpicker" data-style="btn btn-info" style="font-family: iraniansens" data-size="7" tabindex="-98">
+                                                        <option value="1"  selected="">فعال</option>
+                                                        <option value="0" >غیر فعال</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                       <div class="row">
+                                            <div class="col-sm-3 ">
+                                                <label class="col-form-label" style="float: right;">  دسترسی به تیکت های :</label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <div>
+                                                    <select title="انتخاب کنید" name="department[]"  class="selectpicker" data-style="btn btn-info" style="font-family: iraniansens" data-size="7" tabindex="-98" multiple="">
+                                                        @each(item in department)
+                                                            <option value="{{item.id}}">{{item.title}}</option> 
+                                                        @endeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                       </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                  
+                                    
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-sm-3 ">
+                                                    <label class="col-form-label" style="float: right;">رمز عبور </label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <div class="form-group">
+                                                    <input type="text"  class="form-control" value=""   name="password" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                     
+                                    
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-sm-3 ">
+                                                    <label class="col-form-label" style="float: right;">تکرار رمز عبور</label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <div class="form-group">
+                                                    <input type="text"  class="form-control" value=""   name="re-password" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                        
+                                </div>
+
+                                <br>
+                                <br>
+                                
+
+                                <div class="row">
+                                    <div class="col-sm-10">
+                                        <button style="float: right;margin-top: 32px;font-family: iraniansens" class="btn btn-success animation-on-hover" type="submit" rel="tooltip"  data-placement="bottom" >ذخیره</button>
+
+                                    </div>
+                                    
+
+                                </div>
+                            </form>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+@endsection

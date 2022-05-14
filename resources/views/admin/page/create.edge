@@ -1,0 +1,171 @@
+@layout('layout/admin/main')
+
+@section('content')
+     <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title" style="float: right;">اضافه کردن</h4>
+                </div>
+                <div class="card-body">
+                    <form action="{{route('page.store')}}" method="post" class="form-horizontal"  enctype="multipart/form-data">
+                        {{ csrfField() }}
+                        <input name="content_type_id" value="1" type="hidden"/>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row"> 
+                                    <div class="col-sm-3 ">
+                                        <label class="col-form-label" style="float: right;">عنوان</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="title"    >
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row"> 
+                                        
+                                    <div class="col-sm-2 ">
+                                        <label class="col-form-label" style="float: right;"> وضعیت</label>
+
+                                    </div>
+                                    <div class="col-sm-10">
+                                    
+                                        <div>
+                                            <select  name="status"  class="selectpicker" data-style="btn btn-info" style="font-family: iraniansens" data-size="7" tabindex="-98">    
+
+                                                <option value="1"  selected="">فعال</option>
+                                                <option value="0" >غیر فعال</option>
+                                            </select>
+                                        </div>
+                                        
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                                <div class="col-sm-2 ">
+                                <label class="col-form-label" style="float: right;"> دسته</label>
+
+                            </div>
+                            <div class="col-sm-10">
+                            
+                                <div>
+                                    <select  name="category_id"  class="selectpicker" data-style="btn btn-info" style="font-family: iraniansens" data-size="7" tabindex="-98">    
+                                        <option value="" selected="" >بدون دسته</option>
+
+                                        @each(item in pageCategory)
+                                            <option value="{{item.id}}" >{{item.title}}</option>
+                                        @endeach
+                                        
+                                    </select>
+                                </div>
+                                
+                            
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-2 ">
+                                <label class="col-form-label" style="float: right;">تصویر</label>
+
+                            </div>
+                            <div class="col-md-10 col-sm-4" style=";">
+                                
+                                <div class="fileinput fileinput-new text-center" data-provides="fileinput" style="margin-left: 12%;">
+                                    <div class="fileinput-new thumbnail">
+                                        <img style="border:2px solid #1dc7f6;width: 210px;" src="http://frankfordcdc.org/wp-content/themes/hoxa/images/default.png" alt="...">
+                                    </div>
+                                    <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                                    <div>
+                                        <span class="btn btn-rose btn-round btn-file">
+                                            <span class="fileinput-new">انتخاب تصویر</span>
+                                            <span class="fileinput-exists">عوض کردن</span>
+                                            <input type="file" name="image">
+                                        </span>
+                                        <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> حذف</a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                                
+                        </div>
+                        <br>
+                        <div class="row">
+
+                            <div class="col-sm-2 ">
+                                <label class="col-form-label" style="float: right;">تاریخ انتشار : </label>
+                            </div>
+                            <div class="col-sm-10">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="time112366"     >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" >
+                            <div class="col-sm-2 ">
+                                <label class="col-form-label" style="float: right;">توضیحات</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <div class="form-group">
+                                    <textarea class="form-control ckeditor" style="font-family:iraniansens" id="content" name="content" 
+                                    placeholder="توضیحات را وارد کنید . . .">  </textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-sm-2 ">
+                                <label class="col-form-label" style="float: right;">عنوان سئو</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="title_seo" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-sm-2 ">
+                                <label class="col-form-label" style="float: right;">کلمات کلیدی</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="keyword"    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" >
+                            <div class="col-sm-2 ">
+                                <label class="col-form-label" style="float: right;">توضیحات سئو</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <div class="form-group">
+                                    <textarea class="form-control " style="font-family:iraniansens" id="description" name="description" 
+                                    placeholder="توضیحات را وارد کنید . . .">   </textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-10">
+                                <button style="float: right;margin-top: 32px;margin-right:50px;font-family: iraniansens" class="btn btn-success animation-on-hover" type="submit" rel="tooltip"  data-placement="bottom" >ذخیره</button>
+
+                            </div>
+                            
+
+                        </div>
+                    </form>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+@endsection

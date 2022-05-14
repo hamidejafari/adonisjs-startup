@@ -1,0 +1,104 @@
+@layout('layout/site/main')
+@section('content')
+
+    <div class="header-image">
+        <img src="{{assetsUrl('asset/site/images/sample.png')}}" alt="">
+    </div>
+    <div class="overflow none-mobile">
+        <a href="/">
+            <img src="{{assetsUrl('asset/site/images/logo/ani-moshaver-logo.png')}}" alt="">
+        </a>
+    </div>
+    <div class="overflow-w responsive">
+        <a href="/">
+            <img src="{{assetsUrl('asset/site/images/logo/logo-1.png')}}" alt="">
+        </a>
+    </div>
+    <div class="dashboard pt-4 pb-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    @include('layout/site/blocks/side-panel')
+                </div>
+                <div class="col-md-9">
+                    <div class="backpanel pb-4">
+                        <br>
+                        <div class="container">
+                            <div class="ddd">
+                                <hr class="hs-h">
+                                <div class="bradkam">
+                                    <h1 class="backpanel"><img src="{{assetsUrl('asset/site/images/logo/logo.png')}}" alt=""> لیست مشاوره ها</h1>            
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <table class="table table-bordered mt-5 table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th class="th-9">ردیف</th>
+                                        <th class="th-10">شماره فاکتور</th>
+                                        <th class="th-11">مبلغ</th>
+                                        <th class="th-12">تخفیف</th>
+                                        <th class="th-13">مبلغ پرداختی</th>
+                                        <th class="th-14">موضوع فاکتور</th>
+                                        <th class="th-15">توضیحات</th>
+                                        <th class="th-16">تاریخ</th>
+                                        <th class="th-17">عملیات</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>8166</td>
+                                        <td>-100,000</td>
+                                        <td>0</td>
+                                        <td>-100,000</td>
+                                        <td><span class="hb">رزرو نوبت</span></td>
+                                        <td>کسر از کیف پول برای رزرو نوبت - آنلاین برای</td>
+                                        <td>۱۴:۰۴ شنبه ۱۳۹۷/۱۲/۲۵</td>
+                                        <td class="font">
+                                            <center>
+                                                <a href="" class="btn btn-goldani"><img src="{{assetsUrl('/asset/site/images/icon/edit(1).png')}}" alt="">مشاهده فاکتور</a>
+                                            </center>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>8166</td>
+                                        <td>-100,000</td>
+                                        <td>0</td>
+                                        <td>-100,000</td>
+                                        <td><span class="hb">رزرو نوبت</span></td>
+                                        <td>کسر از کیف پول برای رزرو نوبت - آنلاین برای</td>
+                                        <td>۱۴:۰۴ شنبه ۱۳۹۷/۱۲/۲۵</td>
+                                        <td class="font">
+                                            <center>
+                                                <a href="" class="btn btn-goldani"><img src="{{assetsUrl('/asset/site/images/icon/edit(1).png')}}" alt="">مشاهده فاکتور</a>
+                                            </center>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>8166</td>
+                                        <td>-100,000</td>
+                                        <td>0</td>
+                                        <td>-100,000</td>
+                                        <td><span class="hb">رزرو نوبت</span></td>
+                                        <td>کسر از کیف پول برای رزرو نوبت - آنلاین برای</td>
+                                        <td>۱۴:۰۴ شنبه ۱۳۹۷/۱۲/۲۵</td>
+                                        <td class="font">
+                                            <center>
+                                                <a href="" class="btn btn-goldani"><img src="{{assetsUrl('/asset/site/images/icon/edit(1).png')}}" alt="">مشاهده فاکتور</a>
+                                            </center>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@endsection

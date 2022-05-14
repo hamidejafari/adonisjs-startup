@@ -1,0 +1,56 @@
+@layout('layout/site/main')
+@section('content')
+
+    <div class="header-image">
+        <img src="{{assetsUrl('asset/site/images/sample.png')}}" alt="">
+    </div>
+    <div class="overflow none-mobile">
+        <a href="/">
+            <img src="{{assetsUrl('asset/site/images/logo/ani-moshaver-logo.png')}}" alt="">
+        </a>
+    </div>
+    <div class="overflow-w responsive">
+        <a href="/">
+            <img src="{{assetsUrl('asset/site/images/logo/logo-1.png')}}" alt="">
+        </a>
+    </div>
+    <div class="dashboard pt-4 pb-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    @include('layout/site/blocks/side-panel')
+                </div>
+                <div class="col-md-9">
+                    <div class="backpanel pb-4">
+                        <br>
+                        <div class="container">
+                            <div class="ddd">
+                                <hr class="hs-h">
+                                <div class="bradkam">
+                                    <h1 class="backpanel"><img src="{{assetsUrl('asset/site/images/logo/logo.png')}}" alt=""> لیست مشاوره ها</h1>            
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <div class="row popular">
+                                <div class="col-md-3">
+                                    @include('layout/site/blocks/box-reservation')
+                                </div>
+                                <div class="col-md-3">
+                                    @include('layout/site/blocks/box-reservation')
+                                </div>
+                                <div class="col-md-3">
+                                    @include('layout/site/blocks/box-reservation')
+                                </div>
+                                <div class="col-md-3">
+                                    @include('layout/site/blocks/box-reservation')
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@endsection

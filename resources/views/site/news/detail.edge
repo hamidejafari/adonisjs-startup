@@ -1,0 +1,50 @@
+@layout('layout/site/main')
+@section('content')
+
+    <div class="header-image none-mobile">
+        <a href="/"><img src="{{assetsUrl('asset/site/images/sample.png')}}" alt=""></a>
+    </div>
+    <div class="header-image mobile-e">
+        <a href="/"><img src="{{assetsUrl('asset/site/images/sample1.png')}}" alt=""></a>
+    </div>
+    
+    <div class="container">
+        <h1 class="text-center gold-dd mt-4">{{ news.title }}</h1>
+    </div>
+    <div class="details-blog">
+        <div class="container">
+            {{{ news.content }}}
+        </div>
+        <div class="row">
+            <div class="back">
+                <ul class="social">
+                    <li>
+                        <a href="https://twitter.com/home?status=https://animoshaver.ir{{route('site.news-detail',{id:news.id})}}" class="fa-twitter hover">
+                            <img src="{{assetsUrl('asset/site/images/icon/twitter-logo-silhouette(1).png')}}" alt="">
+                            اشتراک در توییتر
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://telegram.me/share/url?url=https://animoshaver.ir{{route('site.news-detail',{id:news.id})}}" class="fa-telegram hover">
+                            <img src="{{assetsUrl('asset/site/images/icon/telegram(2).png')}}" alt="">
+                            اشتراک در  تلگرام
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://animoshaver.ir{{route('site.news-detail',{id:news.id})}}" class="fa-facebook-f hover">
+                            <img src="{{assetsUrl('asset/site/images/icon/facebook-logo(1).png')}}" alt="">
+                            اشتراک در فیس بوک
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url=https://animoshaver.ir{{route('site.news-detail',{id:news.id})}}" class="fa-google-plus hover">
+                            <img src="{{assetsUrl('asset/site/images/icon/google-plus(1).png')}}" alt="">
+                            اشتراک در گوگل پلاس
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+@endsection

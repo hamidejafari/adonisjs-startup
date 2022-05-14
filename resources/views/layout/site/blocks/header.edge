@@ -1,0 +1,117 @@
+<div class="menu-area fixed-top">
+    <div class="container none-mobile">
+        <div class="row">
+            <nav class="navbar navbar-light navbar-expand-lg mainmenu">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="fa fa-bars" aria-hidden="true"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent" style="width: 54%;">
+                    <ul class="navbar-nav">
+                        <li class="active">
+                            <a href="/">خانه <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" href="{{route('')}}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="flaticon flaticon-down-arrow"></span>
+                                آنی مشاور
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a href="{{ route('site.rules') }}">قوانین آنی مشاور</a></li>
+                                <li><a href="{{ route('site.news') }}">اخبار آنی مشاور</a></li>
+                                <li><a href="{{ route('site.about-us') }}">درباره آنی مشاور</a></li>
+                                <li><a href="{{ route('site.contact-us') }}">تماس با آنی مشاور</a></li>
+                                <li><a href="{{ route('/persondetails') }}">آنی مشاور در رسانه</a></li>
+                                <!--  <li class="dropdown">
+                                    <a class="dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        تماس با آنی مشاور
+                                        <i class="fa fa-angle-down only-mobile" aria-hidden="true"></i>
+                                        <i class="fa fa-angle-right only-desktop" aria-hidden="true"></i>
+                                    </a>
+                                </li>  -->
+                            </ul>
+                        </li>
+                        <li><a href="{{ route('site.article-category') }}">وبلاگ</a></li>
+                        <li><a href="{{ route('site.question') }}">پرسش و پاسخ</a></li>
+                    </ul>
+                </div>
+                <div class="login">
+                    <ul>
+                        <li class="loginText">
+                            <a class="btn blue" href="http://panel.animoshaver.ir/signin" style="color:#7f5c19;font-size: 1vw;font-weight: bold;">
+                                <img src="{{assetsUrl('asset/site/images/icon/login(4).png')}}" alt="" style="width:18%;"> ورود
+                            </a>
+                        </li>
+                        <li class="loginText reg">
+                            <a class="btn blue" href="http://panel.animoshaver.ir/signup" style="color:green;font-size: 1vw;font-weight: bold;">
+                                <img src="{{assetsUrl('asset/site/images/icon/man-user.png')}}" alt="" style="width:20%"> ثبت نام 
+                            </a>
+                        </li>
+                        <li class="logoutText">
+                            <a class="btn blue" href="http://panel.animoshaver.ir/signout" style="color:red;font-size: 1vw;font-weight: bold;">
+                                <img src="{{assetsUrl('asset/site/images/icon/logout-1.png')}}" alt="" style="width:18%;"> خروج از حساب
+                            </a>
+                        </li>
+                        <li class="logoutText">
+                            <a class="btn blue" href="http://panel.animoshaver.ir" style="color:green;font-size: 1vw;font-weight: bold;">
+                                <img src="{{assetsUrl('asset/site/images/user.png')}}" alt="" style="width:20%"> <span class="userName"></span>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                </div>
+                <div class="download-app">
+                    <ul class="row">
+                        <li>
+                            <a href="https://animoshaver.ir/application/animoshaver_9805211540.apk" data-title="دانلود نسخه ' ANDROID ' اپلیکیشن از گوگل پلی" target="_blank">
+                                <img src="{{assetsUrl('asset/site/images/google-play.png')}}" alt="">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+<div class="mobile">
+    <span class="open-nav" onclick="openNav()">&#9776;</span>
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a class="logoutText" href="http://panel.animoshaver.ir" class="logoutText">
+            <span class="userName">
+            </span>
+        </a>
+        <a href="/">خانه</a>
+        <button class="dropdown-btn">آنی مشاور 
+            <span class="flaticon flaticon-down-arrow"></span>
+        </button>
+        <div class="dropdown-container">
+            <a href="{{ route('site.rules') }}">قوانین آنی مشاور</a>
+            <a href="{{ route('site.news') }}">اخبار آنی مشاور</a>
+            <a href="{{ route('site.about-us') }}">درباره آنی مشاور</a>
+            <a href="{{ route('site.contact-us') }}">تماس با آنی مشاور</a>
+            <a href="{{ route('/persondetails') }}">آنی مشاور در رسانه</a>
+        </div>
+        <a href="{{ route('site.article-category') }}">وبلاگ</a>
+        <a href="{{ route('site.question') }}">پرسش و پاسخ</a>
+        <a class="loginText" href="http://panel.animoshaver.ir/signup">ثبت نام</a>
+        <a class="loginText" href="http://panel.animoshaver.ir/signin">ورود</a>
+        <a class="logoutText" href="http://panel.animoshaver.ir/signout">خروج از حساب</a>
+    </div>
+</div>
+<script>
+    /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+    var dropdown = document.getElementsByClassName("dropdown-btn");
+    var i;
+    
+    for (i = 0; i < dropdown.length; i++) {
+        dropdown[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var dropdownContent = this.nextElementSibling;
+        if (dropdownContent.style.display === "block") {
+        dropdownContent.style.display = "none";
+        } else {
+        dropdownContent.style.display = "block";
+        }
+        });
+    }
+</script>

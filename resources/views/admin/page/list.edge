@@ -1,0 +1,180 @@
+@layout('layout/admin/main')
+
+@section('content')
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <form action="{{route('page.destroy')}}" method="POST">
+                        {{ csrfField() }}
+                    <div class="card-header">
+                        <h4 class="card-title" style="float: right;">لیست  صفحات ایستا</h4>
+
+                        <div class="tools float-left">
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-default dropdown-toggle btn-link btn-icon" data-toggle="dropdown" aria-expanded="false">
+                                    <i class="tim-icons icon-settings-gear-63"></i>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-left" x-placement="bottom-end" style="position: absolute; transform: translate3d(-132px, 22px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                    <a href="{{route('page.create')}}" class="dropdown-item" style="color:#6ac243" > اضافه کردن صفحه جدید</a>
+                                    <a class="dropdown-item" style="color:#3cc1c2" data-toggle="modal" data-target="#SearchModal"> جستجو</a>
+                                    <button class="dropdown-item" style="color:#c61e1e;font-family: iraniansens;" type="submit"> حذف انتخاب شده ها</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead class="text-primary">
+                                <tr>
+                                    <th class="text-center">
+                                        #
+                                    </th>
+                                    <th>
+                                        عنوان
+                                    </th>
+                                    <th>
+                                        دسته
+                                    </th>
+                                    <th>
+                                        تصویر
+                                    </th>
+                                    <th>
+                                        تاریخ
+                                    </th>
+                                        <th>
+                                        وضعیت
+                                    </th>
+                                
+                                    <th>
+                                        عملیات
+                                    </th>
+
+
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                @each(item in pages.data)
+                                <tr>
+                                    <td class="text-center">
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" value="{{item.id}}" name="deletedId[]" type="checkbox" >
+                                                <span class="form-check-sign"></span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <p style="float: right;color:#62687a">{{ item.title }}</p>
+                                    </td>
+                                    <td>
+                                        @if(item.category_id)
+                                            @if(item.category.title)
+                                                <p style="float: right;color:#62687a">{{ item.category.title }}</p>
+                                            @else
+                                            @endif
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <img style="width:100px;float: right;border:2px solid #1dc7f6" src="{{ assetsUrl('asset/admin/uploads/page/medium/'+item.image) }}">
+                                    </td>
+                                    <td>
+                                        
+                                        <p style="float: right;direction: ltr;color:#62687a"> {{ item.created_at }}</p>
+                                    </td>
+                                    <td>
+                                        @if(item.status === 0)
+                                            <p  style="float: right;color: white;background: red;padding: 7px;border-radius: 12px;">
+                                            غیر فعال
+                                                
+                                            </p>
+                                        @else
+                                            <p style="float: right;color: white;background: green;padding: 7px;border-radius: 12px;">
+                                                فعال
+                                            </p>
+                                        @endif
+                                    </td>
+                                    <td class="text-right">
+                                        <a 
+                                            href="{{route('page.update',{ id:item.id })}}"
+                                            class="btn btn-default btn-warning" 
+                                            style="font-family: iraniansens;color:white;padding: 12px;font-size: 12px;">
+                                            <i class="tim-icons icon-pencil"></i>
+                                            ویرایش
+                                        </a>                                       
+                                    </td>
+
+                                </tr>
+                                @endeach
+                                </tbody>
+                            </table>
+                            @!component('pagination', pagination = pages, request = request, presenter = 'PaginationPresenter')
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div  class="modal fade " id="SearchModal"   role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" style="margin-top:-50px">
+                <div class="modal-content">
+                    <div class="modal-header justify-content-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        <i class="tim-icons icon-simple-remove"></i>
+                    </button>
+                    <h6 class="title title-up">جستجو در صفحات ایستا</h6>
+                    </div>
+                        <form method="GET" action="{{route('page.list')}}"  enctype="multipart/form-data">
+                    
+                        <div class="modal-body">
+                            <div class="row">
+                                <label class="col-md-3 col-form-label">عنوان</label>
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <input type="text" name="title" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-md-3 col-form-label">دسته</label>
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <div>
+                                            <select  name="category_id"  class="selectpicker" data-style="btn btn-info" style="font-family: iraniansens" data-size="7" tabindex="-98">    
+                                                <option value="all"  selected="">بدون والد</option>
+                                                @each(item in articleCategory)
+                                                    <option value="{{item.id}}" >{{ item.title }}</option>
+                                                @endeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-md-3 col-form-label">وضعیت</label>
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <div>
+                                            <select  name="status"  class="selectpicker" data-style="btn btn-info" style="font-family: iraniansens" data-size="7" tabindex="-98">    
+                                                <option value=""  selected="">همه</option>
+                                                <option value="1" >فعال</option>
+                                                <option value="0" >غیر فعال</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-default" style="font-family: iraniansens" > جستجو </button>
+                            <button type="button" class="btn btn-danger"  style="font-family: iraniansens" data-dismiss="modal" >بستن</button>
+                        </div>
+                        </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

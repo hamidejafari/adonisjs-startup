@@ -1,0 +1,577 @@
+@layout('layout/admin/main')
+
+@section('content')
+      <div class="row" id="app">
+                <div class="col-md-12">
+                    <div class="card">
+                        <form action="{{route('department.destroy')}}" method="POST">
+                                {{ csrfField() }}
+                            <div class="card-header">
+                                <h4 class="card-title" style="float: right;"> مشاوران </h4> 
+                                <h4 class="card-title" style="float: right;padding-right: 10px;">  | تعداد مشاوران : {{users.total}}</h4>
+
+                                <div class="tools float-left">
+                                    <div class="dropdown">
+                                        <button type="button" class="btn btn-default dropdown-toggle btn-link btn-icon" data-toggle="dropdown" aria-expanded="false">
+                                            <i class="tim-icons icon-settings-gear-63"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-left" x-placement="bottom-end" style="position: absolute; transform: translate3d(-132px, 22px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                        
+                                            <a class="dropdown-item" style="color:#3cc1c2" data-toggle="modal" data-target="#SearchModal"> جستجو</a>
+                                            <button class="dropdown-item" style="color:#c61e1e;font-family: iraniansens;" type="submit"> حذف انتخاب شده ها</button>
+
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead class="text-primary">
+                                        <tr>
+                                            <th class="text-center">
+                                                #
+                                            </th>
+                                            <th>
+                                                کد
+                                            </th>
+                                            <th>
+                                                نام و نام خانوداگی
+                                            </th>
+                                        
+                                            <th>
+                                                تاریخ
+                                            </th>
+                                           
+                                            <th>
+                                                کیف پول
+                                            </th>
+                                            <th>
+                                                در آمد مشاور 
+                                            </th>
+                                            <th>
+                                                شماره تماس 
+                                            </th>
+                                            
+                                            
+                                    
+                                            <th>
+                                                عملیات
+                                            </th>
+
+
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <script src="https://unpkg.com/jalali-moment/dist/jalali-moment.browser.js"></script>
+
+                                        @each(user in users.data)
+                                        @if(user.allow_work == 1 || user.allow_work == true)
+                                            <tr style="background-color: rgba(0, 168, 30, 0.14);">
+                                        @else
+                                            <tr style="background-color: rgba(168, 0, 0, 0.14);">
+                                        @endif
+                                            <td class="text-center">
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input class="form-check-input" value="" name="deletedId[]" type="checkbox" >
+                                                        <span class="form-check-sign"></span>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <p style="float: right;color:#62687a">{{ user.id }}</p>
+                                            </td>
+                                            <td>
+                                                <p style="float: right;color:#62687a">{{ user.name  }} {{ user.family }}</p>
+                                            </td>
+                                            
+                                            <td>
+                                                
+                                                <p style="float: right;color:#62687a"> {{ user.created_at }}</p>
+                                            </td>
+                                            
+                                            <td>
+                                                <p style="float: right;color:#62687a">{{ user.wallet }} ریال </p>
+                                            </td>
+                                            <td>
+                                                <p style="float: right;color:#62687a">{{ user.phone }}  </p>
+                                            </td>
+                                            <td>
+                                                <p style="float: right;color:#62687a">{{ user.income }} ریال </p>
+                                            </td>
+                                            
+                                            <td class="text-right" style="width: 164px;">
+                                                <div class="dropdown dropdownn{">
+                                                    <button rel="tooltip" data-original-title="سایر عملیات" type="button" class="dropdown-toggle dropdown-toggle2 btn btn-warning btn-block" data-toggle="dropdown" aria-expanded="false"  
+                                                    style="font-family: iraniansens;color: white;padding: 6px;padding-right: 6px;font-size: 12px;width: 20px;padding-right: 7px;float: left;height: 25px;margin-left: 6px;">
+                                                        
+                                                      
+
+                                                    </button>
+                                                    <div class="dropdown-menu dropdown-menu-left" x-placement="bottom-end" style="position: absolute; transform: translate3d(-132px, 22px, 0px); top: 0px; left: 0px; will-change: transform;margin-top: 20px;">
+                                                    
+                                                        <a class="dropdown-item" href="{{ route('adviser.update', { id : user.id }) }}" style="color:#f97c7a;font-size: 13px;"><i class="tim-icons icon-pencil" style="margin-left: 10px;"></i>ویرایش</a>
+                                                        <a class="dropdown-item" href="{{ route('adviser.expertises', { id : user.id }) }}" style="color:green;font-size: 13px;"><i class="tim-icons icon-pencil" style="margin-left: 10px;"></i>تخصص های مشاور</a>
+                                                        <a class="dropdown-item" href="{{ route('rates.list', { id : user.id }) }}" style="color:#edc50a;font-size: 13px;"><i class="tim-icons icon-shape-star" style="margin-left: 10px;"></i>ارزیابی مشاور توسط کاربران</a>
+                                                        <hr>
+                                                        <a class="dropdown-item" data-toggle="modal" data-target="#UserTextModal{{ user.id }}"  style="color:#00bfd4;font-size: 13px;"><i class="tim-icons icon-email-85" style="margin-left: 10px;"></i>ارسال پیام</a>
+                                                        <form method="GET" action="{{route('ticket.list')}}"> 
+                                                            <input type="hidden" value="{{user.id}}" name="user_id" />
+                                                            <button type="submit" class="dropdown-item" href="" style="color:#00bfd4;font-size: 13px;font-family:iraniansens !important"><i class="tim-icons icon-paper" style="margin-left: 10px;"></i>تیکت و پیام</button>
+                                                        </form>
+
+                                                        <form method="GET" action="{{route('event.list')}}"> 
+                                                            <input type="hidden" value="{{user.id}}" name="user_id" />
+                                                            <button class="dropdown-item" href="" style="color:#00bfd4;font-size: 13px;font-family:iraniansens !important"><i class="tim-icons icon-tablet-2" style="margin-left: 10px;"></i>نوبت ها</button>
+                                                        </form>
+                                                        <form method="GET" action="{{route('order.list')}}"> 
+                                                            <input type="hidden" value="{{user.id}}" name="user_id" />
+                                                            <button class="dropdown-item" href="" style="color:#00bfd4;font-size: 13px;font-family:iraniansens !important"><i class="tim-icons icon-money-coins" style="margin-left: 10px;"></i>فاکتور ها</button>
+                                                        </form>
+
+                                                    </div>
+                                                </div>
+                                                @if(user.vip == 1)
+                                                    <a 
+                                                        href="{{route('adviser.vip',{id : user.id})}}"
+                                                        class="btn btn-default btn-success" 
+                                                        rel="tooltip" data-original-title="ویژه"
+                                                        style="font-family: iraniansens;color:white;padding: 7px;font-size: 8px;">
+                                                        <i class="tim-icons icon-spaceship"></i>
+                                                        
+                                                    </a>
+                                                @else
+                                                    <a 
+                                                        href="{{route('adviser.vip',{id : user.id})}}"
+                                                        class="btn btn-default btn-danger" 
+                                                        rel="tooltip" data-original-title="ویژه"
+                                                        style="font-family: iraniansens;color:white;padding: 7px;font-size: 8px;">
+                                                        <i class="tim-icons icon-spaceship"></i>
+                                                        
+                                                    </a>
+                                                @endif
+                                               
+                                                @if(user.confirm_image == 1)
+                                                    <a 
+                                                        href="{{route('adviser.confirm-image',{id : user.id})}}"
+                                                        class="btn btn-default btn-success" 
+                                                        rel="tooltip" data-original-title="عکس"
+                                                        style="font-family: iraniansens;color:white;padding: 7px;font-size: 8px;">
+                                                        <i class="tim-icons icon-image-02"></i>
+                                                        
+                                                    </a>
+                                                @else
+                                                    <a 
+                                                        href="{{route('adviser.confirm-image',{id : user.id})}}"
+                                                        class="btn btn-default btn-danger" 
+                                                        rel="tooltip" data-original-title="عکس"
+                                                        style="font-family: iraniansens;color:white;padding: 7px;font-size: 8px;">
+                                                        <i class="tim-icons icon-image-02"></i>
+                                                        
+                                                    </a>
+                                                @endif
+                                                @if(user.map_show == 1)
+                                                    <a 
+                                                        href="{{route('adviser.map',{id : user.id})}}"
+                                                        class="btn btn-default btn-success" 
+                                                        rel="tooltip" data-original-title="نقشه"
+                                                        style="font-family: iraniansens;color:white;padding: 5px;font-size: 10px;">
+                                                        <i class="tim-icons icon-map-big"></i>
+                                                    </a>
+                                                @else
+                                                    <a 
+                                                        href="{{route('adviser.map',{id : user.id})}}"
+                                                        class="btn btn-default btn-danger" 
+                                                        rel="tooltip" data-original-title="نقشه"
+                                                        style="font-family: iraniansens;color:white;padding: 5px;font-size: 10px;">
+                                                        <i class="tim-icons icon-map-big"></i>
+                                                        
+                                                </a>
+                                                @endif
+                                                @if(user.allow_work == 1 || user.allow_work == true)
+                                                    <a 
+                                                        href="{{route('adviser.allow-work',{id : user.id})}}"
+                                                        class="btn btn-default btn-success" 
+                                                        rel="tooltip" data-original-title="فعال کردن مشاور"
+                                                        style="font-family: iraniansens;color:white;padding: 5px;font-size: 10px;">                                                        <i class="tim-icons icon-simple-remove"></i>
+                                                        
+                                                    </a>
+                                                @else
+                                                    <a 
+                                                        href="{{route('adviser.allow-work',{id : user.id})}}"
+                                                        class="btn btn-default btn-danger" 
+                                                        rel="tooltip" data-original-title="غیرفعال کردن مشاور"
+
+                                                        style="font-family: iraniansens;color:white;padding: 5px;font-size: 10px;">                                                        
+                                                        <i class="tim-icons icon-check-2"></i>
+                                                      
+                                                    </a>
+                                                @endif
+                                                <a 
+                                                    href="{{ route('adviser.files', { id : user.id }) }}"
+                                                    class="btn btn-default btn-success" 
+                                                    rel="tooltip" data-original-title="مدارک مشاور"
+                                                    style="font-family: iraniansens;color:white;padding: 5px;font-size: 10px;">                                                        
+
+                                                    <i class="tim-icons icon-paper"></i>
+                                                    
+                                                </a>
+                                  
+                                                
+                                            </td>
+
+                                        </tr>
+                                        @endeach
+                                        
+
+
+                                        </tbody>
+                                    </table>
+                                    @!component('pagination', pagination = users, request = request, presenter = 'PaginationPresenter')
+
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
+                <div   class="modal fade " id="SearchModal"   role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" style="margin-top:-140px">
+                            <div class="modal-content">
+                                <div class="modal-header justify-content-center">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    <i class="tim-icons icon-simple-remove"></i>
+                                </button>
+                                <h6 class="title title-up">جستجو در لیست مشاوران </h6>
+                                </div>
+                                    <form method="GET" action="{{route('adviser.list')}}">
+                                    <div class="modal-body">
+                                        <div class="row">
+                                
+                                            <div class="col-sm-2 ">
+                                                <label class="col-form-label" style="float: right;"> چینش بر اساس</label>
+        
+                                            </div>
+                                            <div class="col-sm-10">
+                                                
+                                                <div>
+                                                    <select  name="sort_by"  class="selectpicker" data-style="btn btn-info"  style="font-family: iraniansens" data-size="7" tabindex="-98">
+                                                        <option value="" disabled selected>نوع چینش را انتخاب </option>
+                                                        <option value="wallet" >مبلغ کیف پول</option>
+                                                        <option value="income" >مبلغ درامد مشاور</option>
+                                                        <option value="rate" >ارزیابی مشاور</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                    
+                                        </div>
+                                        <br>
+                                        <div class="row">
+    
+                                            <div class="col-sm-2 ">
+                                                <label class="col-form-label" style="float: right;">کد مشاور</label>
+                                            </div>
+                                            <div class="col-sm-10">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" name="user_id"     >
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                
+                                            <div class="col-sm-2 ">
+                                                <label class="col-form-label" style="float: right;"> وضعیت</label>
+        
+                                            </div>
+                                            <div class="col-sm-10">
+                                                
+                                                <div>
+                                                    <select  name="allow_work"  class="selectpicker" data-style="btn btn-info" style="font-family: iraniansens" data-size="7" tabindex="-98">
+                                                            <option value=""  selected="">همه</option>
+
+                                                        <option value="1"  selected="">فعال</option>
+                                                        <option value="0"  >غیر فعال</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                    
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                
+                                            <div class="col-sm-2 ">
+                                                <label class="col-form-label" style="float: right;"> جنسیت</label>
+        
+                                            </div>
+                                            <div class="col-sm-10">
+                                                
+                                                <div>
+                                                    <select  name="gender"  class="selectpicker" data-style="btn btn-info"  style="font-family: iraniansens" data-size="7" tabindex="-98">
+                                                        <option value="" >همه</option>
+
+                                                        <option value="0" >زن</option>
+                                                        <option value="1"  selected="" >مرد</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                    
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                
+                                            <div class="col-sm-2 ">
+                                                <label class="col-form-label" style="float: right;"> مدرک</label>
+        
+                                            </div>
+                                            <div class="col-sm-10">
+                                                
+                                                <div>
+                                                    <select  name="record_type_id"  class="selectpicker" data-style="btn btn-info"  style="font-family: iraniansens" data-size="7" tabindex="-98">
+                                                        <option value="" disabled selected>مدرک را انتخاب کنید</option>
+
+                                                        @each(item in recordTypes)
+                                                            <option value="{{ item.id }}" >{{ item.title }}</option>
+                                                        @endeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                    
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                
+                                            <div class="col-sm-2 ">
+                                                <label class="col-form-label" style="float: right;"> شغل</label>
+        
+                                            </div>
+                                            <div class="col-sm-10">
+                                                
+                                                <div>
+                                                    <select  name="job_id"  class="selectpicker" data-style="btn btn-info"  style="font-family: iraniansens" data-size="7" tabindex="-98">
+                                                        <option value="" disabled selected>شغل را انتخاب کنید</option>
+
+                                                        @each(item in jobs)
+                                                            <option value="{{ item.id }}" >{{ item.title }}</option>
+                                                        @endeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                    
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                
+                                            <div class="col-sm-2 ">
+                                                <label class="col-form-label" style="float: right;"> تخصص</label>
+        
+                                            </div>
+                                            <div class="col-sm-10">
+                                                
+                                                <div>
+                                                    <select  name="expertise_id"  class="selectpicker" data-style="btn btn-info"  style="font-family: iraniansens" data-size="7" tabindex="-98">
+                                                        <option value=""  disabled selected>تخسصص را انتخاب کنید</option>
+
+                                                        @each(item in expertises)
+                                                            <option value="{{ item.id }}" >{{ item.title }}</option>
+                                                        @endeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                    
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="row"> 
+                                                    <div class="col-sm-3 ">
+                                                        <label class="col-form-label" style="float: right;">استان</label>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        <div>
+                                                            <select  v-model="selectedState"  @change="clickState(selectedState)" name="state_id"   data-style="btn btn-info"  style="font-family: iraniansens;width: 100%;" data-size="7" tabindex="-98">
+                                                                <option value="" disabled selected>استان را انتخاب کنید</option>
+                                                                @each(item in states)
+                                                                    <option value="{{ item.code }}" >{{ item.pname }}</option>
+                                                                @endeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="row"> 
+                                                    <div class="col-sm-3 ">
+                                                        <label class="col-form-label" style="float: right;">شهر</label>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        <div>
+                                                            <select name="city_id"   data-style="btn btn-info"  style="font-family: iraniansens;width: 100%;" data-size="7" tabindex="-98">
+                                                                <option value="" disabled selected>شهر را انتخاب کنید</option>
+                                                                <option v-for="row in cities" > @{{ row.pname }} </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="row"> 
+                                                    <div class="col-sm-3 ">
+                                                        <label class="col-form-label" style="float: right;">نام</label>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control" name="name"    >
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="row"> 
+                                                    <div class="col-sm-3 ">
+                                                        <label class="col-form-label" style="float: right;">نام خانوادگی</label>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control" name="family"    >
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="row"> 
+                                                    <div class="col-sm-3 ">
+                                                        <label class="col-form-label" style="float: right;">موبایل</label>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control" name="mobile"    >
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="row"> 
+                                                    <div class="col-sm-3 ">
+                                                        <label class="col-form-label" style="float: right;">ایمیل</label>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control" name="email"    >
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                            
+                                      
+                                
+                                        
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="submit" class="btn btn-default" style="font-family: iraniansens" > جستجو </button>
+                                    <button type="button" class="btn btn-danger"  style="font-family: iraniansens" data-dismiss="modal" >بستن</button>
+                                    </div>
+                                    </form>
+                            </div>
+                        </div>
+                    </div>
+                @each(user in users.data)
+
+                    <div   class="modal fade " id="UserTextModal{{user.id}}"   role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header justify-content-center">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    <i class="tim-icons icon-simple-remove"></i>
+                                </button>
+                                <h6 class="title title-up">ارسال پیام به مشاور</h6>
+                                </div>
+                                <form action="{{route('ticket.save-new-ticket')}}" method="POST">
+                                    {{ csrfField() }}
+                                    <input name="user_id" value="{{user.id}}" type="hidden" />
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <label class="col-md-3 col-form-label">موضوع پیام</label>
+                                            <div class="col-md-9">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" name="title" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <label class="col-md-3 col-form-label">پیام</label>
+                                            <div class="col-md-9">
+                                                <div class="form-group">
+                                                <textarea class="form-control " style="font-family:iraniansens" id="content" name="content" 
+                                                            placeholder="پیام را وارد کنید . . ."></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="submit" class="btn btn-default" style="font-family: iraniansens" > ارسال </button>
+                                    <button type="button" class="btn btn-danger"  style="font-family: iraniansens" data-dismiss="modal" >بستن</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                @endeach
+
+            </div>
+@endsection
+
+@section('css')
+    <style>
+        .btn.dropdown-toggle2:after, .navbar .navbar-nav > a.btn.dropdown-toggle2:after {
+            margin-left: 5px !important
+        }
+
+    </style>
+@endsection
+@section('js')
+{{ script('https://cdn.jsdelivr.net/npm/vue/dist/vue.js') }}
+{{ script('http://www.alivitrine.ir/asset/site/js/axios.min.js') }}
+
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            cities: [],
+            selectedState : ''
+        },
+        methods: {
+            //update Tag
+            clickState: function(stateCode){
+                var data={
+                    stateCode : stateCode
+                };
+                var vm=this;
+                axios.post("/admin/adviser/click-state",data).then(function(response){
+                    vm.cities = [];
+                    vm.cities = response.data;
+                    console.log(vm.cities);
+                }).catch(function(error){
+                    console.log(error);
+                })
+            },
+        }
+    })
+</script>
+@endsection

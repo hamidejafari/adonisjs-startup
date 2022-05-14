@@ -1,0 +1,340 @@
+@layout('layout/admin/main')
+
+@section('content')
+    <div class="row">
+      
+    </div>
+    <div class="row">
+      <div class="col-lg-3 col-md-6">
+        <div class="card card-stats">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-5">
+                <div class="info-icon text-center icon-success">
+                  <i class="tim-icons icon-single-02"></i>
+                </div>
+              </div>
+              <div class="col-7">
+                <div class="numbers">
+                  <p class="card-category">کاربران فعال</p>
+                  <h3 class="card-title" style="font-family :Poppins, sans-serif">{{ users }}</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <hr>
+            <a href="{{route('users.list')}}" class="stats">
+              <i class="tim-icons icon-trophy"></i> لیست کاربران سایت
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="card card-stats">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-5">
+                <div class="info-icon text-center icon-primary">
+                  <i class="tim-icons icon-bullet-list-67"></i>
+                </div>
+              </div>
+              <div class="col-7">
+                <div class="numbers">
+                  <p class="card-category">دسته بندی سوال ها</p>
+                  <h3 class="card-title" style="font-family :Poppins, sans-serif">{{ questionCategory }}</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <hr>
+            <a href="{{route('question-category.list')}}" class="stats">
+              <i class="tim-icons icon-trophy"></i> لیست دسته بندی سوال ها
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="card card-stats">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-5">
+                <div class="info-icon text-center icon-warning">
+                  <i class="tim-icons icon-bulb-63"></i>
+                </div>
+              </div>
+              <div class="col-7">
+                <div class="numbers">
+                  <p class="card-category">سوال</p>
+                  <h3 class="card-title" style="font-family :Poppins, sans-serif">{{ question }}</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <hr>
+            <a href="{{route('question.list')}}" class="stats">
+              <i class="tim-icons icon-trophy"></i>لیست سوال ها 
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="card card-stats">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-5">
+                <div class="info-icon text-center icon-danger">
+                  <i class="tim-icons icon-credit-card"></i>
+                </div>
+              </div>
+              <div class="col-7">
+                <div class="numbers">
+                  <p class="card-category">تراکنش ها</p>
+                  <h3 class="card-title" style="font-family :Poppins, sans-serif">{{ transaction }}</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <hr>
+            <a href="{{route('transaction.list')}}" class="stats">
+              <i class="tim-icons icon-trophy"></i> لیست تراکنش ها
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="card card-stats">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-5">
+                <div class="info-icon text-center icon-success">
+                  <i class="tim-icons icon-money-coins"></i>
+                </div>
+              </div>
+              <div class="col-7">
+                <div class="numbers">
+                  <p class="card-category">فاکتور ها</p>
+                  <h3 class="card-title" style="font-family :Poppins, sans-serif">{{ orders }}</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <hr>
+            <a href="{{route('order.list')}}" class="stats">
+              <i class="tim-icons icon-trophy"></i> لیست فاکتور ها
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="card card-stats">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-5">
+                <div class="info-icon text-center icon-warning">
+                  <i class="tim-icons icon-email-85"></i>
+                </div>
+              </div>
+              <div class="col-7">
+                <div class="numbers">
+                  <p class="card-category">پیام های تماس باما</p>
+                  <h3 class="card-title" style="font-family :Poppins, sans-serif">{{ contactus }}</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <hr>
+            <a href="{{route('contact-us.list')}}" class="stats">
+              <i class="tim-icons icon-trophy"></i> لیست پیام های تماس با ما
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="card card-stats">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-5">
+                <div class="info-icon text-center icon-primary">
+                  <i class="tim-icons icon-components"></i>
+                </div>
+              </div>
+              <div class="col-7">
+                <div class="numbers">
+                  <p class="card-category">تیکت ها</p>
+                  <h3 class="card-title" style="font-family :Poppins, sans-serif" >{{ ticket }}</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <hr>
+            <a href="{{route('ticket.list')}}" class="stats">
+              <i class="tim-icons icon-trophy"></i> لیست تیکت ها
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="card card-stats">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-5">
+                <div class="info-icon text-center icon-success">
+                  <i class="tim-icons icon-cloud-download-93"></i>
+                </div>
+              </div>
+              <div class="col-7">
+                <div class="numbers">
+                  <p class="card-category">مدارک ارسالی</p>
+                  <h3 class="card-title" style="font-family :Poppins, sans-serif" >{{ record }}</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <hr>
+            <a href="{{route('record.list')}}" class="stats">
+              <i class="tim-icons icon-trophy"></i> لیست مدارک ارسالی
+            </a>
+          </div>
+        </div>
+      </div>
+
+
+
+
+       
+
+    </div>
+    <div class="row">
+          <div class="col-lg-7">
+            <div class="card">
+              <div class="card-header">
+
+                <div class="tools float-left">
+                  <div class="dropdown">
+                     <button type="button" class="btn btn-default dropdown-toggle btn-link btn-icon" data-toggle="dropdown" aria-expanded="false">
+                          <i class="tim-icons icon-settings-gear-63"></i>
+                      </button>
+                      <div class="dropdown-menu dropdown-menu-left" x-placement="bottom-end" style="position: absolute; transform: translate3d(-132px, 22px, 0px); top: 0px; left: 0px; will-change: transform;">
+                          <a class="dropdown-item" style="color:#3cc1c2"  href="{{route('adviser.list')}}"> مشاهده لیست تمامی مشاوران</a>
+                      </div>
+                  </div>
+                </div>
+                  <h5 class="card-title float-right">   مشاوران برتر 🏆 </h5>
+
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead class="text-primary">
+                      <tr>
+                        <th class="text-center">
+                          #
+                        </th>
+                        <th>
+                          نام 
+                        </th>
+                       
+                        <th>
+                          عملیات
+                        </th>
+                        
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @each(item in bestAdviser)
+                        <tr>
+                          <td class="text-center">
+                            <div class="photo">
+                              <img src="{{ assetsUrl('asset/admin/image/profile.jpg') }}" alt="photo">
+                            </div>
+                          </td>
+                          <td>
+                            <p style="float: right;color:#62687a">
+                            {{ item.name + ' ' + item.family }}
+                            </p>
+                          </td>
+                          
+                          <td>
+                    
+                            <a 
+                                href="{{ route('adviser.update', { id : item.id }) }}"
+                                class="btn btn-default btn-success" 
+                                data-original-title="مشاهده مشاور" title="" aria-describedby="tooltip214017" rel="tooltip"
+                                style="font-family: iraniansens;color:white;padding: 12px;font-size: 12px;float:right">
+                                <i class="tim-icons icon-zoom-split"></i>
+                            </a>
+                            
+                                              
+                          </td>
+                          
+                        </tr>
+                      @endeach                  
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <div class="card card-tasks">
+              <div class="card-header">
+                <div class="tools float-left">
+                  <div class="dropdown">
+                     <button type="button" class="btn btn-default dropdown-toggle btn-link btn-icon" data-toggle="dropdown" aria-expanded="false">
+                          <i class="tim-icons icon-settings-gear-63"></i>
+                      </button>
+                      <div class="dropdown-menu dropdown-menu-left" x-placement="bottom-end" style="position: absolute; transform: translate3d(-132px, 22px, 0px); top: 0px; left: 0px; will-change: transform;">
+                          <a class="dropdown-item" style="color:#3cc1c2" href="{{route('ticket.list')}}"> مشاهده لیست تمامی مشاوران</a>
+                      </div>
+                  </div>
+                </div>
+                <h6 class="title d-inline float-right" >تیکت ها </h6>
+
+              </div>
+              <div class="card-body">
+                <div class="table-full-width table-responsive">
+                  <table class="table">
+                    <tbody>
+                      @each(item in tickets)
+                        <tr>
+                          <td class="td-actions text-right">
+                            <a href="{{ route('ticket.reply', { id : item.id }) }}" rel="tooltip" title="" class="btn btn-link" data-original-title="پاسخ تیکت">
+                              <i class="tim-icons icon-pencil"></i>
+                            </a>
+                          </td>
+                          <td>
+                              @if(item.title)
+                                <p class="title" style="text-align:right">
+                                  {{item.title}}
+                                </p>
+                              @else
+                                <p class="title" style="text-align:right;color:#818181">
+                                  بدون موضوع
+                                </p>
+                              @endif
+                              <p class="text-muted" style="text-align:right">
+                                  @if(item.user.name)
+                                    {{item.user.name +' ' + item.user.family}} 
+                                    ,
+                                  @endif
+                                   {{item.created_at}} 
+                               </p>
+                          </td>
+                        </tr>
+                      @endeach
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+@endsection

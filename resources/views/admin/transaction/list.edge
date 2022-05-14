@@ -1,0 +1,217 @@
+@layout('layout/admin/main')
+
+@section('content')
+      <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title" style="float: right;">لیست تراکنش ها</h4>
+
+                            <div class="tools float-left">
+                                <div class="dropdown">
+                                    <button type="button" class="btn btn-default dropdown-toggle btn-link btn-icon" data-toggle="dropdown" aria-expanded="false">
+                                        <i class="tim-icons icon-settings-gear-63"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-left" x-placement="bottom-end" style="position: absolute; transform: translate3d(-132px, 22px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                        <a class="dropdown-item" href="#" style="color:#3cc1c2" data-toggle="modal" data-target="#myModal"> جستجو</a>
+                                        
+                                    </div>
+                                </div>
+                                <form method="GET" action="{{route('transaction.list')}}">
+                                    <input type="text" name="page" placeholder="برو به صفحه " />
+                                    <p style="margin-top:10px"> صفحه <span style="color:green">{{transactions.page}}</span> از <span style="color:blue">{{transactions.lastPage}}</span> صفحه</p>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead class="text-primary">
+                                    <tr>
+                                        
+                                        <th>
+                                           شماره تراکنش
+                                        </th>
+                                        <th>
+                                            کاربر
+                                        </th>
+                                        <th>
+                                            کد کاربری
+                                        </th>
+                                         <th>
+                                            شماره تماس
+                                        </th>
+                                        <th>
+                                           بانک
+                                        </th>
+                                        <th style="width: 167px;">
+                                            کد پیگیری
+                                        </th>
+                                        <th>
+                                           مبلغ پرداختی
+                                        </th>
+                                        <th>
+                                           وضعیت
+                                        </th>
+                                        <th>       
+                                           تاریخ
+                                        </th>
+                                        
+                                       
+
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <script src="https://unpkg.com/jalali-moment/dist/jalali-moment.browser.js"></script>
+                                    
+                                    @each(transaction in transactions.data)
+                                        @if(transaction.status == 'SUCCEED')
+                                            <tr style="background-color: rgba(50, 245, 44, 0.4);">
+                                        @else
+                                            <tr style="background-color: rgba(254, 0, 55, 0.2);">
+                                        @endif
+                                            <td>
+                                                <p style="float: right;color:#62687a">{{ transaction.id }}</p>
+                                            </td>
+                                            <td>
+                                                <p style="float: right;color:#62687a">{{ transaction.user.name + ' ' +  transaction.user.family }}</p>
+                                            </td>
+                                            <td>
+                                                <p style="float: right;color:#62687a">{{ transaction.user_id }}</p>
+                                            </td>
+                                            <td>
+                                                <p style="float: right;color:#62687a"> {{ transaction.user.mobile }}</p>
+                                            </td>
+                                            <td>
+                                                <p style="float: right;color:#62687a"> {{ transaction.port }}</p>
+                                            </td>
+                                            <td>
+                                                <p style="float: right;color:#62687a"> 
+                                                    @if(transaction.tracking_code)
+                                                        {{ transaction.tracking_code }}
+                                                    @else
+                                                        ندارد
+                                                    @endif
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p style="float: right;color:#62687a"> {{ transaction.price }}</p>
+                                            </td>
+                                            
+                                            
+                                            <td>
+                                                <p style="float: right;color:#62687a">
+                                                    @if(transaction.status === 'SUCCEED')
+                                                        <p style="float: right;color: white;padding: 4px;border-radius: 4px;background: green;">
+                                                            پرداخت شده
+                                                        </p>
+                                                        
+                                                    @elseif(transaction.status === 'INIT')
+                                                        <p style="float: right;color: white;padding:4px;border-radius: 4px;background: #e39f1c;">
+                                                          انصراف کاربر از پرداخت
+                                                        </p>
+                                                    @else
+                                                        <p style="float: right;color: white;padding:4px;border-radius: 4px;background: red;">
+                                                           پرداخت نشده
+                                                        </p>
+                                                    @endif
+                                                </p>
+                                            </td>
+                                            <td>
+                                                
+                                                <p style="float: right;color:#62687a"> {{ transaction.created_at }}</p>
+                                            </td>
+                                        
+                                           
+                                        </tr>
+                                    @endeach
+                                    
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div   class="modal fade " id="myModal"   role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header justify-content-center">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                <i class="tim-icons icon-simple-remove"></i>
+                            </button>
+                            <h6 class="title title-up">جستجو در تراکنش ها</h6>
+                            </div>
+                             <form method="GET" action="{{route('transaction.list')}}">
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <label class="col-md-3 col-form-label">کد یکتا کاربر</label>
+                                                <div class="col-md-9">
+                                                    <div class="form-group">
+                                                        <input type="text" name="user_id" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <label class="col-md-3 col-form-label">شماره فاکتور</label>
+                                                <div class="col-md-9">
+                                                    <div class="form-group">
+                                                        <input type="text" name="order_id" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <label class="col-md-3 col-form-label">مبلغ پرداختی</label>
+                                                <div class="col-md-9">
+                                                    <div class="form-group">
+                                                        <input type="text" name="price" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <label class="col-md-3 col-form-label">کد رهگیری</label>
+                                                <div class="col-md-9">
+                                                    <div class="form-group">
+                                                        <input type="text" name="tracking_code" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                      
+                                        <label class="col-md-3 col-form-label">وضعیت تراکنش</label>
+                                        <div class="col-md-9">
+                                            <div>
+                                                <select  name="status"  class="selectpicker" data-style="btn btn-info" style="font-family: iraniansens" data-size="7" tabindex="-98">    
+                                                    <option value="all"> همه </option>
+                                                    <option value="SUCCEED"> پرداخت شده </option>
+                                                    <option value="FAILED"> پرداخت نشده </option>
+                                                    <option value="INIT"> انصراف کاربر از پرداخت </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                           
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                <button type="submit" class="btn btn-default" style="font-family: iraniansens" > جستجو </button>
+                                </div>
+                             </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+@endsection

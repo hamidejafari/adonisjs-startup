@@ -1,0 +1,71 @@
+@layout('layout/site/main')
+@section('content')
+
+    <div class="header-image">
+        <img src="{{assetsUrl('asset/site/images/sample.png')}}" alt="">
+    </div>
+    <div class="overflow none-mobile">
+        <a href="/">
+            <img src="{{assetsUrl('asset/site/images/logo/ani-moshaver-logo.png')}}" alt="">
+        </a>
+    </div>
+    <div class="overflow-w responsive">
+        <a href="/">
+            <img src="{{assetsUrl('asset/site/images/logo/logo-1.png')}}" alt="">
+        </a>
+    </div>
+    <div class="dashboard pt-4 pb-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    @include('layout/site/blocks/side-panel')
+                </div>
+                <div class="col-md-9">
+                    <div class="backpanel pb-4">
+                        <br>
+                        <div class="container">
+                            <div class="ddd">
+                                <hr class="hs-h">
+                                <div class="bradkam">
+                                    <h1 class="backpanel"><img src="{{assetsUrl('asset/site/images/logo/logo.png')}}" alt=""> لیست مشاوره ها</h1>            
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container" style="margin-top: 12%;">
+                            @include('layout/site/blocks/chat')
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@endsection
+
+@section('js')
+
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/core-js/2.1.4/core.min.js"></script>
+<script src="//unpkg.com/@feathersjs/client@^3.0.0/dist/feathers.js"></script>
+<script src="//unpkg.com/socket.io-client@1.7.3/dist/socket.io.js"></script>
+<script>
+  // Socket.io is exposed as the `io` global.
+  var socket = io('http://api.feathersjs.com');
+  // @feathersjs/client is exposed as the `feathers` global.
+  var app = feathers();
+
+  // Set up Socket.io client with the socket
+  app.configure(feathers.socketio(socket));
+
+  // Receive real-time events through Socket.io
+  app.service('messages')
+    .on('created', message => console.log('New message created', message));
+
+  // Call the `messages` service
+  app.service('messages').create({
+    text: 'A message from a REST client'
+  });
+
+  // feathers.errors is an object with all of the custom error types.
+</script>
+@endsection

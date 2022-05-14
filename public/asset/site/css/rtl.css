@@ -1,0 +1,9 @@
+@font-face {
+    font-family: sans;
+    font-weight: 200;
+    font-style: normal;
+    src: url('../fonts/IRANSansWeb(FaNum).eot');
+    src: url('../fonts/IRANSansWeb(FaNum).eot?#iefix') format('embedded-opentype'), url('../fonts/IRANSansWeb(FaNum).woff') format('woff2'), url('../fonts/IRANSansWeb(FaNum).woff') format('woff'), url('../fonts/IRANSansWeb(FaNum).ttf') format('truetype');
+}
+body{font-family: sans;direction: rtl;}
+.tabcontent{text-align: right}

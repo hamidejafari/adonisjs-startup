@@ -1,0 +1,99 @@
+@layout('layout/admin/main')
+
+@section('content')
+    <div class="row">
+        <div class="card">  
+            <div class="card-header">
+                <h4 class="card-title" style="float: right;">ارزیابی مشاور توسط کاربران</h4>
+            </div>
+            <div class="col-lg-12 col-sm-12">
+                <div class="card card-timeline card-plain">
+                    <div class="card-body">
+                        <ul class="timeline timeline-simple">
+                            @each(item in rates)
+                                <li class="timeline-inverted">
+                                    <div class="timeline-panel">
+                                        <div class="timeline-heading">
+                                            <span class="badge badge-danger" style="font-size: 21px;padding: 16px;background-color: #fad40a;">نارضایتی از نحوه برخورد مشاور</span>
+                                        </div>
+                                        <div class="timeline-body">
+                                            @each(me in item.details)
+                                                
+                                                @if(me == '-1')
+                                                    <p>مشاور قابل اعتماد نبود</p>
+                                                @endif
+                                                @if(me == '-2')
+                                                    <p>مشاور تخصص کافی نداشت</p>
+                                                @endif
+                                                @if(me == '-3')
+                                                    <p>شیوه بیان مشاور مناسب نبود</p>
+                                                @endif
+                                                @if(me == '-4')
+                                                    <p>مشاور رفتار و برخورد حرفه ای نداشت</p>
+                                                @endif
+                                                @if(me == '-5')
+                                                    <p>مشاور درک و تحلیل مناسب نداشت</p>
+                                                @endif
+                                                @if(me == '-6')
+                                                    <p>مشاور بسیار بی ملاحظه بود</p>
+                                                @endif
+                                                @if(me == '2')
+                                                <p>مشاور قابل اعتماد بود</p>
+                                                @endif
+                                                @if(me == '3')
+                                                    <p>مشاور تخصص کافی داشت</p>
+                                                @endif
+                                                @if(me == '4')
+                                                    <p>شیوه بیان مشاور مناسب بود</p>
+                                                @endif
+                                                @if(me == '5')
+                                                    <p>مشاور رفتار و برخورد حرفه ای داشت</p>
+                                                @endif
+                                                @if(me == '6')
+                                                    <p>مشاور درک و تحلیل مناسب داشت</p>
+                                                @endif
+                                                @if(me == '7')
+                                                    <p>مشاور سریع و صریح پاسخ داده است</p>
+                                                @endif
+                                            @endeach
+                                        </div>
+                                    </div>
+                                    <div class="timeline-badge danger" style="background-color: #ffd700 !important;left: 1%;width: 151px;border-radius: 12px;">
+                                        @if(item.rate_value >= 5)
+                                            <i class="fas fa-star"></i>
+                                        @else
+                                            <i class="far fa-star"></i>
+                                        @endif
+                                        @if(item.rate_value >= 4)
+                                            <i class="fas fa-star"></i>
+                                        @else
+                                            <i class="far fa-star"></i>
+                                        @endif
+                                        @if(item.rate_value >= 3)
+                                            <i class="fas fa-star"></i>
+                                        @else
+                                            <i class="far fa-star"></i>
+                                        @endif
+                                        @if(item.rate_value >= 2)
+                                            <i class="fas fa-star"></i>
+                                        @else
+                                            <i class="far fa-star"></i>
+                                        @endif
+                                        @if(item.rate_value >= 1)
+                                            <i class="fas fa-star"></i>
+                                        @else
+                                            <i class="far fa-star"></i>
+                                        @endif
+                                    </div>
+                                </li>
+                            @endeach
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+@section('css')
+<script src="https://kit.fontawesome.com/52815460d9.js"></script>
+@endsection

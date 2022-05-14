@@ -1,0 +1,131 @@
+@layout('layout/admin/main')
+
+@section('content')
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <form action="{{route('news.destroy')}}" method="POST">
+                    {{ csrfField() }}
+                    <div class="card-header">
+                        <h4 class="card-title" style="float: right;">آپلودر</h4>
+
+                        <div class="tools float-left">
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-default dropdown-toggle btn-link btn-icon" data-toggle="dropdown" aria-expanded="false">
+                                    <i class="tim-icons icon-settings-gear-63"></i>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-left" x-placement="bottom-end" style="position: absolute; transform: translate3d(-132px, 22px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                    
+                                    <a class="dropdown-item"  style="color:#00c200" data-toggle="modal" data-target="#CreateModal">اضافه کردن ایتم جدید</a>
+                                    <button class="dropdown-item" style="color:#c61e1e;font-family: iraniansens;" type="submit"> حذف انتخاب شده ها</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead class="text-primary">
+                                <tr>
+                                    <th class="text-center">
+                                        #
+                                    </th>
+                                    <th>
+                                        عنوان
+                                    </th>
+                                    <th>
+                                        تصویر
+                                    </th>
+                                    <th>
+                                        تاریخ
+                                    </th>
+                                    
+                        
+
+
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                @each(item in uploader.data)
+                                <tr>
+                                    <td class="text-center">
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" value="{{item.id}}" name="deletedId[]" type="checkbox" >
+                                                <span class="form-check-sign"></span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <p style="float: right;color:#62687a">{{ item.title }}</p>
+                                    </td>
+                                    <td>
+                                        <a style="float: right;direction: ltr;" href="{{ assetsUrl('uploads/post/medium/'+item.file) }}">{{ 'https://animoshaver.ir/asset/uploads/post/medium'+item.file }}</a>
+                                    </td>
+                                    
+                                    <td>
+                    
+                                        <p style="float: right;color:#62687a"> {{ item.created_at }}</p>
+                                    </td>
+                                
+                                  
+
+                                </tr>
+                                @endeach
+                                
+
+
+                                </tbody>
+                            </table>
+                            @!component('pagination', pagination = uploader, request = request, presenter = 'PaginationPresenter')
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div   class="modal fade " id="CreateModal"   role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header justify-content-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        <i class="tim-icons icon-simple-remove"></i>
+                    </button>
+                    <h6 class="title title-up">اپلود فایل</h6>
+                    </div>
+                        <form method="POST" action="{{route('uploader.save-create')}}"  enctype="multipart/form-data">
+                        {{ csrfField() }}
+
+                        <div class="modal-body">
+                        
+                                <div class="row">
+                                    <label class="col-md-3 col-form-label">عنوان</label>
+                                    <div class="col-md-9">
+                                        <div class="form-group">
+                                        
+                                        <input type="text" name="title" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-3 col-form-label">فایل</label>
+                                    <div class="col-md-9">
+                                        <input type="file" name="image" style="margin-top: 10px;" />
+
+                                    </div>
+                                </div>
+                        
+                            
+                        </div>
+                        <div class="modal-footer">
+                        <button type="submit" class="btn btn-default" style="font-family: iraniansens" > اضافه کردن </button>
+                        <button type="button" class="btn btn-danger"  style="font-family: iraniansens" data-dismiss="modal" >بستن</button>
+                        </div>
+                        </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

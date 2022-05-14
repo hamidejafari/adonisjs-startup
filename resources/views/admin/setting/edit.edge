@@ -1,0 +1,646 @@
+@layout('layout/admin/main')
+
+@section('content')
+     <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title" style="float: right;">ویرایش تنظیمات </h4>
+                </div>
+                <form action="{{route('setting.edit-save')}}" method="post" class="form-horizontal"  enctype="multipart/form-data">
+                    {{ csrfField() }}
+                    <div class="card-body">
+                        <ul class="nav nav-pills nav-pills-primary nav-pills-icons justify-content-center">
+                            <li class="nav-item" style="margin-left:0px">
+                                <a class="nav-link active show" data-toggle="tab" href="#link1">
+                                <i class="tim-icons icon-settings-gear-63"></i> تنظیمات
+                                </a>
+                            </li>
+                            <li class="nav-item" style="margin-left:0px">
+                                <a class="nav-link" data-toggle="tab" href="#link2">
+                                <i class="tim-icons icon-single-02"></i> عمومی
+                                </a>
+                            </li>
+                            <li class="nav-item" style="margin-left:9px">
+                                <a class="nav-link" data-toggle="tab" href="#link3">
+                                <i class="tim-icons icon-refresh-02"></i> سئو
+                                </a>
+                            </li>
+                            <li class="nav-item" style="margin-left:0px">
+                                <a class="nav-link" data-toggle="tab" href="#link4">
+                                <i class="tim-icons icon-bullet-list-67"></i> اطلاعات تماس فوتر
+                                </a>
+                            </li>
+                        
+                        </ul>
+                        <div class="tab-content tab-space tab-subcategories">
+                            <div class="tab-pane active show" id="link1">
+                                
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                        <br>
+                                            <div class="row"> 
+                                                <div class="col-sm-3 ">
+                                                    <label class="col-form-label" style="float: right;">عنوان</label>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" name="title"  value="{{ setting.title ? setting.title : ' ' }}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row">                                             
+                                                <div class="form-check mt-3" style="float: right;    margin-right: 17px;">
+                                                    <label class="form-check-label">
+                                                        @if(setting.register === 1)
+                                                            <input class="form-check-input" type="checkbox" name="register"   checked="checked" >
+                                                        @else
+                                                            <input class="form-check-input" type="checkbox" name="register"   >
+                                                        @endif
+                                                        <span class="form-check-sign"></span>
+                                                        فعال بودن درگاه 
+                                                    </label>
+                                                </div>
+                                                <div class="form-check mt-3" style="float: right;    margin-right: 17px;">
+                                                    <label class="form-check-label">
+                                                        @if(setting.shop === 1)
+                                                            <input class="form-check-input" type="checkbox" name="shop"   checked="checked" >
+                                                        @else
+                                                            <input class="form-check-input" type="checkbox" name="shop"   >
+                                                        @endif
+                                                        <span class="form-check-sign"></span>
+                                                        فعال بودن ثبت نام 
+                                                    </label>
+                                                </div>
+                                                <div class="form-check mt-3" style="float: right;    margin-right: 17px;">
+                                                    <label class="form-check-label">
+                                                        @if(setting.enabled_lawyer === 1)
+                                                            <input class="form-check-input" type="checkbox" name="enabled_lawyer"   checked="checked" >
+                                                        @else
+                                                            <input class="form-check-input" type="checkbox" name="enabled_lawyer"   >
+                                                        @endif
+                                                        <span class="form-check-sign"></span>
+                                                        فعال بودن همکاران 
+                                                    </label>
+                                                </div>
+                                                <div class="form-check mt-3" style="float: right;    margin-right: 17px;">
+                                                    <label class="form-check-label">
+                                                        @if(setting.enabled_adviser === 1)
+                                                            <input class="form-check-input" type="checkbox" name="enabled_adviser"   checked="checked" >
+                                                        @else
+                                                            <input class="form-check-input" type="checkbox" name="enabled_adviser"   >
+                                                        @endif
+                                                        <span class="form-check-sign"></span>
+                                                        فعال بودن مشاوران 
+                                                    </label>
+                                                </div>
+                                                <div class="form-check mt-3" style="float: right;    margin-right: 17px;">
+                                                    <label class="form-check-label">
+                                                
+                                                        @if(setting.enabled_news === 1)
+                                                            <input class="form-check-input" type="checkbox" name="enabled_news"   checked="checked" >
+                                                        @else
+                                                            <input class="form-check-input" type="checkbox" name="enabled_news"   >
+                                                        @endif
+                                                        <span class="form-check-sign"></span>
+                                                        فعال بودن اخبار 
+                                                    </label>
+                                                </div>
+                                                <div class="form-check mt-3" style="float: right;    margin-right: 17px;">
+                                                    <label class="form-check-label">
+                                                        @if(setting.enabled_article === 1)
+                                                            <input class="form-check-input" type="checkbox" name="enabled_article"   checked="checked" >
+                                                        @else
+                                                            <input class="form-check-input" type="checkbox" name="enabled_article"   >
+                                                        @endif
+                                                        <span class="form-check-sign"></span>
+                                                            فعال بودن مقالات 
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <br>
+                                            <div class="row"> 
+                                                <div class="col-sm-3 ">
+                                                    <label class="col-form-label" style="float: right;">هزینه هر دقیقه چت به ریال</label>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" name="chat_price" value="{{ price.chat_price ? price.chat_price : ' ' }}" >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        
+                                        </div>
+                                        <div class="col-md-6">
+                                            <br>
+                                            <div class="row"> 
+                                                <div class="col-sm-3 ">
+                                                    <label class="col-form-label" style="float: right;">هزینه هر دقیقه تلفنی به ریال</label>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" name="call_price" value="{{ price.call_price ? price.call_price : ' ' }}" >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <br>
+                                            <div class="row"> 
+                                                <div class="col-sm-3 ">
+                                                    <label class="col-form-label" style="float: right;">مبلغ تخفیف معرف برای کاربر</label>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" name="off_user" value="{{ price.off_user ? price.off_user : ' ' }}" >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        
+                                        </div>
+                                        <div class="col-md-6">
+                                            <br>
+                                            <div class="row"> 
+                                                <div class="col-sm-3 ">
+                                                    <label class="col-form-label" style="float: right;">مبلغ تخفیف معرف برای مشاور</label>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" name="off_adviser" value="{{ price.off_adviser ? price.off_adviser : ' ' }}" >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <br>
+                                            <div class="row"> 
+                                                <div class="col-sm-3 ">
+                                                    <label class="col-form-label" style="float: right;">هزینه هر دقیقه حضوری به ریال</label>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" name="face_price" value="{{ price.face_price ? price.face_price : ' ' }}" >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        
+                                        </div>
+                                        <div class="col-md-6">
+                                            <br>
+                                            <div class="row"> 
+                                                <div class="col-sm-3 ">
+                                                    <label class="col-form-label" style="float: right;">لینک اپلیکیشن در استور</label>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" name="store_link" value="{{ setting.store_link ? setting.store_link : ' ' }}" >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <br>
+                                            <div class="row"> 
+                                                <div class="col-sm-3 ">
+                                                    <label class="col-form-label" style="float: right;">تعداد دانلود اپلیکیشن</label>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" name="apk_count"  value="{{ setting.apk_count ? setting.apk_count : ' ' }}"  >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        
+                                        </div>
+                                        <div class="col-md-6">
+                                            <br>
+                                            <div class="row"> 
+                                                <div class="col-sm-3 ">
+                                                    <label class="col-form-label" style="float: right;">۲تعداد دانلود اپلیکیشن</label>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" name="apk_count_missjafari"  value="{{ setting.apk_count_missjafari ? setting.apk_count_missjafari : ' ' }}"  >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <br><br>
+                                    <div class="row">
+                                        <div class="col-md-4 col-sm-4">
+                                            <h4 class="card-title">واتر مارک </h4>
+                                            <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                                            <div class="fileinput-new thumbnail">
+                                                <img src="{{ assetsUrl('asset/admin/uploads/setting/main/'+setting.logo_water_mark) }}" alt="لوگو واتر مارک">
+                                            </div>
+                                            <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                                            <div>
+                                                <span class="btn btn-rose btn-round btn-file">
+                                                <span class="fileinput-new">انتخاب تصویر</span>
+                                                <span class="fileinput-exists">عوض کردن</span>
+                                                <input type="file" name="logo_water_mark">
+                                                </span>
+                                                <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> حذف</a>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-4 col-sm-4">
+                                            <h4 class="card-title">تصویر فوآیکون</h4>
+                                            <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                                            <div class="fileinput-new thumbnail">
+                                                <img src="{{ assetsUrl('asset/admin/uploads/setting/main/'+setting.favicon) }}" alt="تصویر فوآیکون">
+                                            </div>
+                                            <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                                            <div>
+                                                <span class="btn btn-rose btn-round btn-file">
+                                                <span class="fileinput-new">انتخاب تصویر</span>
+                                                <span class="fileinput-exists">عوض کردن</span>
+                                                <input type="file" name="favicon">
+                                                </span>
+                                                <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> حذف</a>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <h4 class="card-title">لوگو هدر</h4>
+                                            <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                                            <div class="fileinput-new thumbnail">
+                                                <img src="{{ assetsUrl('asset/admin/uploads/setting/main/'+setting.logo_header) }}" alt="لوگو هدر">
+                                            </div>
+                                            <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                                            <div>
+                                                <span class="btn btn-rose btn-round btn-file">
+                                                <span class="fileinput-new">انتخاب تصویر</span>
+                                                <span class="fileinput-exists">عوض کردن</span>
+                                                <input type="file" name="logo_header">
+                                                </span>
+                                                <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> حذف</a>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br><br>
+                                    <div class="row">
+                                        <div class="col-md-4 col-sm-4">
+                                            <h4 class="card-title">لوگو فوتر</h4>
+                                            <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                                            <div class="fileinput-new thumbnail">
+                                                <img src="{{ assetsUrl('asset/admin/uploads/setting/main/'+setting.logo_footer) }}" alt="لوگو فوتر">
+                                            </div>
+                                            <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                                            <div>
+                                                <span class="btn btn-rose btn-round btn-file">
+                                                <span class="fileinput-new">انتخاب تصویر</span>
+                                                <span class="fileinput-exists">عوض کردن</span>
+                                                <input type="file" name="logo_footer">
+                                                </span>
+                                                <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> حذف</a>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <h4 class="card-title">زمینه لاگین</h4>
+                                            <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                                            <div class="fileinput-new thumbnail">
+                                                <img src="{{ assetsUrl('asset/admin/uploads/setting/main/'+setting.background_login) }}" alt="زمینه لاگین">
+                                            </div>
+                                            <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                                            <div>
+                                                <span class="btn btn-rose btn-round btn-file">
+                                                <span class="fileinput-new">انتخاب تصویر</span>
+                                                <span class="fileinput-exists">عوض کردن</span>
+                                                <input type="file" name="background_login">
+                                                </span>
+                                                <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> حذف</a>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <h4 class="card-title">لوگو لاگین</h4>
+                                            <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                                            <div class="fileinput-new thumbnail">
+                                                <img src="{{ assetsUrl('asset/admin/uploads/setting/main/'+setting.logo_login) }}" alt="لوگو لاگین">
+                                            </div>
+                                            <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                                            <div>
+                                                <span class="btn btn-rose btn-round btn-file">
+                                                <span class="fileinput-new">انتخاب تصویر</span>
+                                                <span class="fileinput-exists">عوض کردن</span>
+                                                <input type="file" name="logo_login">
+                                                </span>
+                                                <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> حذف</a>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-4 col-sm-4">
+                                            <h4 class="card-title">اپلیکیشن اندروید </h4>
+                                            <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                                            <div class="fileinput-new thumbnail">
+                                                <img src="{{ assetsUrl('asset/admin/uploads/setting/main/'+setting.color2) }}" alt="اپلیکیشن اندروید">
+                                            </div>
+                                            <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                                            <div>
+                                                <span class="btn btn-rose btn-round btn-file">
+                                                <span class="fileinput-new">انتخاب تصویر</span>
+                                                <span class="fileinput-exists">عوض کردن</span>
+                                                <input type="file" name="color2">
+                                                </span>
+                                                <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> حذف</a>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <h4 class="card-title">تصویر not found </h4>
+                                            <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                                            <div class="fileinput-new thumbnail">
+                                                <img src="{{ assetsUrl('asset/admin/uploads/setting/main/'+setting.not_found) }}" alt="تصویر not found">
+                                            </div>
+                                            <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                                            <div>
+                                                <span class="btn btn-rose btn-round btn-file">
+                                                <span class="fileinput-new">انتخاب تصویر</span>
+                                                <span class="fileinput-exists">عوض کردن</span>
+                                                <input type="file" name="not_found">
+                                                </span>
+                                                <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> حذف</a>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                        
+                                        </div>
+                                    </div>
+                                    <br>
+                            </div>
+                            <div class="tab-pane " id="link2">
+                                
+                                
+                                    <div class="row" >
+                                        <div class="col-sm-2 ">
+                                            <label class="col-form-label" style="float: right;">قرارداد مشاوران</label>
+                                        </div>
+                                        <div class="col-sm-10">
+                                            <div class="form-group">
+                                                <textarea class="form-control ckeditor" style="font-family:iraniansens" id="contract" name="contract" 
+                                                placeholder="توضیحات را وارد کنید . . .">{{ setting.contract ? setting.contract : ' ' }}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" >
+                                        <div class="col-sm-2 ">
+                                            <label class="col-form-label" style="float: right;">قوانین مشاوران</label>
+                                        </div>
+                                        <div class="col-sm-10">
+                                            <div class="form-group">
+                                                <textarea class="form-control ckeditor" style="font-family:iraniansens" id="text1" name="text1" 
+                                                placeholder="توضیحات را وارد کنید . . .">{{ setting.text1 ? setting.text1 : ' ' }}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" >
+                                        <div class="col-sm-2 ">
+                                            <label class="col-form-label" style="float: right;">قوانین کاربران</label>
+                                        </div>
+                                        <div class="col-sm-10">
+                                            <div class="form-group">
+                                                <textarea class="form-control ckeditor" style="font-family:iraniansens" id="text2" name="text2" 
+                                                placeholder="توضیحات را وارد کنید . . .">{{ setting.text2 ? setting.text2 : ' ' }}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" >
+                                        <div class="col-sm-2 ">
+                                            <label class="col-form-label" style="float: right;">تقاضا مدیریت حقوقی شرکت ها</label>
+                                        </div>
+                                        <div class="col-sm-10">
+                                            <div class="form-group">
+                                                <textarea class="form-control ckeditor" style="font-family:iraniansens" id="management" name="management" 
+                                                placeholder="توضیحات را وارد کنید . . .">{{ setting.management ? setting.management : ' ' }}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" >
+                                        <div class="col-sm-2 ">
+                                            <label class="col-form-label" style="float: right;">تقاضا داوری</label>
+                                        </div>
+                                        <div class="col-sm-10">
+                                            <div class="form-group">
+                                                <textarea class="form-control ckeditor" style="font-family:iraniansens" id="judgment" name="judgment" 
+                                                placeholder="توضیحات را وارد کنید . . .">{{ setting.judgment ? setting.judgment : ' ' }}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" >
+                                        <div class="col-sm-2 ">
+                                            <label class="col-form-label" style="float: right;">تقاضا وکالت</label>
+                                        </div>
+                                        <div class="col-sm-10">
+                                            <div class="form-group">
+                                                <textarea class="form-control ckeditor" style="font-family:iraniansens" id="lawyer" name="lawyer" 
+                                                placeholder="توضیحات را وارد کنید . . .">{{ setting.lawyer ? setting.lawyer : ' ' }}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" >
+                                        <div class="col-sm-2 ">
+                                            <label class="col-form-label" style="float: right;">درباره ما</label>
+                                        </div>
+                                        <div class="col-sm-10">
+                                            <div class="form-group">
+                                                <textarea class="form-control ckeditor" style="font-family:iraniansens" id="about_us" name="about_us" 
+                                                placeholder="توضیحات را وارد کنید . . .">{{ setting.about_us ? setting.about_us : ' ' }}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" >
+                                        <div class="col-sm-2 ">
+                                            <label class="col-form-label" style="float: right;">اپلیکیشن مشاوره حقوقی</label>
+                                        </div>
+                                        <div class="col-sm-10">
+                                            <div class="form-group">
+                                                <textarea class="form-control ckeditor" style="font-family:iraniansens" id="legal_advice_application" name="legal_advice_application" 
+                                                placeholder="توضیحات را وارد کنید . . .">{{ setting.legal_advice_application ? setting.legal_advice_application : ' ' }}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" >
+                                        <div class="col-sm-2 ">
+                                            <label class="col-form-label" style="float: right;">درباره ما کوتاه</label>
+                                        </div>
+                                        <div class="col-sm-10">
+                                            <div class="form-group">
+                                                <textarea class="form-control ckeditor" style="font-family:iraniansens" id="about_us_short" name="about_us_short" 
+                                                placeholder="توضیحات را وارد کنید . . .">{{ setting.about_us_short ? setting.about_us_short : ' ' }}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" >
+                                        <div class="col-sm-2 ">
+                                            <label class="col-form-label" style="float: right;">تماس با ما</label>
+                                        </div>
+                                        <div class="col-sm-10">
+                                            <div class="form-group">
+                                                <textarea class="form-control ckeditor" style="font-family:iraniansens" id="contact_us" name="contact_us" 
+                                                placeholder="توضیحات را وارد کنید . . .">{{ setting.contact_us ? setting.contact_us : ' ' }}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" >
+                                        <div class="col-sm-2 ">
+                                            <label class="col-form-label" style="float: right;">تماس با ما کوتاه</label>
+                                        </div>
+                                        <div class="col-sm-10">
+                                            <div class="form-group">
+                                                <textarea class="form-control ckeditor" style="font-family:iraniansens" id="contact_us_short" name="contact_us_short" 
+                                                placeholder="توضیحات را وارد کنید . . .">{{ setting.contact_us_short ? setting.contact_us_short : ' ' }}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-1 ">
+                                            <label class="col-form-label" style="float: right;">نقشه</label>
+                                        </div>
+                                        <div class="col-sm-11" style="margin-right: 89px;flex: 3 0 67.667%;max-width: 114%;">
+                                            <div class="form-group">
+                                                <textarea class="form-control" style="font-family:iraniansens" id="map" name="map" 
+                                                placeholder="نقشه را وارد کنید . . .">{{ setting.map ? setting.map : ' ' }}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                            </div>
+                            <div class="tab-pane" id="link3">
+                                
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-sm-2 ">
+                                            <label class="col-form-label" style="float: right;">کلمات کلیدی</label>
+                                        </div>
+                                        <div class="col-sm-10" style="margin-right: 39px;flex: 3 0 67.667%;max-width: 114%;">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" name="keyword"  value="{{ setting.keyword ? setting.keyword : ' ' }}"  >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-sm-2 ">
+                                            <label class="col-form-label" style="float: right;">توضیحات کلیدی</label>
+                                        </div>
+                                        <div class="col-sm-10" style="margin-right: 39px;flex: 3 0 67.667%;max-width: 114%;">
+                                            
+                                            <div class="form-group">
+                                                <textarea class="form-control" style="font-family:iraniansens" id="description" name="description" 
+                                                placeholder="توضیحات را وارد کنید . . .">{{ setting.description ? setting.description : ' ' }}</textarea>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                
+                                
+                            </div>
+                            <div class="tab-pane" id="link4">
+                                
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <br>
+                                            <div class="row"> 
+                                                <div class="col-sm-3 ">
+                                                    <label class="col-form-label" style="float: right;">تلفن1</label>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" name="phone1"  value="{{ setting.phone1 ? setting.phone1 : ' '  }}"  >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        
+                                        </div>
+                                        <div class="col-md-6">
+                                            <br>
+                                            <div class="row"> 
+                                                <div class="col-sm-3 ">
+                                                    <label class="col-form-label" style="float: right;">تلفن2</label>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" name="phone2"  value="{{ setting.phone2 ? setting.phone2 : ' '  }}" >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <br>
+                                            <div class="row"> 
+                                                <div class="col-sm-3 ">
+                                                    <label class="col-form-label" style="float: right;">تلفن3</label>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" name="phone3"  value="{{ setting.phone3 ? setting.phone3 : ' '  }}" >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        
+                                        </div>
+                                        <div class="col-md-6">
+                                            <br>
+                                            <div class="row"> 
+                                                <div class="col-sm-3 ">
+                                                    <label class="col-form-label" style="float: right;">ایمیل</label>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" name="email"   value="{{ setting.email ? setting.email : ' '  }}" >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-sm-1 ">
+                                            <label class="col-form-label" style="float: right;">آدرس</label>
+                                        </div>
+                                        <div class="col-sm-11" style="margin-right: 49px;flex: 3 0 67.667%;max-width: 114%;">
+                                            <div class="form-group">
+                                                <textarea class="form-control" style="font-family:iraniansens" id="address" name="address" 
+                                                placeholder="نقشه را وارد کنید . . .">{{ setting.address ? setting.address : ' ' }}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-10">
+                                    <button style="float: right;margin-top: 32px;margin-right:50px;font-family: iraniansens" class="btn btn-success animation-on-hover" type="submit" rel="tooltip"  data-placement="bottom" >ذخیره</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                </form>
+            </div>
+        </div>
+    </div>
+@endsection

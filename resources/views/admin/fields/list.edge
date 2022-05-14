@@ -1,0 +1,310 @@
+@layout('layout/admin/main')
+
+@section('content')
+    <div class="row" id="app">
+        <div class="col-md-12">
+            <div class="card">
+                <form action="{{route('fields.destroy')}}" method="POST">
+                    {{ csrfField() }}
+                    <div class="card-header">
+                        <h4 class="card-title" style="float: right;">لیست فیلد ها </h4>
+
+                        <div class="tools float-left">
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-default dropdown-toggle btn-link btn-icon" data-toggle="dropdown" aria-expanded="false">
+                                    <i class="tim-icons icon-settings-gear-63"></i>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-left" x-placement="bottom-end" style="position: absolute; transform: translate3d(-132px, 22px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                    
+                                    <button type="button" class="dropdown-item" style="color:#00c200;font-family: iraniansens" data-toggle="modal" 
+                                        data-target="#CreateModal">اضافه کردن ایتم جدید</button>
+                                    <button type="button" class="dropdown-item" style="color:#00c200;font-family: iraniansens" data-toggle="modal" 
+                                        data-target="#SearchModal">جستجو</button>
+                                    <button class="dropdown-item" style="color:#c61e1e;font-family: iraniansens;" type="submit"> حذف انتخاب شده ها</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead class="text-primary">
+                                <tr>    
+                                    <th class="text-center">
+                                        #
+                                    </th>   
+                                    <th>
+                                        نام فارسی 
+                                    </th>
+                                    <th>
+                                        نام انگلیسی 
+                                    </th>
+                                
+                                    <th>
+                                        عملیات
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="item in datas">
+                                         <td class="text-center">
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                    
+                                                    <input class="form-check-input" :value="item.id" name="deletedId[]" type="checkbox" >
+                                                    <span class="form-check-sign"></span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p style="float: right;color:#62687a">@{{ item.title  }}</p>
+                                        </td>
+                                        <td>
+                                            <p style="float: right;color:#62687a">@{{ item.name  }}</p>
+                                        </td>
+                                        
+                                        <td>
+                                            <button 
+                                                data-toggle="modal" 
+                                                :data-target="'#'+'MyModal'+item.id" @click="setTitleAndName(item.title)"
+                                                class="btn btn-default btn-warning" 
+                                                style="font-family: iraniansens;color:white;padding: 12px;font-size: 12px;">
+                                                <i class="tim-icons icon-pencil"></i>
+                                                ویرایش
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div  v-for="item in datas" class="modal fade " :id="'MyModal'+item.id"   role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header justify-content-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        <i class="tim-icons icon-simple-remove"></i>
+                    </button>
+                    <h6 class="title title-up">@{{ item.title }}</h6>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <label class="col-md-3 col-form-label">نام فارسی</label>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                
+                                <input type="text" v-model="title" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-3 col-form-label">نام انگلیسی</label>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                
+                                <input type="text" v-model="name" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-default" style="font-family: iraniansens" @click="changeField(item.id,title,name)">ویرایش</button>
+                    <button type="button" class="btn btn-danger"  style="font-family: iraniansens" data-dismiss="modal" @click="setTitleAndName('','')">بستن</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div   class="modal fade " id="CreateModal"   role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header justify-content-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        <i class="tim-icons icon-simple-remove"></i>
+                    </button>
+                    <h6 class="title title-up">اضافه کردن تگ جدید</h6>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <label class="col-md-3 col-form-label">نام فارسی</label>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                
+                                <input type="text" v-model="title" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-3 col-form-label">نام انگلیسی</label>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                
+                                <input type="text" v-model="name" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-default" style="font-family: iraniansens" @click="createField()">اضافه کردن</button>
+                    <button type="button" class="btn btn-danger"  style="font-family: iraniansens" data-dismiss="modal" @click="setTitleAndName('','')">بستن</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <div   class="modal fade " id="SearchModal"   role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header justify-content-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        <i class="tim-icons icon-simple-remove"></i>
+                    </button>
+                    <h6 class="title title-up">جستجو در تگ ها</h6>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <label class="col-md-3 col-form-label">نام فارسی</label>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                
+                                <input type="text" v-model="title" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-3 col-form-label">نام انگلیسی</label>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                
+                                <input type="text" v-model="name" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-default" style="font-family: iraniansens" @click="searchField()"> جستجو </button>
+                    <button type="button" class="btn btn-danger"  style="font-family: iraniansens" data-dismiss="modal" @click="setTitleAndName('','')">بستن</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+@endsection
+@section('js')
+    {{ script('https://cdn.jsdelivr.net/npm/vue/dist/vue.js') }}
+    {{ script('http://www.alivitrine.ir/asset/site/js/axios.min.js') }}
+
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                datas: [],
+                title : '',
+                name : ''
+            },
+            mounted: function () {
+                this.filedsList();
+            },
+            methods: {
+                //get list of fields
+                filedsList: function(){
+                    //i need to all my route be "post" .. so i must to send nothing to this route
+                    var nothing={
+                        nothing : 'nothing'
+                    };
+                    //i use "vm" because "axios" cant understand "this" 
+                    var vm=this;
+                    axios.post("/fields/list",nothing).then(function(response){
+                        vm.datas = [];
+                        vm.datas = response.data;
+                    }).catch(function(error){
+                        console.log(error);
+                    })
+                },
+                //update Field
+                changeField: function(id,title,name){
+                    //need to close field's modal 
+                    $('#'+'MyModal'+id).modal('hide')
+                    var information={
+                        field_id : id,
+                        title : title,
+                        name : name
+
+                    };
+                    var vm=this;
+                    axios.post("/fields/change",information).then(function(response){
+                        vm.datas = [];
+                        vm.title = '';
+                        vm.datas = response.data;
+                    }).catch(function(error){
+                        console.log(error);
+                    })
+                },
+                
+                //remove Field
+                deleteField: function(id){
+                
+                    var information={
+                        field_id : id
+                    };
+                    var vm=this;
+                    axios.post("/fields/delete",information).then(function(response){
+                        vm.datas = [];
+                        vm.datas = response.data;
+                    }).catch(function(error){
+                        console.log(error);
+                    })
+                },
+                //create a new Field
+                createField: function(){
+                    
+                    $('#CreateModal').modal('hide')
+                    var information={
+                        title : this.title,
+                        name : this.name
+                    };
+                    var vm=this;
+                    axios.post("/fields/create",information).then(function(response){
+                        vm.datas = [];
+                        vm.title = '';
+                        vm.name = '';
+                        vm.datas = response.data;
+                    
+                    }).catch(function(error){
+                        console.log(error);
+                    })
+                },
+                //search on Fields
+                searchField: function(){
+                    $('#SearchModal').modal('hide')
+                    var information={
+                        title : this.title,
+                        name : this.name
+
+                    };
+                    var vm=this;
+                    axios.post("/fileds/search",information).then(function(response){
+                        vm.datas = [];
+                        vm.title = '';
+                        vm.name = '';
+                        vm.datas = response.data;
+                    
+                    }).catch(function(error){
+                        console.log(error);
+                    })
+                },
+                //set title to parameter
+                setTitleAndName: function(title,name){
+                    this.title = title;
+                    this.name = name;
+                }
+            }
+        })
+    </script>
+@endsection

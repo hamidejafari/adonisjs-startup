@@ -1,0 +1,103 @@
+@layout('layout/site/main')
+@section('content')
+
+    <div class="header-image">
+        <img src="{{assetsUrl('asset/site/images/sample.png')}}" alt="">
+    </div>
+    <div class="overflow none-mobile">
+        <a href="/">
+            <img src="{{assetsUrl('asset/site/images/logo/ani-moshaver-logo.png')}}" alt="">
+        </a>
+    </div>
+    <div class="overflow-w responsive">
+        <a href="/">
+            <img src="{{assetsUrl('asset/site/images/logo/logo-1.png')}}" alt="">
+        </a>
+    </div>
+    <div class="dashboard pt-4 pb-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    @include('layout/site/blocks/side-panel')
+                </div>
+                <div class="col-md-9">
+                    <div class="backpanel pb-4">
+                        <br>
+                        <div class="container">
+                            <div class="ddd">
+                                <hr class="hs-h">
+                                <div class="bradkam">
+                                    <h1 class="backpanel"><img src="{{assetsUrl('asset/site/images/logo/logo.png')}}" alt=""> لیست مشاوره ها</h1>            
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <table class="table table-bordered table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th class="th-1">ردیف</th>
+                                        <th class="th-2">کد مشاوره</th>
+                                        <th class="th-3">نام مشاور</th>
+                                        <th class="th-4">تاریخ و زمان</th>
+                                        <th class="th-5">مدت مشاوره</th>
+                                        <th class="th-6">نوع مشاوره</th>
+                                        <th class="th-7">شماره فاکتور</th>
+                                        <th class="th-8">عملیات</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>8166</td>
+                                        <td>پشتیبان2 آنی مشاور</td>
+                                        <td>ساعت 16:34 تا 13:14 شنبه 1397/12/25</td>
+                                        <td>10 دقیقه</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <center>
+                                                <a href="" class="btn btn-goldani"><img src="{{assetsUrl('/asset/site/images/icon/edit(1).png')}}" alt=""> فایل ها</a>
+                                                <a href="" class="btn btn-success"><img src="{{assetsUrl('/asset/site/images/icon/mail-send.png')}}" alt=""> جزییات گفتگو</a>
+                                            </center>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>8166</td>
+                                        <td>پشتیبان2 آنی مشاور</td>
+                                        <td>ساعت 16:34 تا 13:14 شنبه 1397/12/25</td>
+                                        <td>10 دقیقه</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <center>
+                                                <a href="" class="btn btn-goldani"><img src="{{assetsUrl('asset/site/images/icon/edit(1).png')}}" alt=""> فایل ها</a>
+                                                <a href="" class="btn btn-success"><img src="{{assetsUrl('/asset/site/images/icon/mail-send.png')}}" alt=""> جزییات گفتگو</a>
+                                            </center>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>8166</td>
+                                        <td>پشتیبان2 آنی مشاور</td>
+                                        <td>ساعت 16:34 تا 13:14 شنبه 1397/12/25</td>
+                                        <td>10 دقیقه</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <center>
+                                                <a href="" class="btn btn-goldani"><img src="{{assetsUrl('asset/site/images/icon/edit(1).png')}}" alt=""> فایل ها</a>
+                                                <a href="" class="btn btn-success"><img src="{{assetsUrl('/asset/site/images/icon/mail-send.png')}}" alt=""> جزییات گفتگو</a>
+                                            </center>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@endsection

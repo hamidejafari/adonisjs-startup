@@ -1,0 +1,128 @@
+@layout('layout/admin/main')
+
+@section('content')
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title" style="float: right;">لیست  طرح ها</h4>
+
+                    <div class="tools float-left">
+                        <div class="dropdown">
+                            <button type="button" class="btn btn-default dropdown-toggle btn-link btn-icon" data-toggle="dropdown" aria-expanded="false">
+                                <i class="tim-icons icon-settings-gear-63"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-left" x-placement="bottom-end" style="position: absolute; transform: translate3d(-132px, 22px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                <a href="" class="dropdown-item" style="color:#6ac243" > اضافه کردن صفحه جدید</a>
+                                <a class="dropdown-item" style="color:#3cc1c2" data-toggle="modal" data-target="#SearchModal"> جستجو</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead class="text-primary">
+                            <tr>
+                                
+                                <th>
+                                    عنوان
+                                </th>
+                                <th>
+                                    روز
+                                </th>
+                                <th>
+                                    شروع
+                                </th>
+                                <th>
+                                    پایان
+                                </th>
+                                <th>
+                                    مبلغ
+                                </th>
+                            
+                                <th>
+                                    وضعیت
+                                </th>
+                                <th>
+                                    تاریخ
+                                </th>
+                                 <th>
+                                    عملیات
+                                </th>
+
+
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            @each(item in plans)
+                            <tr>
+                                <td>
+                                    <p style="float: right;color:#62687a">{{ item.title }}</p>
+                                </td>
+                                <td>
+                                    <p style="float: right;color:#62687a">
+                                        {{ item.day }}
+                                    </p>
+                                </td>
+                                <td>
+                                    <p style="float: right;color:#62687a">
+                                        {{ item.start_date }}
+                                    </p>
+                                </td>
+                                <td>   
+                                    <p style="float: right;color:#62687a">
+                                        {{ item.end_date }}
+                                    </p>
+                                </td>
+                                 <td>   
+                                    <p style="float: right;color:#62687a">{{ item.price }}</p>
+                                </td>
+                                <td>
+                                    @if(item.status === 0)
+                                        <p  style="float: right;color: white;background: red;padding: 7px;border-radius: 12px;">
+                                        غیر فعال
+                                            
+                                        </p>
+                                    @else
+                                        <p style="float: right;color: white;background: green;padding: 7px;border-radius: 12px;">
+                                            فعال
+                                        </p>
+                                    @endif
+                                </td>
+                                <td>   
+                                    <p style="float: right;color:#62687a">{{ item.created_at }}</p>
+                                </td>
+                                <td class="text-right">
+                                    @if(item.id > 10)
+                                        <a 
+                                            href="{{route('plan.update',{ id:item.id })}}"
+                                            class="btn btn-default btn-warning" 
+                                            style="font-family: iraniansens;color:white;padding: 12px;font-size: 12px;">
+                                            <i class="tim-icons icon-pencil"></i>
+                                            ویرایش
+                                        </a>
+                                        <a 
+                                            href="{{route('plan.delete',{ id:item.id })}}"
+                                            class="btn btn-default btn-danger" 
+                                            style="font-family: iraniansens;color:white;padding: 12px;font-size: 12px;">
+                                            <i class="tim-icons icon-simple-remove"></i>
+                                            حذف
+                                        </a>
+                                    @endif
+                                </td>
+
+                            </tr>
+                            @endeach
+                            
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

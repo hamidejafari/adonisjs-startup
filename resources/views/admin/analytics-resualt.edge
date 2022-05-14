@@ -1,0 +1,42 @@
+@layout('layout/admin/main')
+
+@section('content')
+    <div class="row">
+      
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+            <div class="card-header">
+
+              
+                <h1 class="card-title float-right"> امار گیری بر اساس زمان ⏰📈 </h1>
+
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2> تعداد کاربران ثبت نام شده : {{ users ? users : '0'  }} </h2>
+                    </div>
+                    <div class="col-md-6">
+                        <h2> تعداد مشاوران ثبت نام شده : {{ advisers ? advisers : '0' }} </h2>
+                    </div>
+                    <div class="col-md-6">
+                        <h2> تعداد نصب اپلیکیشن اندروید :  {{ installs ? installs : '0' }} </h2>
+                    </div>
+                    <div class="col-md-6">
+                        <h2> تعداد  دانلود اپلیکیشن اندروید :  {{ downloads ? downloads : '0' }} </h2>
+                    </div>
+
+                </div>
+                
+                
+                
+                
+
+
+            </div>
+            </div>
+        </div>
+    </div>
+@endsection

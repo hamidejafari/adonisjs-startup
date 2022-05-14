@@ -1,0 +1,94 @@
+@layout('layout/admin/main')
+
+@section('content')
+      <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        
+                        <div class="card-header">
+                            <h4 class="card-title" style="float: right;">لیست مدارک کاربر</h4>
+
+                    
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead class="text-primary">
+                                    <tr>
+                                        
+                                        <th>
+                                            نوع مدرک
+                                        </th>
+                                        <th>
+                                                فایل
+                                            </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    @each(file in files)
+                                    <tr>
+                                    
+                                       
+                                        
+                                        
+                                        
+                                        <td>
+                                            <p style="float: right;color:#62687a">{{ file.recordType.title ? file.recordType.title  : 'ندارد' }}</p>
+                                        </td>
+
+                                        <td class="text-right" style="width: 164px;">
+                                            <img style="width:100px;float: right;border:2px solid #1dc7f6" src="{{ assetsUrl('chat/public/all-uploads/'+file.file) }}">
+                                            <a 
+                                                href="{{ assetsUrl('chat/public/all-uploads/'+file.file) }}"
+                                                class="btn btn-default btn-success" 
+                                                style="font-family: iraniansens;color:white;padding: 12px;font-size: 12px;margin-top: 5px;width: 127px;">
+                                                <i class="tim-icons icon-check-2"></i>
+                                                دانلود
+                                            </a>
+                                            @if(file.approve_date == null)
+                                                <a 
+                                                    href="{{ route('adviser.change-file-aprove', { id : file.id }) }}"
+                                                    class="btn btn-default btn-success" 
+                                                    style="font-family: iraniansens;color:white;padding: 12px;font-size: 12px;margin-top: 5px;width: 127px;">
+                                                    <i class="tim-icons icon-check-2"></i>
+                                                    تایید فایل
+                                                </a>
+                                            @else
+                                                <a 
+                                                    href="{{ route('adviser.change-file-aprove', { id : file.id }) }}"
+                                                    class="btn btn-default btn-danger" 
+                                                    style="font-family: iraniansens;color:white;padding: 12px;font-size: 12px;margin-top: 5px;width: 127px;">
+                                                    <i class="tim-icons icon-simple-remove"></i>
+                                                    رد فایل
+                                                </a>
+                                            @endif
+                                            
+                                            
+                                        </td>
+                                    </tr>
+                                    @endeach
+                                    
+
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+              
+            </div>
+@endsection
+
+@section('css')
+    <style>
+        .btn.dropdown-toggle2:after, .navbar .navbar-nav > a.btn.dropdown-toggle2:after {
+            margin-left: 5px !important
+        }
+
+    </style>
+@endsection

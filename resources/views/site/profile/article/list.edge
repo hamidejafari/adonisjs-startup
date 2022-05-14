@@ -1,0 +1,69 @@
+@layout('layout/site/main')
+@section('content')
+    <div class="header-image none-mobile">
+        <a href="/"><img src="{{assetsUrl('asset/site/images/sample.png')}}" alt=""></a>
+    </div>
+    <div class="header-image mobile-e">
+        <a href="/"><img src="{{assetsUrl('asset/site/images/sample1.png')}}" alt=""></a>
+    </div>
+    <div class="profile-list prf py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 px-2">
+                    @include('site/profile/blocks/side-panel')
+                </div>
+                <div class="col-md-9 px-2">
+                    <h1 class="text-center my-0">
+                        لیست مقالات آقای ناو و نام خانوادگی مشاور
+                    </h1>
+                    <div class="row">
+                        <div class="back-list py-3 px-4 w-100">
+                            <div class="row">
+                                <div class="col-md-6 p-3 text-center">
+                                    <div class="card">
+                                        <a href="" class="a">
+                                            <div class="img-box">
+                                                <img src="{{assetsUrl('asset/site/images/slider/bb1.jpg')}}" alt="" class="w-100">
+                                            </div>
+                                            <div class="title-box px-1 py-2">عنوان مقاله شماره یک</div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 p-3 text-center">
+                                    <div class="card">
+                                        <a href="" class="a">
+                                            <div class="img-box">
+                                                <img src="{{assetsUrl('asset/site/images/slider/bb1.jpg')}}" alt="" class="w-100">
+                                            </div>
+                                            <div class="title-box px-1 py-2">عنوان مقاله شماره دو</div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 p-3 text-center">
+                                    <div class="card">
+                                        <a href="" class="a">
+                                            <div class="img-box">
+                                                <img src="{{assetsUrl('asset/site/images/slider/bb1.jpg')}}" alt="" class="w-100">
+                                            </div>
+                                            <div class="title-box px-1 py-2">عنوان مقاله شماره سه</div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 p-3 text-center">
+                                    <div class="card">
+                                        <a href="" class="a">
+                                            <div class="img-box">
+                                                <img src="{{assetsUrl('asset/site/images/slider/bb1.jpg')}}" alt="" class="w-100">
+                                            </div>
+                                            <div class="title-box px-1 py-2">عنوان مقاله شماره چهار</div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

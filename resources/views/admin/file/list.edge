@@ -1,0 +1,166 @@
+@layout('layout/admin/main')
+
+@section('content')
+    <div class="row">
+    
+        <div class="col-md-12">
+            <div class="card">
+                <form action="{{route('file.destroy')}}" method="POST">
+                    {{ csrfField() }}
+                    <div class="card-header">
+                        <h4 class="card-title" style="float: right;">ارسال فایل برای کاربر</h4>
+                        <div class="tools float-left">
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-default dropdown-toggle btn-link btn-icon" data-toggle="dropdown" aria-expanded="false">
+                                    <i class="tim-icons icon-settings-gear-63"></i>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-left" x-placement="bottom-end" style="position: absolute; transform: translate3d(-132px, 22px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                    <a class="dropdown-item" data-toggle="modal" data-target="#CreateModal" style="color:#00c200">اضافه کردن ایتم جدید</a>
+                                    <button class="dropdown-item" style="color:#c61e1e;font-family: iraniansens;" type="submit"> حذف انتخاب شده ها</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead class="text-primary">
+                                <tr>
+                                    <th class="text-center">
+                                        #
+                                    </th>
+                                    <th>
+                                        عنوان
+                                    </th>
+                                    <th>
+                                        کاربر
+                                    </th>
+                                    <th>
+                                        مدیر ارسال کننده
+                                    </th>
+                                        <th>
+                                        دانلود
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    @each(item in files.data)
+                                        <tr>
+                                            <td class="text-center">
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input class="form-check-input" value="{{item.id}}" name="deletedId[]" type="checkbox" >
+                                                        <span class="form-check-sign"></span>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <p style="float: right;color:#62687a">{{ item.title }}</p>
+                                            </td>
+                                            <td>
+                                                @if(item.user_id)
+                                                    <p style="float: right;color:#62687a">{{ item.user.name + '  ' + item.user.family }}</p>
+                                                @else
+                                                    <p style="float: right;color:#62687a">ندارد</p>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if(item.admin_id)
+                                                    <p style="float: right;color:#62687a">{{ item.admin.name + '  ' + item.admin.family }}</p>
+                                                @else
+                                                    <p style="float: right;color:#62687a">ندارد</p>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <a 
+                                                    href="{{assetsUrl('asset/admin/uploads/file/'+item.file)}}" rel="tooltip"
+                                                    class="btn btn-default btn-warning" 
+                                                    style="font-family: iraniansens;color:white;padding: 12px;font-size: 12px;">
+                                                    <i class="tim-icons icon-cloud-download-93"></i>
+                                                    دانلود
+                                                </a>
+                                            </td>
+                                            
+                                        </tr>
+                                    @endeach
+                                </tbody>
+                            </table>
+                            @!component('pagination', pagination = files, request = request, presenter = 'PaginationPresenter')
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div  class="modal fade " id="CreateModal"   role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="margin-top: -61px;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header justify-content-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        <i class="tim-icons icon-simple-remove"></i>
+                    </button>
+                    <h6 class="title title-up">ارسال فایل</h6>
+                    </div>
+                        <form method="POST" action="{{route('file.save-create')}}" enctype="multipart/form-data">
+                        {{ csrfField() }}
+
+                        <div class="modal-body">
+                        
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="col-md-3 col-form-label">عنوان</label>
+                                        <div class="col-md-9">
+                                            <div class="form-group">
+                                            
+                                            <input type="text" name="title" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="col-md-3 col-form-label">کد کاربری</label>
+                                        <div class="col-md-9">
+                                            <div class="form-group">
+                                            
+                                            <input type="text" name="user_id" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="col-md-3 col-form-label">فایل</label>
+                                        <div class="col-md-9">
+                                            <div class="form-group">
+                                            
+                                                
+                                                <div class="fileinput fileinput-new text-center" data-provides="fileinput" style="margin-left: 12%;">
+                                                    <div class="fileinput-new thumbnail">
+                                                        <img style="border:2px solid #1dc7f6;width: 210px;" src="http://frankfordcdc.org/wp-content/themes/hoxa/images/default.png" alt="...">
+                                                    </div>
+                                                    <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                                                    <div>
+                                                        <span class="btn btn-rose btn-round btn-file">
+                                                            <span class="fileinput-new">انتخاب تصویر</span>
+                                                            <span class="fileinput-exists">عوض کردن</span>
+                                                            <input type="file" name="file">
+                                                        </span>
+                                                        <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> حذف</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                            
+                        </div>
+                        <div class="modal-footer">
+                        <button type="submit" class="btn btn-default" style="font-family: iraniansens" > جستجو </button>
+                        <button type="button" class="btn btn-danger"  style="font-family: iraniansens" data-dismiss="modal" >بستن</button>
+                        </div>
+                        </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

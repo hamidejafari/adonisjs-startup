@@ -1,0 +1,150 @@
+@layout('layout/site/main')
+@section('content')
+
+    <div class="header-image">
+        <img src="{{assetsUrl('asset/site/images/sample.png')}}" alt="">
+    </div>
+    <div class="overflow none-mobile">
+        <a href="/">
+            <img src="{{assetsUrl('asset/site/images/logo/ani-moshaver-logo.png')}}" alt="">
+        </a>
+    </div>
+    <div class="overflow-w responsive">
+        <a href="/">
+            <img src="{{assetsUrl('asset/site/images/logo/logo-1.png')}}" alt="">
+        </a>
+    </div>
+    <div class="dashboard pt-4 pb-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    @include('layout/site/blocks/side-panel')
+                </div>
+                <div class="col-md-9">
+                    <div class="backpanel pb-4">
+                        <br>
+                        <div class="container">
+                            <div class="ddd">
+                                <hr class="hs-h">
+                                <div class="bradkam" style="margin-top: -10%;">
+                                    <h1 class="backpanel"><img src="{{assetsUrl('asset/site/images/logo/logo.png')}}" alt=""> ارسال پیام به پشتیبانی</h1>            
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <!-- Button trigger modal -->
+                            <div class="row" style="padding: 0px 15px;margin-top: 12%;">
+                                <button class="btn btn-success" data-toggle="modal" data-target="#myModal5" style="margin-right:87.7%;margin-bottom:1%;">ارسال پیام</button>
+                            </div>
+                            <!-- Modal -->
+                            <div class="modal fade" id="myModal5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-center">
+                                    <div class="modal-dialog .modal-align-center">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                
+                                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span>
+
+                                                </button>
+                                                <h4 class="modal-title" id="myModalLabel">ارسال پیام</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-md-3 pt-2 mt-3">
+                                                        <div class="text">
+                                                            <h5>دپارتمان</h5>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-9 mt-3">
+                                                        <select name="gender" id="gender" class="form-control channels">
+                                                            <option value="">انتخاب کنید . . .</option> 
+                                                            <option value="3">مالی</option> 
+                                                            <option value="2">فناوری</option>
+                                                            <option value="1">مدیریت</option>
+                                                            <option value="0">مشاوران</option>
+                                                        </select> 
+                                                    </div>
+                                                    <div class="col-md-3 pt-2 mt-3">
+                                                        <div class="text">
+                                                            <h5>عنوان</h5>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-9 mt-3">
+                                                        <input id="password_old" name="password_old" type="" class="form-control channels">
+                                                    </div>
+                                                    <div class="col-md-3 pt-2 mt-3">
+                                                        <div class="text">
+                                                            <h5>متن پیام</h5>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-9 mt-3">
+                                                            <textarea id="content" name="content" rows="5" class="form-control" style="border-radius:15px;"></textarea> 
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-aniback" data-dismiss="modal" style="font-size:1rem;width:auto;float:right;margin-left:81%;">انصراف</button>
+                                                <button type="button" class="btn btn-goldani" style="font-size:1rem;width:auto;float:left">ارسال</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>شماره پیام</th>
+                                        <th>عنوان پیام</th>
+                                        <th>وضعیت</th>
+                                        <th>نوع</th>
+                                        <th>تاریخ</th>
+                                        <th>پاسخ</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>8166</td>
+                                        <td>فعال</td>
+                                        <td>10 دقیقه</td>
+                                        <td>ساعت 16:34 تا 13:14 شنبه 1397/12/25</td>
+                                        <td>
+                                            <center>
+                                                <a href="chatpage" class="btn btn-aniback">مشاهده</a>
+                                            </center>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>8166</td>
+                                        <td>فعال</td>
+                                        <td>10 دقیقه</td>
+                                        <td>ساعت 16:34 تا 13:14 شنبه 1397/12/25</td>
+                                        <td>
+                                            <center>
+                                                <a href="chatpage" class="btn btn-aniback">مشاهده</a>
+                                            </center>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>8166</td>
+                                        <td>فعال</td>
+                                        <td>10 دقیقه</td>
+                                        <td>ساعت 16:34 تا 13:14 شنبه 1397/12/25</td>
+                                        <td>
+                                            <center>
+                                                <a href="chatpage" class="btn btn-aniback">مشاهده</a>
+                                            </center>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@endsection
